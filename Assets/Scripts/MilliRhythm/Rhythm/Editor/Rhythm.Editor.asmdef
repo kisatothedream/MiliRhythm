@@ -1,0 +1,16 @@
+{
+    "name": "Rhythm.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:a5155415bf0dbe0449c56982ab26537c"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
