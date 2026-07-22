@@ -6,6 +6,7 @@ namespace MilliRhythm.Data.GameDataService
 	{
 		public static ItemData GetItem(int itemId) => ((ItemDataRepository)repositories[typeof(ItemDataRepository)]).Get(itemId);
 		public static string GetText(string key) => ((LocalizationDataRepository)repositories[typeof(LocalizationDataRepository)]).GetText(key);
+		public static MusicData GetMusicData(int id) => ((MusicDataRepository)repositories[typeof(MusicDataRepository)]).GetMusicDataById(id);
 
 		public static LocalizationData GetLocalization(string key)
 		{

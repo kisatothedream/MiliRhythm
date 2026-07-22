@@ -30,13 +30,13 @@ namespace MilliRhythm.Data.GameDataService
 
 			try
 			{
-				await CreateAndRegisterAsync<ItemDataRepository>();
 				//TODO: 현재 언어 기반으로 변경
 				var localizationRepository = new LocalizationDataRepository(LanguageType.Korean);
 
 				await localizationRepository.LoadAsync();
 				Register(localizationRepository);
 
+				await CreateAndRegisterAsync<MusicDataRepository>();
 				Initialized = true;
 
 				Debug.Log("Game Static Data Loaded");

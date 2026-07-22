@@ -15,6 +15,7 @@ namespace MilliRhythm.Bootstrapper
 		private static async UniTask OperateGameAsync()
 		{
 			await GameDataLoader.LoadAsync();
+			Debug.Log(GameDataService.GetMusicData(1).Name);
 		}
 	}
 }
