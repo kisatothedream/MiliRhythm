@@ -1,0 +1,11 @@
+Id,Text
+UI_START_GAME,Start Game
+UI_CONTINUE,Continue
+UI_SETTINGS,Settings
+UI_EXIT_GAME,Exit Game
+UI_CONFIRM,Confirm
+UI_CANCEL,Cancel
+UI_RETRY,Retry
+UI_BACK,Back
+UI_LOADING,Loading...
+UI_PAUSE,Paused

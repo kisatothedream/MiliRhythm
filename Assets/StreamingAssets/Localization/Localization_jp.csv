@@ -1,0 +1,11 @@
+Id,Text
+UI_START_GAME,ゲーム開始
+UI_CONTINUE,つづきから
+UI_SETTINGS,設定
+UI_EXIT_GAME,ゲーム終了
+UI_CONFIRM,確認
+UI_CANCEL,キャンセル
+UI_RETRY,リトライ
+UI_BACK,戻る
+UI_LOADING,読み込み中です。
+UI_PAUSE,一時停止
