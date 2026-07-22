@@ -1,8 +1,7 @@
-using MilliRhythm.Rhythm;
 using UnityEditor;
 using UnityEngine;
 
-namespace TechLabs.Rhythm.Editor
+namespace MilliRhythm.Rhythm.Editor
 {
 	[CustomEditor(typeof(RhythmChart))]
 	public class RhythmChartInspector : UnityEditor.Editor

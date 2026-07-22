@@ -39,6 +39,30 @@ namespace MilliRhythm.Rhythm
 
 	public class Note : MonoBehaviour
 	{
+		public bool IsAlive = true;
 		public NoteType Type;
+		public double StartTime;
+		public double JudgeTime;
+		public double EndTime;
+		public float LaneLength;
+
+		public void UpdateNote(double time)
+		{
+			if (EndTime < time)
+			{
+				IsAlive = false;
+				gameObject.SetActive(false);
+				return;
+			}
+			var rate = (time - StartTime) / (JudgeTime - StartTime);
+			UpdatePosition((float)rate * LaneLength);
+		}
+
+		public void UpdatePosition(float y)
+		{
+			var pos = transform.localPosition;
+			pos.y = y;
+			transform.localPosition = pos;
+		}
 	}
 }

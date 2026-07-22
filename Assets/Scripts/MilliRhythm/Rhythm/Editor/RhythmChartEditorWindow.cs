@@ -1,9 +1,8 @@
 using System;
-using MilliRhythm.Rhythm;
 using UnityEditor;
 using UnityEngine;
 
-namespace TechLabs.Rhythm.Editor
+namespace MilliRhythm.Rhythm.Editor
 {
 	/* This editor tool was developed with assistance from generative AI.
 	 * The feature requirements, integration, review, and modifications

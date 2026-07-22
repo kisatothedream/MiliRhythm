@@ -1,7 +1,9 @@
+using System;
 using UnityEngine;
 
 namespace MilliRhythm.Rhythm
 {
+	[Serializable]
 	public class RhythmClock
 	{
 		private double songStartDspTime;

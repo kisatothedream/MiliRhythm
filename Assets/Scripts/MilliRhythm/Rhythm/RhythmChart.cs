@@ -11,7 +11,7 @@ namespace MilliRhythm.Rhythm
 		[SerializeField] private AudioClip audioClip;
 		[SerializeField, HideInInspector] private double bpm;
 		[SerializeField, HideInInspector] private double offsetSeconds;
-		[SerializeField, HideInInspector] private List<RhythmNote> notes = new();
+		[SerializeField] private List<RhythmNote> notes = new();
 		private const int ticksPerBeat = 480;
 		private const int laneCount = 4;
 
@@ -40,6 +40,11 @@ namespace MilliRhythm.Rhythm
 		public int BeatToTick(double beat)
 		{
 			return (int)Math.Round(beat * ticksPerBeat);
+		}
+
+		public double TickToTime(RhythmNote note)
+		{
+			return TickToTime(note.Tick);
 		}
 
 		public double TickToTime(int tick)

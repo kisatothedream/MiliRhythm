@@ -14,6 +14,12 @@ namespace MilliRhythm.Rhythm
 		[SerializeField] private Transform[] lanes;
 		private const float ApproachingTime = 2f;
 		private int nextNoteIndex;
+		private List<Note> activeNotes = new();
+
+		[SerializeField] private Transform startPoint;
+		[SerializeField] private Transform endPoint;
+		private float laneLength;
+		private float speed;
 
 
 		private void Awake()
@@ -23,8 +29,13 @@ namespace MilliRhythm.Rhythm
 
 		public void PlayFromStart()
 		{
-			var startTime = AudioSettings.dspTime + 3f;
-			var endTime = AudioSettings.dspTime + 3f + chart.AudioClip.length + 5;
+			nextNoteIndex = 0;
+			laneLength = Mathf.Abs(startPoint.position.y - endPoint.position.y);
+			speed = laneLength / ApproachingTime;
+
+			var startTime = AudioSettings.dspTime + 1f;
+			var endTime = chart.AudioClip.length + 5f;
+			activeNotes.Clear();
 			clock.StartClock(startTime);
 			audioSource.clip = chart.AudioClip;
 			audioSource.PlayScheduled(startTime);
@@ -38,29 +49,43 @@ namespace MilliRhythm.Rhythm
 			while (clock.SongTime < endTime)
 			{
 				TrySpawnNotes();
+				UpdateNotes();
 				await UniTask.NextFrame();
+			}
+		}
+
+		private void UpdateNotes()
+		{
+			foreach (var note in activeNotes)
+			{
+				note.UpdateNote(clock.SongTime);
 			}
 		}
 
 		private void TrySpawnNotes()
 		{
-			for (var i = nextNoteIndex; i < notes.Count; i++)
+			while (nextNoteIndex < notes.Count)
 			{
-				if (chart.TickToTime(notes[nextNoteIndex].Tick) < clock.SongTime - ApproachingTime)
-				{
-					nextNoteIndex++;
-					Spawn(notes[nextNoteIndex]);
-				}
-				else
-				{
+				var note = notes[nextNoteIndex];
+				var judgeTime = chart.TickToTime(note);
+				var spawnTime = judgeTime - ApproachingTime;
+
+				if (spawnTime > clock.SongTime)
 					break;
-				}
+
+				Spawn(note, judgeTime);
+				nextNoteIndex++;
 			}
 		}
 
-		private void Spawn(RhythmNote note)
+		private void Spawn(RhythmNote note, double judgeTime)
 		{
-			var noteInstance = Instantiate(notePrefabs[note.Lane], lanes[note.Lane].localPosition, Quaternion.identity, transform);
+			var noteInstance = Instantiate(notePrefabs[note.Lane], lanes[note.Lane].localPosition, Quaternion.identity, lanes[note.Lane]);
+			noteInstance.StartTime = judgeTime - ApproachingTime;
+			noteInstance.JudgeTime = judgeTime;
+			noteInstance.EndTime = judgeTime + 1;
+			noteInstance.LaneLength = laneLength;
+			activeNotes.Add(noteInstance);
 		}
 	}
 }

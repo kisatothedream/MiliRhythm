@@ -3,7 +3,7 @@ using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
-namespace TechLabs.Rhythm.Editor
+namespace MilliRhythm.Rhythm.Editor
 {
 	public static class AudioPreviewUtility
 	{
