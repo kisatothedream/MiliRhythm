@@ -87,6 +87,9 @@ namespace MilliRhythm.Rhythm.Editor
 		private const float NoteInspectorHeight = 68f;
 		private const float NoteInspectorMargin = 6f;
 
+		private bool isPreviewEnabled;
+		private RhythmGamePlayer previewPlayer;
+
 		[MenuItem("Tools/Rhythm Game/Chart Editor")]
 		private static void Open()
 		{
@@ -108,7 +111,11 @@ namespace MilliRhythm.Rhythm.Editor
 
 		private void OnDisable()
 		{
-			EditorApplication.update -= OnEditorUpdate;
+			EditorApplication.update -=
+				OnEditorUpdate;
+
+			DisablePreview();
+
 			StopPlayback();
 			ClearWaveformCache();
 		}
@@ -201,6 +208,10 @@ namespace MilliRhythm.Rhythm.Editor
 
 				DrawRecordButton();
 
+				GUILayout.Space(4f);
+
+				DrawPreviewButton();
+
 				if (GUILayout.Button(
 					    isPlaying ? "Pause" : "Play",
 					    EditorStyles.toolbarButton,
@@ -278,9 +289,9 @@ namespace MilliRhythm.Rhythm.Editor
 				chart.SetBpm(newBpm);
 
 				EditorUtility.SetDirty(chart);
+				RefreshPreview();
 				Repaint();
 			}
-
 		}
 
 		private void DrawOffsetEditor()
@@ -304,6 +315,7 @@ namespace MilliRhythm.Rhythm.Editor
 				chart.SetOffsetSeconds(newOffsetSeconds);
 
 				EditorUtility.SetDirty(chart);
+				RefreshPreview();
 				Repaint();
 			}
 		}
@@ -367,6 +379,151 @@ namespace MilliRhythm.Rhythm.Editor
 			}
 
 			GUI.backgroundColor = previousBackgroundColor;
+		}
+
+		private void DrawPreviewButton()
+		{
+			var previousBackgroundColor =
+				GUI.backgroundColor;
+
+			if (isPreviewEnabled)
+			{
+				GUI.backgroundColor =
+					new Color(0.45f, 0.75f, 1f);
+			}
+
+			if (GUILayout.Button(
+				    isPreviewEnabled
+					    ? "Preview On"
+					    : "Preview",
+				    EditorStyles.toolbarButton,
+				    GUILayout.Width(80f)))
+			{
+				if (isPreviewEnabled)
+				{
+					DisablePreview();
+				}
+				else
+				{
+					EnablePreview();
+				}
+			}
+
+			GUI.backgroundColor =
+				previousBackgroundColor;
+		}
+
+		private void EnablePreview()
+		{
+			if (chart == null)
+			{
+				return;
+			}
+
+			previewPlayer = FindPreviewPlayer();
+
+			if (previewPlayer == null)
+			{
+				Debug.LogWarning(
+					"현재 씬에서 RhythmGamePlayer를 찾지 못했습니다.");
+
+				return;
+			}
+
+			previewPlayer.CreateEditorPreview(chart);
+
+			isPreviewEnabled = true;
+
+			UpdatePreviewAtPlayHead();
+
+			Repaint();
+		}
+
+		private void DisablePreview()
+		{
+			DestroyAllScenePreviews();
+
+			isPreviewEnabled = false;
+			previewPlayer = null;
+
+			Repaint();
+		}
+
+		private void UpdatePreviewAtPlayHead()
+		{
+			if (!isPreviewEnabled)
+			{
+				return;
+			}
+
+			if (previewPlayer == null)
+			{
+				previewPlayer = FindPreviewPlayer();
+			}
+
+			if (previewPlayer == null)
+			{
+				Debug.LogWarning("RhythmGamePlayer를 찾지 못했습니다.");
+				return;
+			}
+
+
+			previewPlayer.UpdateEditorPreview(playHeadTime);
+
+			EditorApplication.QueuePlayerLoopUpdate();
+			SceneView.RepaintAll();
+			Repaint();
+		}
+
+		private static void DestroyAllScenePreviews()
+		{
+			var players =
+				Resources.FindObjectsOfTypeAll<RhythmGamePlayer>();
+
+			for (var i = 0; i < players.Length; i++)
+			{
+				var player = players[i];
+
+				if (player == null ||
+				    EditorUtility.IsPersistent(player) ||
+				    !player.gameObject.scene.IsValid())
+				{
+					continue;
+				}
+
+				player.DestroyEditorPreview();
+			}
+		}
+
+		private static RhythmGamePlayer FindPreviewPlayer()
+		{
+			var players =
+				Resources.FindObjectsOfTypeAll<
+					RhythmGamePlayer>();
+
+			for (var i = 0; i < players.Length; i++)
+			{
+				var player = players[i];
+
+				if (player == null)
+				{
+					continue;
+				}
+
+				if (EditorUtility.IsPersistent(player))
+				{
+					continue;
+				}
+
+				if (!player.gameObject.scene.IsValid())
+				{
+					continue;
+				}
+
+				return player;
+			}
+
+			return null;
 		}
 
 		private void DrawTimeline(Rect fullRect)
@@ -675,6 +832,7 @@ namespace MilliRhythm.Rhythm.Editor
 				selectedNoteIndex = chart.Notes.IndexOf(note);
 
 				EditorUtility.SetDirty(chart);
+				RefreshPreview();
 				Repaint();
 			}
 
@@ -920,6 +1078,7 @@ namespace MilliRhythm.Rhythm.Editor
 			{
 				SortNotes();
 				EditorUtility.SetDirty(chart);
+				RefreshPreview();
 			}
 
 			interactionMode = InteractionMode.None;
@@ -980,6 +1139,7 @@ namespace MilliRhythm.Rhythm.Editor
 			selectedNoteIndex = FindNoteIndex(snappedTick, lane);
 
 			EditorUtility.SetDirty(chart);
+			RefreshPreview();
 			Repaint();
 		}
 
@@ -999,6 +1159,7 @@ namespace MilliRhythm.Rhythm.Editor
 			note.Lane = lane;
 
 			EditorUtility.SetDirty(chart);
+			RefreshPreview();
 		}
 
 		private void DeleteSelectedNote()
@@ -1014,6 +1175,7 @@ namespace MilliRhythm.Rhythm.Editor
 			selectedNoteIndex = -1;
 
 			EditorUtility.SetDirty(chart);
+			RefreshPreview();
 			Repaint();
 		}
 
@@ -1152,6 +1314,9 @@ namespace MilliRhythm.Rhythm.Editor
 			{
 				StartPlaybackFromCurrentTime();
 			}
+
+			UpdatePreviewAtPlayHead();
+			Repaint();
 		}
 
 		private void StartPlayback()
@@ -1205,27 +1370,32 @@ namespace MilliRhythm.Rhythm.Editor
 
 		private void OnEditorUpdate()
 		{
-			if (!isPlaying || chart == null || chart.AudioClip == null)
+			if (isPlaying &&
+			    chart != null &&
+			    chart.AudioClip != null)
 			{
-				return;
+				UpdatePlayheadTime();
+
+				if (playHeadTime >=
+				    chart.AudioClip.length)
+				{
+					StopPlayback();
+				}
+				else
+				{
+					FollowPlayhead();
+					Repaint();
+				}
 			}
 
-			UpdatePlayheadTime();
-
-			if (playHeadTime >= chart.AudioClip.length)
-			{
-				StopPlayback();
-				return;
-			}
-
-			FollowPlayhead();
-			Repaint();
+			UpdatePreviewAtPlayHead();
 		}
 
 		private void UpdatePlayheadTime()
 		{
 			var elapsed = EditorApplication.timeSinceStartup - playbackStartDspTime;
 			playHeadTime = playbackStartChartTime + elapsed;
+			RefreshPreview();
 		}
 
 		private void FollowPlayhead()
@@ -1239,8 +1409,10 @@ namespace MilliRhythm.Rhythm.Editor
 			}
 		}
 
-		private void SetChart(RhythmChart newChart)
+		private void SetChart(
+			RhythmChart newChart)
 		{
+			DisablePreview();
 			StopPlayback();
 
 			chart = newChart;
@@ -1351,7 +1523,19 @@ namespace MilliRhythm.Rhythm.Editor
 			selectedNoteIndex = FindNoteIndex(recordedTick, lane);
 
 			EditorUtility.SetDirty(chart);
+			RefreshPreview();
 			Repaint();
+		}
+
+		private void RefreshPreview()
+		{
+			if (!isPreviewEnabled || previewPlayer == null)
+			{
+				return;
+			}
+
+			previewPlayer.CreateEditorPreview(chart);
+			previewPlayer.UpdateEditorPreview(playHeadTime);
 		}
 
 		private bool HasNote(int tick, int lane)
@@ -1771,6 +1955,7 @@ namespace MilliRhythm.Rhythm.Editor
 			selectedNoteIndex = FindNoteIndex(tick, lane);
 
 			EditorUtility.SetDirty(chart);
+			RefreshPreview();
 			Repaint();
 		}
 	}

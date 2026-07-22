@@ -17,5 +17,6 @@ namespace MilliRhythm.Rhythm.Editor
 				t.PlayFromStart();
 			}
 		}
+		
 	}
 }
