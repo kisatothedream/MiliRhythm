@@ -56,9 +56,17 @@ namespace MilliRhythm.Rhythm
 
 		private void UpdateNotes()
 		{
-			foreach (var note in activeNotes)
+			for (int i = activeNotes.Count - 1; i >= 0; i--)
 			{
+				Note note = activeNotes[i];
+
 				note.UpdateNote(clock.SongTime);
+
+				if (clock.SongTime < note.EndTime)
+					continue;
+
+				activeNotes.RemoveAt(i);
+				Destroy(note.gameObject);
 			}
 		}
 

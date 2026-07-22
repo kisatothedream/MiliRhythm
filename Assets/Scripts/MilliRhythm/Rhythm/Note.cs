@@ -51,14 +51,13 @@ namespace MilliRhythm.Rhythm
 			if (EndTime < time)
 			{
 				IsAlive = false;
-				gameObject.SetActive(false);
 				return;
 			}
 			var rate = (time - StartTime) / (JudgeTime - StartTime);
 			UpdatePosition((float)rate * LaneLength);
 		}
 
-		public void UpdatePosition(float y)
+		private void UpdatePosition(float y)
 		{
 			var pos = transform.localPosition;
 			pos.y = y;
