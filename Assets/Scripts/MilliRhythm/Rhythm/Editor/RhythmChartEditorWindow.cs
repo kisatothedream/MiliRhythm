@@ -76,7 +76,7 @@ namespace TechLabs.Rhythm.Editor
 
 		private bool waveformCacheFailed;
 		private string waveformErrorMessage;
-		private const float WaveformAmplitudeScale = 10f;
+		private const float WaveformAmplitudeScale = 1f;
 
 
 		private const int FixedLaneCount = 4;

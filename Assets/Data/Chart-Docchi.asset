@@ -1,0 +1,324 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9af32500fa673af4abe792356716634e, type: 3}
+  m_Name: Chart-Docchi
+  m_EditorClassIdentifier: Rhythm.Runtime::MilliRhythm.Rhythm.RhythmChart
+  audioClip: {fileID: 8300000, guid: 8f29d94daebc0da49a9fa54d225e2f4a, type: 3}
+  bpm: 120
+  offsetSeconds: 0
+  notes:
+  - Tick: 1320
+    Lane: 1
+    LengthTick: 0
+  - Tick: 1560
+    Lane: 1
+    LengthTick: 0
+  - Tick: 1920
+    Lane: 1
+    LengthTick: 0
+  - Tick: 2040
+    Lane: 1
+    LengthTick: 0
+  - Tick: 2280
+    Lane: 1
+    LengthTick: 0
+  - Tick: 2520
+    Lane: 1
+    LengthTick: 0
+  - Tick: 2640
+    Lane: 1
+    LengthTick: 0
+  - Tick: 2880
+    Lane: 1
+    LengthTick: 0
+  - Tick: 3120
+    Lane: 1
+    LengthTick: 0
+  - Tick: 3480
+    Lane: 1
+    LengthTick: 0
+  - Tick: 3600
+    Lane: 1
+    LengthTick: 0
+  - Tick: 3840
+    Lane: 1
+    LengthTick: 0
+  - Tick: 4080
+    Lane: 1
+    LengthTick: 0
+  - Tick: 4200
+    Lane: 1
+    LengthTick: 0
+  - Tick: 4440
+    Lane: 1
+    LengthTick: 0
+  - Tick: 4680
+    Lane: 1
+    LengthTick: 0
+  - Tick: 5040
+    Lane: 1
+    LengthTick: 0
+  - Tick: 5160
+    Lane: 1
+    LengthTick: 0
+  - Tick: 5400
+    Lane: 1
+    LengthTick: 0
+  - Tick: 5640
+    Lane: 1
+    LengthTick: 0
+  - Tick: 5760
+    Lane: 1
+    LengthTick: 0
+  - Tick: 6000
+    Lane: 1
+    LengthTick: 0
+  - Tick: 6240
+    Lane: 1
+    LengthTick: 0
+  - Tick: 6600
+    Lane: 1
+    LengthTick: 0
+  - Tick: 6840
+    Lane: 1
+    LengthTick: 0
+  - Tick: 7200
+    Lane: 1
+    LengthTick: 0
+  - Tick: 7560
+    Lane: 1
+    LengthTick: 0
+  - Tick: 7920
+    Lane: 1
+    LengthTick: 0
+  - Tick: 8280
+    Lane: 1
+    LengthTick: 0
+  - Tick: 8640
+    Lane: 1
+    LengthTick: 0
+  - Tick: 9120
+    Lane: 1
+    LengthTick: 0
+  - Tick: 9480
+    Lane: 1
+    LengthTick: 0
+  - Tick: 9840
+    Lane: 1
+    LengthTick: 0
+  - Tick: 10200
+    Lane: 1
+    LengthTick: 0
+  - Tick: 10680
+    Lane: 1
+    LengthTick: 0
+  - Tick: 11040
+    Lane: 1
+    LengthTick: 0
+  - Tick: 11400
+    Lane: 1
+    LengthTick: 0
+  - Tick: 11760
+    Lane: 1
+    LengthTick: 0
+  - Tick: 12240
+    Lane: 1
+    LengthTick: 0
+  - Tick: 12600
+    Lane: 1
+    LengthTick: 0
+  - Tick: 12840
+    Lane: 1
+    LengthTick: 0
+  - Tick: 13080
+    Lane: 1
+    LengthTick: 0
+  - Tick: 13200
+    Lane: 1
+    LengthTick: 0
+  - Tick: 13440
+    Lane: 1
+    LengthTick: 0
+  - Tick: 13560
+    Lane: 1
+    LengthTick: 0
+  - Tick: 13800
+    Lane: 1
+    LengthTick: 0
+  - Tick: 14040
+    Lane: 1
+    LengthTick: 0
+  - Tick: 14400
+    Lane: 1
+    LengthTick: 0
+  - Tick: 14520
+    Lane: 1
+    LengthTick: 0
+  - Tick: 14760
+    Lane: 1
+    LengthTick: 0
+  - Tick: 14880
+    Lane: 1
+    LengthTick: 0
+  - Tick: 15120
+    Lane: 1
+    LengthTick: 0
+  - Tick: 15360
+    Lane: 1
+    LengthTick: 0
+  - Tick: 15600
+    Lane: 1
+    LengthTick: 0
+  - Tick: 15960
+    Lane: 1
+    LengthTick: 0
+  - Tick: 16080
+    Lane: 1
+    LengthTick: 0
+  - Tick: 16320
+    Lane: 1
+    LengthTick: 0
+  - Tick: 16560
+    Lane: 1
+    LengthTick: 0
+  - Tick: 16680
+    Lane: 1
+    LengthTick: 0
+  - Tick: 16800
+    Lane: 1
+    LengthTick: 0
+  - Tick: 17160
+    Lane: 1
+    LengthTick: 0
+  - Tick: 17520
+    Lane: 1
+    LengthTick: 0
+  - Tick: 17640
+    Lane: 1
+    LengthTick: 0
+  - Tick: 17880
+    Lane: 1
+    LengthTick: 0
+  - Tick: 18000
+    Lane: 1
+    LengthTick: 0
+  - Tick: 18240
+    Lane: 1
+    LengthTick: 0
+  - Tick: 18360
+    Lane: 1
+    LengthTick: 0
+  - Tick: 18720
+    Lane: 1
+    LengthTick: 0
+  - Tick: 18960
+    Lane: 1
+    LengthTick: 0
+  - Tick: 19200
+    Lane: 1
+    LengthTick: 0
+  - Tick: 19560
+    Lane: 1
+    LengthTick: 0
+  - Tick: 20160
+    Lane: 1
+    LengthTick: 0
+  - Tick: 20400
+    Lane: 1
+    LengthTick: 0
+  - Tick: 20640
+    Lane: 1
+    LengthTick: 0
+  - Tick: 20760
+    Lane: 1
+    LengthTick: 0
+  - Tick: 21000
+    Lane: 1
+    LengthTick: 0
+  - Tick: 21360
+    Lane: 1
+    LengthTick: 0
+  - Tick: 21600
+    Lane: 1
+    LengthTick: 0
+  - Tick: 21840
+    Lane: 1
+    LengthTick: 0
+  - Tick: 22080
+    Lane: 1
+    LengthTick: 0
+  - Tick: 22200
+    Lane: 1
+    LengthTick: 0
+  - Tick: 22440
+    Lane: 1
+    LengthTick: 0
+  - Tick: 22560
+    Lane: 1
+    LengthTick: 0
+  - Tick: 22680
+    Lane: 1
+    LengthTick: 0
+  - Tick: 23040
+    Lane: 1
+    LengthTick: 0
+  - Tick: 23280
+    Lane: 1
+    LengthTick: 0
+  - Tick: 23400
+    Lane: 1
+    LengthTick: 0
+  - Tick: 23760
+    Lane: 1
+    LengthTick: 0
+  - Tick: 24000
+    Lane: 1
+    LengthTick: 0
+  - Tick: 24360
+    Lane: 1
+    LengthTick: 0
+  - Tick: 24480
+    Lane: 1
+    LengthTick: 0
+  - Tick: 24600
+    Lane: 1
+    LengthTick: 0
+  - Tick: 24960
+    Lane: 1
+    LengthTick: 0
+  - Tick: 25080
+    Lane: 1
+    LengthTick: 0
+  - Tick: 25320
+    Lane: 1
+    LengthTick: 0
+  - Tick: 25440
+    Lane: 1
+    LengthTick: 0
+  - Tick: 25680
+    Lane: 1
+    LengthTick: 0
+  - Tick: 25920
+    Lane: 1
+    LengthTick: 0
+  - Tick: 26040
+    Lane: 1
+    LengthTick: 0
+  - Tick: 26280
+    Lane: 1
+    LengthTick: 0
+  - Tick: 26520
+    Lane: 1
+    LengthTick: 0
+  - Tick: 26640
+    Lane: 1
+    LengthTick: 0
