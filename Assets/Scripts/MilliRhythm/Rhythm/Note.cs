@@ -1,4 +1,5 @@
 using System;
+using MilliRhythm.Data.Common;
 using UnityEngine;
 
 namespace MilliRhythm.Rhythm
@@ -40,21 +41,20 @@ namespace MilliRhythm.Rhythm
 
 	public class Note : MonoBehaviour
 	{
-		public bool IsAlive = true;
-		public NoteType Type;
+		public bool IsLongNote => NoteLength > 0;
+		public bool IsJudgedDown;
+		public bool IsJudgedUp;
+		public int Lane;
+		public double NoteLength;
 		public double StartTime;
-		public double JudgeTime;
+		public double HeadTime;
+		public double TailTime;
 		public double EndTime;
 		public float LaneLength;
 
 		public void UpdateNote(double time)
 		{
-			if (EndTime < time)
-			{
-				IsAlive = false;
-				return;
-			}
-			var rate = (time - StartTime) / (JudgeTime - StartTime);
+			var rate = (time - StartTime) / (HeadTime - StartTime);
 			UpdatePosition((float)rate * LaneLength);
 		}
 
@@ -63,6 +63,18 @@ namespace MilliRhythm.Rhythm
 			var pos = transform.localPosition;
 			pos.y = y;
 			transform.localPosition = pos;
+		}
+
+		public void JudgeDown(NoteJudgementResult result)
+		{
+			Debug.Log($"Head : {result}");
+			IsJudgedDown = true;
+		}
+
+		public void JudgeUp(NoteJudgementResult result)
+		{
+			Debug.Log($"LongNoteTail : {result}");
+			IsJudgedUp = true;
 		}
 	}
 }

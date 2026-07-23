@@ -1,12 +1,16 @@
 using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using MilliRhythm.Data.Common;
+using MilliRhythm.Input;
+using R3;
 using UnityEngine;
 
 namespace MilliRhythm.Rhythm
 {
 	public partial class RhythmGamePlayer : MonoBehaviour
 	{
+		private GameControls controls => InputManager.Instance.GameControls;
 		private RhythmClock clock;
 		[SerializeField] private RhythmChart chart;
 		[SerializeField] private AudioSource audioSource;
@@ -22,14 +26,36 @@ namespace MilliRhythm.Rhythm
 		private float laneLength;
 		private float speed;
 
+		private const double PerfectRangeTime = 0.045f;
+		private const double GoodRangeTime = 0.09f;
+		private const double NormalRangeTime = 0.135f;
+		private const double BadRangeTime = 0.160f;
+
+		private CompositeDisposable disposable;
 
 		private void Awake()
 		{
 			clock = new();
 		}
 
+		private void Register()
+		{
+			disposable = new CompositeDisposable();
+			controls.Left.Subscribe(OnLeft).AddTo(disposable);
+			controls.Up.Subscribe(OnUp).AddTo(disposable);
+			controls.Down.Subscribe(OnDown).AddTo(disposable);
+			controls.Right.Subscribe(OnRight).AddTo(disposable);
+		}
+
+		private void Unregister()
+		{
+			disposable.Dispose();
+		}
+
 		public void PlayFromStart()
 		{
+			Register();
+
 			nextNoteIndex = 0;
 			laneLength = Mathf.Abs(startPoint.position.y - endPoint.position.y);
 			speed = laneLength / ApproachingTime;
@@ -57,9 +83,9 @@ namespace MilliRhythm.Rhythm
 
 		private void UpdateNotes()
 		{
-			for (int i = activeNotes.Count - 1; i >= 0; i--)
+			for (var i = activeNotes.Count - 1; i >= 0; i--)
 			{
-				Note note = activeNotes[i];
+				var note = activeNotes[i];
 
 				note.UpdateNote(clock.SongTime);
 
@@ -90,11 +116,89 @@ namespace MilliRhythm.Rhythm
 		private void Spawn(RhythmNote note, double judgeTime)
 		{
 			var noteInstance = Instantiate(notePrefabs[note.Lane], lanes[note.Lane].localPosition, Quaternion.identity, lanes[note.Lane]);
+			var length = chart.TickToTime(note.LengthTick);
+			noteInstance.Lane = note.Lane;
+			noteInstance.NoteLength = length;
 			noteInstance.StartTime = judgeTime - ApproachingTime;
-			noteInstance.JudgeTime = judgeTime;
-			noteInstance.EndTime = judgeTime + 1;
+			noteInstance.HeadTime = judgeTime;
+			noteInstance.TailTime = judgeTime + length;
+			noteInstance.EndTime = judgeTime + length + 1;
 			noteInstance.LaneLength = laneLength;
 			activeNotes.Add(noteInstance);
+		}
+
+		private void OnLeft(bool pressed)
+		{
+			if (pressed) JudgeNotesDown(NoteType.Left.GetLane());
+			else JudgeNotesUp(NoteType.Left.GetLane());
+		}
+
+		private void OnUp(bool pressed)
+		{
+			if (pressed) JudgeNotesDown(NoteType.Up.GetLane());
+			else JudgeNotesUp(NoteType.Up.GetLane());
+		}
+
+		private void OnDown(bool pressed)
+		{
+			if (pressed) JudgeNotesDown(NoteType.Down.GetLane());
+			else JudgeNotesUp(NoteType.Down.GetLane());
+		}
+
+		private void OnRight(bool pressed)
+		{
+			if (pressed) JudgeNotesDown(NoteType.Right.GetLane());
+			else JudgeNotesUp(NoteType.Right.GetLane());
+		}
+
+		private void JudgeNotesDown(int lane)
+		{
+			Debug.Log($"Judge Down");
+			for (var i = 0; i < activeNotes.Count; i++)
+			{
+				var note = activeNotes[i];
+				if (note.IsJudgedDown) continue;
+				if (note.Lane != lane) continue;
+
+				var current = clock.SongTime;
+				var result = JudgeTime(current, note.HeadTime);
+				if (result != NoteJudgementResult.NotReached)
+				{
+					note.JudgeDown(result);
+					return;
+				}
+			}
+		}
+
+		private void JudgeNotesUp(int lane)
+		{
+			Debug.Log($"Judge Up");
+			for (var i = 0; i < activeNotes.Count; i++)
+			{
+				var note = activeNotes[i];
+				if (!note.IsLongNote) continue;
+				if (!note.IsJudgedDown) continue;
+				if (note.IsJudgedUp) continue;
+				if (note.Lane != lane) continue;
+
+				var current = clock.SongTime;
+				var result = JudgeTime(current, note.TailTime);
+				if (result != NoteJudgementResult.NotReached)
+				{
+					note.JudgeUp(result);
+					return;
+				}
+			}
+		}
+
+		private NoteJudgementResult JudgeTime(double currentTime, double judgeTime)
+		{
+			var delta = Mathf.Abs((float)(judgeTime - currentTime));
+			if (delta < PerfectRangeTime) return NoteJudgementResult.Perfect;
+			if (delta < GoodRangeTime) return NoteJudgementResult.Good;
+			if (delta < NormalRangeTime) return NoteJudgementResult.Normal;
+			if (delta < BadRangeTime) return NoteJudgementResult.Bad;
+			return NoteJudgementResult.NotReached;
 		}
 	}
 
@@ -153,14 +257,12 @@ namespace MilliRhythm.Rhythm
 				var judgeTime =
 					previewChart.TickToTime(rhythmNote.Tick);
 
-				noteInstance.Type =
-					NoteTypeExtensions.GetNoteTypeByLane(
-						rhythmNote.Lane);
+				noteInstance.Lane = rhythmNote.Lane;
 
 				noteInstance.StartTime =
 					judgeTime - ApproachingTime;
 
-				noteInstance.JudgeTime =
+				noteInstance.HeadTime =
 					judgeTime;
 
 				noteInstance.EndTime =
@@ -169,7 +271,6 @@ namespace MilliRhythm.Rhythm
 				noteInstance.LaneLength =
 					laneLength;
 
-				noteInstance.IsAlive = true;
 				noteInstance.gameObject.SetActive(false);
 
 				editorPreviewNotes.Add(noteInstance);
@@ -201,7 +302,6 @@ namespace MilliRhythm.Rhythm
 					continue;
 				}
 
-				note.IsAlive = true;
 				note.UpdateNote(songTime);
 			}
 		}

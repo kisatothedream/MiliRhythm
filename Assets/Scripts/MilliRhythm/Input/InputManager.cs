@@ -12,7 +12,7 @@ namespace MilliRhythm.Input
 		private MilliRhythmInputs.GameActions characterActions;
 
 		private InputSystemInputSource inputSystemInputSource;
-		private GameControls GameControls { get; set; }
+		public GameControls GameControls { get; private set; }
 		private UIControls UIControls { get; set; }
 
 		private InputManager()
@@ -24,7 +24,7 @@ namespace MilliRhythm.Input
 		[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
 		private static void ResetStatic()
 		{
-			Instance.Dispose();
+			Instance?.Dispose();
 			Instance = null;
 		}
 
