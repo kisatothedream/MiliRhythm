@@ -7,5 +7,15 @@ namespace MilliRhythm.Data.Repository
 	{
 		public List<MusicData> MusicDataList => musicDataList;
 		[SerializeField] private List<MusicData> musicDataList;
+
+		public void Sort()
+		{
+			musicDataList.Sort((a, b) => a.Id.CompareTo(b.Id));
+		}
+
+		public void RegisterAllMusicData(List<MusicData> data)
+		{
+			musicDataList = new List<MusicData>(data);
+		}
 	}
 }
