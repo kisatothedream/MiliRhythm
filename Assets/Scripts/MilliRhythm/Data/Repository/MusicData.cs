@@ -9,16 +9,18 @@ namespace MilliRhythm.Data.Repository
 	[CreateAssetMenu(fileName = "MusicData", menuName = "MilliRhythm/Data/MusicData")]
 	public class MusicData : ScriptableObject
 	{
-		public int Id;
+		[field: SerializeField] public int Id { get; private set; }
 
 		//Non-localized Text
-		public string Name;
-		public string ArtistName;
-		public string DescriptionKey;
+		[field: SerializeField] public string Name { get; private set; }
+		[field: SerializeField] public string ArtistName { get; private set; }
+		[field: SerializeField] public string DescriptionKey { get; private set; }
 
 		//Resource
-		public string AudioPath;
-		public string JacketPath;
+		[field: SerializeField] public Sprite JacketThumbnail { get; private set; }
+		[field: SerializeField] public string JacketPath { get; private set; }
+		[field: SerializeField] public string AudioPath { get; private set; }
+		[field: SerializeField] public string PreviewAudioPath { get; private set; }
 	}
 
 	public class MusicDataRepository : IGameDataRepository
@@ -26,12 +28,17 @@ namespace MilliRhythm.Data.Repository
 		private MusicDataScriptableObject musicDataObject;
 		private const string FileName = "Assets/Data/Music/MusicDataRepository.asset";
 
-		private Dictionary<int, MusicData> musicDataMap = new Dictionary<int, MusicData>();
+		private Dictionary<int, MusicData> musicDataMap = new();
+		private List<MusicData> musicDataList;
 
 		public async UniTask LoadAsync()
 		{
 			musicDataObject = await Addressables.LoadAssetAsync<MusicDataScriptableObject>(FileName).Task;
-			musicDataMap = musicDataObject.GetMusicDataMap();
+			musicDataList = new List<MusicData>(musicDataObject.MusicDataList);
+			foreach (var musicData in musicDataList)
+			{
+				musicDataMap.Add(musicData.Id, musicData);
+			}
 		}
 
 		public MusicData GetMusicDataById(int id)
@@ -43,5 +50,7 @@ namespace MilliRhythm.Data.Repository
 
 			return data;
 		}
+
+		public List<MusicData> GetMusicDataList() => musicDataList;
 	}
 }

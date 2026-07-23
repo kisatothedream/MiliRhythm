@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 615bfaa9734a6324eaeec9fb1576fac0, type: 3}
   m_Name: Docchi
   m_EditorClassIdentifier: Data.Runtime::MilliRhythm.Data.Repository.MusicData
-  Id: 1
-  Name: Docchi
-  ArtistName: NononoNono
-  DescriptionKey: 
-  AudioPath: 
-  JacketPath: 
+  <Id>k__BackingField: 1
+  <Name>k__BackingField: Docchi
+  <ArtistName>k__BackingField: NononoNono
+  <DescriptionKey>k__BackingField: 
+  <JacketThumbnail>k__BackingField: {fileID: 0}
+  <JacketPath>k__BackingField: 
+  <AudioPath>k__BackingField: 
+  <PreviewAudioPath>k__BackingField: 
