@@ -127,9 +127,7 @@ namespace MilliRhythm.Rhythm.Editor
 
 			if (chart == null)
 			{
-				EditorGUILayout.HelpBox(
-					"RhythmChart 에셋을 선택해 주세요.",
-					MessageType.Info);
+				EditorGUILayout.HelpBox("RhythmChart 에셋을 선택해 주세요.", MessageType.Info);
 
 				return;
 			}
@@ -193,11 +191,7 @@ namespace MilliRhythm.Rhythm.Editor
 		{
 			using (new EditorGUILayout.HorizontalScope(EditorStyles.toolbar))
 			{
-				var newChart = (RhythmChart)EditorGUILayout.ObjectField(
-					chart,
-					typeof(RhythmChart),
-					false,
-					GUILayout.Width(260f));
+				var newChart = (RhythmChart)EditorGUILayout.ObjectField(chart, typeof(RhythmChart), false, GUILayout.Width(260f));
 
 				if (newChart != chart)
 				{
@@ -212,10 +206,7 @@ namespace MilliRhythm.Rhythm.Editor
 
 				DrawPreviewButton();
 
-				if (GUILayout.Button(
-					    isPlaying ? "Pause" : "Play",
-					    EditorStyles.toolbarButton,
-					    GUILayout.Width(50f)))
+				if (GUILayout.Button(isPlaying ? "Pause" : "Play", EditorStyles.toolbarButton, GUILayout.Width(50f)))
 				{
 					if (isPlaying)
 					{
@@ -227,10 +218,7 @@ namespace MilliRhythm.Rhythm.Editor
 					}
 				}
 
-				if (GUILayout.Button(
-					    "Stop",
-					    EditorStyles.toolbarButton,
-					    GUILayout.Width(45f)))
+				if (GUILayout.Button("Stop", EditorStyles.toolbarButton, GUILayout.Width(45f)))
 				{
 					StopPlayback();
 				}
@@ -245,9 +233,7 @@ namespace MilliRhythm.Rhythm.Editor
 
 		private void DrawSettings()
 		{
-			using (new EditorGUILayout.HorizontalScope(
-				       EditorStyles.helpBox,
-				       GUILayout.Height(SettingsHeight)))
+			using (new EditorGUILayout.HorizontalScope(EditorStyles.helpBox, GUILayout.Height(SettingsHeight)))
 			{
 				DrawBpmEditor();
 
@@ -267,18 +253,12 @@ namespace MilliRhythm.Rhythm.Editor
 
 		private void DrawBpmEditor()
 		{
-			var controlRect = EditorGUILayout.GetControlRect(
-				false,
-				EditorGUIUtility.singleLineHeight,
-				GUILayout.Width(150f));
+			var controlRect = EditorGUILayout.GetControlRect(false, EditorGUIUtility.singleLineHeight, GUILayout.Width(150f));
 
 
 			EditorGUI.BeginChangeCheck();
 
-			var newBpm = EditorGUI.DoubleField(
-				controlRect,
-				new GUIContent("BPM"),
-				chart.Bpm);
+			var newBpm = EditorGUI.DoubleField(controlRect, new GUIContent("BPM"), chart.Bpm);
 
 			if (EditorGUI.EndChangeCheck())
 			{
@@ -296,17 +276,11 @@ namespace MilliRhythm.Rhythm.Editor
 
 		private void DrawOffsetEditor()
 		{
-			var controlRect = EditorGUILayout.GetControlRect(
-				false,
-				EditorGUIUtility.singleLineHeight,
-				GUILayout.Width(190f));
+			var controlRect = EditorGUILayout.GetControlRect(false, EditorGUIUtility.singleLineHeight, GUILayout.Width(190f));
 
 			EditorGUI.BeginChangeCheck();
 
-			var newOffsetSeconds = EditorGUI.DoubleField(
-				controlRect,
-				new GUIContent("Offset"),
-				chart.OffsetSeconds);
+			var newOffsetSeconds = EditorGUI.DoubleField(controlRect, new GUIContent("Offset"), chart.OffsetSeconds);
 
 			if (EditorGUI.EndChangeCheck())
 			{
@@ -362,10 +336,7 @@ namespace MilliRhythm.Rhythm.Editor
 				GUI.backgroundColor = new Color(1f, 0.35f, 0.35f);
 			}
 
-			if (GUILayout.Button(
-				    isRecording ? "Recording" : "Record",
-				    EditorStyles.toolbarButton,
-				    GUILayout.Width(70f)))
+			if (GUILayout.Button(isRecording ? "Recording" : "Record", EditorStyles.toolbarButton, GUILayout.Width(70f)))
 			{
 				isRecording = !isRecording;
 
@@ -392,12 +363,9 @@ namespace MilliRhythm.Rhythm.Editor
 					new Color(0.45f, 0.75f, 1f);
 			}
 
-			if (GUILayout.Button(
-				    isPreviewEnabled
-					    ? "Preview On"
-					    : "Preview",
-				    EditorStyles.toolbarButton,
-				    GUILayout.Width(80f)))
+			if (GUILayout.Button(isPreviewEnabled
+				    ? "Preview On"
+				    : "Preview", EditorStyles.toolbarButton, GUILayout.Width(80f)))
 			{
 				if (isPreviewEnabled)
 				{
@@ -424,8 +392,7 @@ namespace MilliRhythm.Rhythm.Editor
 
 			if (previewPlayer == null)
 			{
-				Debug.LogWarning(
-					"현재 씬에서 RhythmGamePlayer를 찾지 못했습니다.");
+				Debug.LogWarning("현재 씬에서 RhythmGamePlayer를 찾지 못했습니다.");
 
 				return;
 			}
@@ -528,25 +495,13 @@ namespace MilliRhythm.Rhythm.Editor
 
 		private void DrawTimeline(Rect fullRect)
 		{
-			var labelRect = new Rect(
-				fullRect.x,
-				fullRect.y,
-				TrackLabelWidth,
-				fullRect.height);
+			var labelRect = new Rect(fullRect.x, fullRect.y, TrackLabelWidth, fullRect.height);
 
-			var timelineRect = new Rect(
-				labelRect.xMax,
-				fullRect.y,
-				fullRect.width - TrackLabelWidth,
-				fullRect.height);
+			var timelineRect = new Rect(labelRect.xMax, fullRect.y, fullRect.width - TrackLabelWidth, fullRect.height);
 
-			EditorGUI.DrawRect(
-				fullRect,
-				new Color(0.13f, 0.13f, 0.13f));
+			EditorGUI.DrawRect(fullRect, new Color(0.13f, 0.13f, 0.13f));
 
-			EditorGUI.DrawRect(
-				labelRect,
-				new Color(0.18f, 0.18f, 0.18f));
+			EditorGUI.DrawRect(labelRect, new Color(0.18f, 0.18f, 0.18f));
 
 			DrawRecordingIndicator(timelineRect);
 
@@ -572,11 +527,7 @@ namespace MilliRhythm.Rhythm.Editor
 			             + WaveformHeight
 			             + LaneHeight * FixedLaneCount;
 
-			return new Rect(
-				0f,
-				y,
-				position.width,
-				height);
+			return new Rect(0f, y, position.width, height);
 		}
 
 		private Rect GetSelectedNoteInspectorRect()
@@ -585,23 +536,13 @@ namespace MilliRhythm.Rhythm.Editor
 
 			var x = NoteInspectorHorizontalMargin;
 			var y = timelineRect.yMax + SectionSpacing;
-			var width = Mathf.Max(
-				0f,
-				position.width - NoteInspectorHorizontalMargin * 2f);
+			var width = Mathf.Max(0f, position.width - NoteInspectorHorizontalMargin * 2f);
 
-			var availableHeight = Mathf.Max(
-				0f,
-				position.height - y - SectionSpacing);
+			var availableHeight = Mathf.Max(0f, position.height - y - SectionSpacing);
 
-			var height = Mathf.Min(
-				NoteInspectorHeight,
-				availableHeight);
+			var height = Mathf.Min(NoteInspectorHeight, availableHeight);
 
-			return new Rect(
-				x,
-				y,
-				width,
-				height);
+			return new Rect(x, y, width, height);
 		}
 
 		private void DrawLaneCreateButtons()
@@ -616,10 +557,7 @@ namespace MilliRhythm.Rhythm.Editor
 
 		private void DrawLaneCreateButton(string label, int lane)
 		{
-			if (!GUILayout.Button(
-				    label,
-				    EditorStyles.miniButton,
-				    GUILayout.Width(28f)))
+			if (!GUILayout.Button(label, EditorStyles.miniButton, GUILayout.Width(28f)))
 			{
 				return;
 			}
@@ -632,11 +570,7 @@ namespace MilliRhythm.Rhythm.Editor
 
 		private void DrawTimelineHeader(Rect timelineRect)
 		{
-			var headerRect = new Rect(
-				timelineRect.x,
-				timelineRect.y,
-				timelineRect.width,
-				TimelineHeaderHeight);
+			var headerRect = new Rect(timelineRect.x, timelineRect.y, timelineRect.width, TimelineHeaderHeight);
 
 			EditorGUI.DrawRect(headerRect, new Color(0.1f, 0.1f, 0.1f));
 
@@ -649,13 +583,9 @@ namespace MilliRhythm.Rhythm.Editor
 				var x = TimeToX(time, timelineRect);
 
 				Handles.color = new Color(1f, 1f, 1f, 0.25f);
-				Handles.DrawLine(
-					new Vector3(x, headerRect.y),
-					new Vector3(x, headerRect.yMax));
+				Handles.DrawLine(new Vector3(x, headerRect.y), new Vector3(x, headerRect.yMax));
 
-				GUI.Label(
-					new Rect(x + 3f, headerRect.y + 3f, 70f, 20f),
-					$"{time:F2}");
+				GUI.Label(new Rect(x + 3f, headerRect.y + 3f, 70f, 20f), $"{time:F2}");
 			}
 		}
 
@@ -665,17 +595,9 @@ namespace MilliRhythm.Rhythm.Editor
 			{
 				var y = GetLaneY(lane, timelineRect);
 
-				var laneLabelRect = new Rect(
-					labelRect.x,
-					y,
-					labelRect.width,
-					LaneHeight);
+				var laneLabelRect = new Rect(labelRect.x, y, labelRect.width, LaneHeight);
 
-				var laneTimelineRect = new Rect(
-					timelineRect.x,
-					y,
-					timelineRect.width,
-					LaneHeight);
+				var laneTimelineRect = new Rect(timelineRect.x, y, timelineRect.width, LaneHeight);
 
 				if (lane % 2 == 0)
 				{
@@ -685,9 +607,7 @@ namespace MilliRhythm.Rhythm.Editor
 				GUI.Label(laneLabelRect, $"Lane {LaneToKey(lane)}");
 
 				Handles.color = new Color(1f, 1f, 1f, 0.1f);
-				Handles.DrawLine(
-					new Vector3(timelineRect.x, y + LaneHeight),
-					new Vector3(timelineRect.xMax, y + LaneHeight));
+				Handles.DrawLine(new Vector3(timelineRect.x, y + LaneHeight), new Vector3(timelineRect.xMax, y + LaneHeight));
 			}
 		}
 
@@ -725,9 +645,7 @@ namespace MilliRhythm.Rhythm.Editor
 					Handles.color = new Color(1f, 1f, 1f, 0.08f);
 				}
 
-				Handles.DrawLine(
-					new Vector3(x, contentTop),
-					new Vector3(x, contentBottom));
+				Handles.DrawLine(new Vector3(x, contentTop), new Vector3(x, contentBottom));
 			}
 		}
 
@@ -740,34 +658,21 @@ namespace MilliRhythm.Rhythm.Editor
 				return;
 			}
 
-			GUI.Box(
-				inspectorRect,
-				GUIContent.none,
-				EditorStyles.helpBox);
+			GUI.Box(inspectorRect, GUIContent.none, EditorStyles.helpBox);
 
-			var contentRect = new Rect(
-				inspectorRect.x + 8f,
-				inspectorRect.y + 6f,
-				inspectorRect.width - 16f,
-				EditorGUIUtility.singleLineHeight);
+			var contentRect = new Rect(inspectorRect.x + 8f, inspectorRect.y + 6f, inspectorRect.width - 16f, EditorGUIUtility.singleLineHeight);
 
 			if (selectedNoteIndex < 0 ||
 			    selectedNoteIndex >= chart.Notes.Count)
 			{
-				GUI.Label(
-					contentRect,
-					"선택된 노트가 없습니다.",
-					EditorStyles.centeredGreyMiniLabel);
+				GUI.Label(contentRect, "선택된 노트가 없습니다.", EditorStyles.centeredGreyMiniLabel);
 
 				return;
 			}
 
 			var note = chart.Notes[selectedNoteIndex];
 
-			GUI.Label(
-				contentRect,
-				$"Selected Note #{selectedNoteIndex}",
-				EditorStyles.boldLabel);
+			GUI.Label(contentRect, $"Selected Note #{selectedNoteIndex}", EditorStyles.boldLabel);
 
 			contentRect.y += EditorGUIUtility.singleLineHeight + 4f;
 
@@ -776,73 +681,41 @@ namespace MilliRhythm.Rhythm.Editor
 
 		private void DrawSelectedNoteFields(RhythmNote note, Rect contentRect)
 		{
-			var tickRect = new Rect(
-				contentRect.x,
-				contentRect.y,
-				150f,
-				EditorGUIUtility.singleLineHeight);
+			var tickRect = new Rect(contentRect.x, contentRect.y, 150f, EditorGUIUtility.singleLineHeight);
 
-			var laneRect = new Rect(
-				tickRect.xMax + 8f,
-				contentRect.y,
-				130f,
-				EditorGUIUtility.singleLineHeight);
+			var laneRect = new Rect(tickRect.xMax + 8f, contentRect.y, 130f, EditorGUIUtility.singleLineHeight);
 
-			var lengthRect = new Rect(
-				laneRect.xMax + 8f,
-				contentRect.y,
-				180f,
-				EditorGUIUtility.singleLineHeight);
+			var lengthRect = new Rect(laneRect.xMax + 8f, contentRect.y, 180f, EditorGUIUtility.singleLineHeight);
 
 			EditorGUI.BeginChangeCheck();
 
-			var newTick = EditorGUI.IntField(
-				tickRect,
-				new GUIContent("Tick"),
-				note.Tick);
+			var newTick = EditorGUI.IntField(tickRect, new GUIContent("Tick"), note.Tick);
 
-			var newLane = EditorGUI.IntField(
-				laneRect,
-				new GUIContent("Lane"),
-				note.Lane);
+			var newLane = EditorGUI.IntField(laneRect, new GUIContent("Lane"), note.Lane);
 
-			var newLengthTick = EditorGUI.IntField(
-				lengthRect,
-				new GUIContent("Length"),
-				note.LengthTick);
+			var newLengthTick = EditorGUI.IntField(lengthRect, new GUIContent("Length"), note.LengthTick);
 
 			if (EditorGUI.EndChangeCheck())
 			{
-				Undo.RecordObject(
-					chart,
-					"Edit Rhythm Note");
+				Undo.RecordObject(chart, "Edit Rhythm Note");
 
 				note.Tick = Mathf.Max(0, newTick);
-				note.Lane = Mathf.Clamp(
-					newLane,
-					0,
-					FixedLaneCount - 1);
+				note.Lane = Mathf.Clamp(newLane, 0, FixedLaneCount - 1);
 
-				note.LengthTick = Mathf.Max(
-					0,
-					newLengthTick);
+				note.LengthTick = Mathf.Max(0, newLengthTick);
 
 				SortNotes();
 
 				selectedNoteIndex = chart.Notes.IndexOf(note);
 
 				EditorUtility.SetDirty(chart);
-				RefreshPreview();
 				Repaint();
 			}
 
-			DrawSelectedNoteTimeInfo(
-				note,
-				contentRect);
+			DrawSelectedNoteTimeInfo(note, contentRect);
 		}
 
-		private void DrawSelectedNoteTimeInfo(
-			RhythmNote note,
+		private void DrawSelectedNoteTimeInfo(RhythmNote note,
 			Rect contentRect)
 		{
 			var endTick = note.Tick + note.LengthTick;
@@ -853,16 +726,9 @@ namespace MilliRhythm.Rhythm.Editor
 
 			var infoX = contentRect.x + 490f;
 
-			var infoRect = new Rect(
-				infoX,
-				contentRect.y,
-				Mathf.Max(0f, contentRect.xMax - infoX),
-				EditorGUIUtility.singleLineHeight);
+			var infoRect = new Rect(infoX, contentRect.y, Mathf.Max(0f, contentRect.xMax - infoX), EditorGUIUtility.singleLineHeight);
 
-			GUI.Label(
-				infoRect,
-				$"End {endTick} / {duration:F3}s",
-				EditorStyles.miniLabel);
+			GUI.Label(infoRect, $"End {endTick} / {duration:F3}s", EditorStyles.miniLabel);
 		}
 
 		private Rect GetSelectedNoteInspectorRect(Rect timelineRect)
@@ -873,11 +739,7 @@ namespace MilliRhythm.Rhythm.Editor
 			                 + chart.LaneCount * LaneHeight
 			                 - verticalScroll.y;
 
-			return new Rect(
-				timelineRect.x + NoteInspectorMargin,
-				laneBottom + NoteInspectorMargin,
-				timelineRect.width - NoteInspectorMargin * 2f,
-				NoteInspectorHeight);
+			return new Rect(timelineRect.x + NoteInspectorMargin, laneBottom + NoteInspectorMargin, timelineRect.width - NoteInspectorMargin * 2f, NoteInspectorHeight);
 		}
 
 		private void DrawNotes(Rect timelineRect)
@@ -911,8 +773,7 @@ namespace MilliRhythm.Rhythm.Editor
 			}
 		}
 
-		private void DrawLongNoteLine(
-			RhythmNote note,
+		private void DrawLongNoteLine(RhythmNote note,
 			Vector2 startCenter,
 			Rect timelineRect,
 			bool isSelected)
@@ -933,10 +794,7 @@ namespace MilliRhythm.Rhythm.Editor
 				? new Color(1f, 0.75f, 0.2f, 0.5f)
 				: new Color(1f, 1f, 1f, 0.25f);
 
-			Handles.DrawAAPolyLine(
-				3f,
-				new Vector3(visibleStartX, startCenter.y),
-				new Vector3(visibleEndX, startCenter.y));
+			Handles.DrawAAPolyLine(3f, new Vector3(visibleStartX, startCenter.y), new Vector3(visibleEndX, startCenter.y));
 		}
 
 		private void DrawPlayhead(Rect timelineRect)
@@ -949,16 +807,11 @@ namespace MilliRhythm.Rhythm.Editor
 			}
 
 			Handles.color = new Color(1f, 0.2f, 0.2f);
-			Handles.DrawLine(
-				new Vector3(x, timelineRect.y),
-				new Vector3(x, timelineRect.yMax));
+			Handles.DrawLine(new Vector3(x, timelineRect.y), new Vector3(x, timelineRect.yMax));
 
 			var triangleSize = 6f;
 
-			Handles.DrawAAConvexPolygon(
-				new Vector3(x - triangleSize, timelineRect.y),
-				new Vector3(x + triangleSize, timelineRect.y),
-				new Vector3(x, timelineRect.y + triangleSize));
+			Handles.DrawAAConvexPolygon(new Vector3(x - triangleSize, timelineRect.y), new Vector3(x + triangleSize, timelineRect.y), new Vector3(x, timelineRect.y + triangleSize));
 		}
 
 		private void HandleTimelineInput(Rect timelineRect)
@@ -1130,8 +983,7 @@ namespace MilliRhythm.Rhythm.Editor
 
 			chart.Notes.Add(new RhythmNote
 			{
-				Tick = Mathf.Max(0, snappedTick),
-				Lane = lane,
+				Tick = Mathf.Max(0, snappedTick), Lane = lane,
 			});
 
 			SortNotes();
@@ -1139,7 +991,6 @@ namespace MilliRhythm.Rhythm.Editor
 			selectedNoteIndex = FindNoteIndex(snappedTick, lane);
 
 			EditorUtility.SetDirty(chart);
-			RefreshPreview();
 			Repaint();
 		}
 
@@ -1159,7 +1010,6 @@ namespace MilliRhythm.Rhythm.Editor
 			note.Lane = lane;
 
 			EditorUtility.SetDirty(chart);
-			RefreshPreview();
 		}
 
 		private void DeleteSelectedNote()
@@ -1274,8 +1124,7 @@ namespace MilliRhythm.Rhythm.Editor
 
 			if (ticksPerMeasure % division != 0)
 			{
-				Debug.LogWarning(
-					$"TPB {chart.TicksPerBeat}에서는 1/{division} 스냅을 정확히 표현할 수 없습니다.");
+				Debug.LogWarning($"TPB {chart.TicksPerBeat}에서는 1/{division} 스냅을 정확히 표현할 수 없습니다.");
 			}
 
 			return Mathf.Max(1, ticksPerMeasure / division);
@@ -1395,7 +1244,6 @@ namespace MilliRhythm.Rhythm.Editor
 		{
 			var elapsed = EditorApplication.timeSinceStartup - playbackStartDspTime;
 			playHeadTime = playbackStartChartTime + elapsed;
-			RefreshPreview();
 		}
 
 		private void FollowPlayhead()
@@ -1409,8 +1257,7 @@ namespace MilliRhythm.Rhythm.Editor
 			}
 		}
 
-		private void SetChart(
-			RhythmChart newChart)
+		private void SetChart(RhythmChart newChart)
 		{
 			DisablePreview();
 			StopPlayback();
@@ -1479,11 +1326,7 @@ namespace MilliRhythm.Rhythm.Editor
 
 		private static void DrawDiamond(Vector2 center, float size)
 		{
-			Handles.DrawAAConvexPolygon(
-				new Vector3(center.x, center.y - size),
-				new Vector3(center.x + size, center.y),
-				new Vector3(center.x, center.y + size),
-				new Vector3(center.x - size, center.y));
+			Handles.DrawAAConvexPolygon(new Vector3(center.x, center.y - size), new Vector3(center.x + size, center.y), new Vector3(center.x, center.y + size), new Vector3(center.x - size, center.y));
 		}
 
 		private static void StopAudioPreview()
@@ -1514,8 +1357,7 @@ namespace MilliRhythm.Rhythm.Editor
 
 			chart.Notes.Add(new RhythmNote
 			{
-				Tick = recordedTick,
-				Lane = lane,
+				Tick = recordedTick, Lane = lane,
 			});
 
 			SortNotes();
@@ -1523,7 +1365,6 @@ namespace MilliRhythm.Rhythm.Editor
 			selectedNoteIndex = FindNoteIndex(recordedTick, lane);
 
 			EditorUtility.SetDirty(chart);
-			RefreshPreview();
 			Repaint();
 		}
 
@@ -1573,59 +1414,37 @@ namespace MilliRhythm.Rhythm.Editor
 				return;
 			}
 
-			var indicatorRect = new Rect(
-				timelineRect.x + 8f,
-				timelineRect.y + 4f,
-				120f,
-				20f);
+			var indicatorRect = new Rect(timelineRect.x + 8f, timelineRect.y + 4f, 120f, 20f);
 
 			var previousColor = GUI.color;
 			GUI.color = new Color(1f, 0.45f, 0.45f);
 
-			GUI.Label(
-				indicatorRect,
-				isPlaying ? "● Recording" : "● Record Armed",
-				EditorStyles.boldLabel);
+			GUI.Label(indicatorRect, isPlaying ? "● Recording" : "● Record Armed", EditorStyles.boldLabel);
 
 			GUI.color = previousColor;
 		}
 
 		private static Rect GetWaveformRect(Rect timelineRect)
 		{
-			return new Rect(
-				timelineRect.x,
-				timelineRect.y + TimelineHeaderHeight,
-				timelineRect.width,
-				WaveformHeight);
+			return new Rect(timelineRect.x, timelineRect.y + TimelineHeaderHeight, timelineRect.width, WaveformHeight);
 		}
 
 		private static Rect GetWaveformLabelRect(Rect labelRect)
 		{
-			return new Rect(
-				labelRect.x,
-				labelRect.y + TimelineHeaderHeight,
-				labelRect.width,
-				WaveformHeight);
+			return new Rect(labelRect.x, labelRect.y + TimelineHeaderHeight, labelRect.width, WaveformHeight);
 		}
 
 		private void DrawWaveformLabel(Rect labelRect)
 		{
 			var waveformLabelRect = GetWaveformLabelRect(labelRect);
 
-			EditorGUI.DrawRect(
-				waveformLabelRect,
-				new Color(0.15f, 0.15f, 0.15f));
+			EditorGUI.DrawRect(waveformLabelRect, new Color(0.15f, 0.15f, 0.15f));
 
-			GUI.Label(
-				waveformLabelRect,
-				"Waveform",
-				EditorStyles.centeredGreyMiniLabel);
+			GUI.Label(waveformLabelRect, "Waveform", EditorStyles.centeredGreyMiniLabel);
 
 			Handles.color = new Color(1f, 1f, 1f, 0.1f);
 
-			Handles.DrawLine(
-				new Vector3(waveformLabelRect.x, waveformLabelRect.yMax),
-				new Vector3(waveformLabelRect.xMax, waveformLabelRect.yMax));
+			Handles.DrawLine(new Vector3(waveformLabelRect.x, waveformLabelRect.yMax), new Vector3(waveformLabelRect.xMax, waveformLabelRect.yMax));
 		}
 
 		private void CacheWaveform()
@@ -1718,9 +1537,7 @@ namespace MilliRhythm.Rhythm.Editor
 		{
 			var waveformRect = GetWaveformRect(timelineRect);
 
-			EditorGUI.DrawRect(
-				waveformRect,
-				new Color(0.075f, 0.075f, 0.075f));
+			EditorGUI.DrawRect(waveformRect, new Color(0.075f, 0.075f, 0.075f));
 
 			if (chart.AudioClip == null)
 			{
@@ -1732,9 +1549,7 @@ namespace MilliRhythm.Rhythm.Editor
 
 			if (waveformCacheFailed)
 			{
-				DrawWaveformMessage(
-					waveformRect,
-					waveformErrorMessage ?? "파형을 생성하지 못했습니다.");
+				DrawWaveformMessage(waveformRect, waveformErrorMessage ?? "파형을 생성하지 못했습니다.");
 
 				return;
 			}
@@ -1755,8 +1570,7 @@ namespace MilliRhythm.Rhythm.Editor
 			DrawCachedWaveform(waveformRect, timelineRect);
 		}
 
-		private void DrawCachedWaveform(
-			Rect waveformRect,
+		private void DrawCachedWaveform(Rect waveformRect,
 			Rect timelineRect)
 		{
 			var centerY = waveformRect.center.y;
@@ -1787,60 +1601,35 @@ namespace MilliRhythm.Rhythm.Editor
 					endFrame = startFrame + 1;
 				}
 
-				startFrame = Mathf.Clamp(
-					startFrame,
-					0,
-					waveformFrameCount - 1);
+				startFrame = Mathf.Clamp(startFrame, 0, waveformFrameCount - 1);
 
-				endFrame = Mathf.Clamp(
-					endFrame,
-					startFrame + 1,
-					waveformFrameCount);
+				endFrame = Mathf.Clamp(endFrame, startFrame + 1, waveformFrameCount);
 
-				GetWaveformMinMax(
-					startFrame,
-					endFrame,
-					out var minValue,
-					out var maxValue);
-				var scaledMinValue = Mathf.Clamp(
-					minValue * WaveformAmplitudeScale,
-					-1f,
-					1f);
+				GetWaveformMinMax(startFrame, endFrame, out var minValue, out var maxValue);
+				var scaledMinValue = Mathf.Clamp(minValue * WaveformAmplitudeScale, -1f, 1f);
 
-				var scaledMaxValue = Mathf.Clamp(
-					maxValue * WaveformAmplitudeScale,
-					-1f,
-					1f);
+				var scaledMaxValue = Mathf.Clamp(maxValue * WaveformAmplitudeScale, -1f, 1f);
 
 				var upperY = centerY - scaledMaxValue * halfHeight;
 				var lowerY = centerY - scaledMinValue * halfHeight;
 
-				Handles.DrawLine(
-					new Vector3(pixelX, upperY),
-					new Vector3(pixelX, lowerY));
+				Handles.DrawLine(new Vector3(pixelX, upperY), new Vector3(pixelX, lowerY));
 			}
 
 			Handles.color = Color.white;
 
-			Handles.DrawLine(
-				new Vector3(waveformRect.x, centerY),
-				new Vector3(waveformRect.xMax, centerY));
+			Handles.DrawLine(new Vector3(waveformRect.x, centerY), new Vector3(waveformRect.xMax, centerY));
 
 			Handles.color = new Color(1f, 1f, 1f, 0.1f);
 
-			Handles.DrawLine(
-				new Vector3(waveformRect.x, waveformRect.yMax),
-				new Vector3(waveformRect.xMax, waveformRect.yMax));
+			Handles.DrawLine(new Vector3(waveformRect.x, waveformRect.yMax), new Vector3(waveformRect.xMax, waveformRect.yMax));
 
 			Handles.color = previousColor;
 		}
 
 		private static void DrawWaveformMessage(Rect waveformRect, string message)
 		{
-			GUI.Label(
-				waveformRect,
-				message,
-				EditorStyles.centeredGreyMiniLabel);
+			GUI.Label(waveformRect, message, EditorStyles.centeredGreyMiniLabel);
 		}
 
 		private int TimeToWaveformFrame(double time)
@@ -1851,22 +1640,14 @@ namespace MilliRhythm.Rhythm.Editor
 				return 0;
 			}
 
-			var clampedTime = Math.Clamp(
-				time,
-				0.0,
-				chart.AudioClip.length);
+			var clampedTime = Math.Clamp(time, 0.0, chart.AudioClip.length);
 
 			var normalizedTime = clampedTime / chart.AudioClip.length;
 
-			return Mathf.Clamp(
-				Mathf.FloorToInt(
-					(float)(normalizedTime * waveformFrameCount)),
-				0,
-				waveformFrameCount - 1);
+			return Mathf.Clamp(Mathf.FloorToInt((float)(normalizedTime * waveformFrameCount)), 0, waveformFrameCount - 1);
 		}
 
-		private void GetWaveformMinMax(
-			int startFrame,
+		private void GetWaveformMinMax(int startFrame,
 			int endFrame,
 			out float minValue,
 			out float maxValue)
@@ -1874,15 +1655,9 @@ namespace MilliRhythm.Rhythm.Editor
 			minValue = 1f;
 			maxValue = -1f;
 
-			startFrame = Mathf.Clamp(
-				startFrame,
-				0,
-				waveformFrameCount - 1);
+			startFrame = Mathf.Clamp(startFrame, 0, waveformFrameCount - 1);
 
-			endFrame = Mathf.Clamp(
-				endFrame,
-				startFrame + 1,
-				waveformFrameCount);
+			endFrame = Mathf.Clamp(endFrame, startFrame + 1, waveformFrameCount);
 
 			for (var frame = startFrame;
 			     frame < endFrame;
