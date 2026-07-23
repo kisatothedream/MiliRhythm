@@ -4,10 +4,28 @@ using UnityEngine;
 
 namespace MilliRhythm.Rhythm
 {
+	public enum ChartType
+	{
+		Melody,
+		Beat,
+	}
+
+	public enum Difficulty
+	{
+		Easy,
+		Normal,
+		Hard,
+		Expert,
+	}
+
 	[Serializable]
 	[CreateAssetMenu(fileName = "RhythmChart", menuName = "Rhythm Game/Rhythm Chart")]
 	public class RhythmChart : ScriptableObject
 	{
+		[field: SerializeField] public int MusicId;
+		[field: SerializeField] public ChartType ChartType;
+		[field: SerializeField] public Difficulty Difficulty;
+
 		[SerializeField] private AudioClip audioClip;
 		[SerializeField, HideInInspector] private double bpm;
 		[SerializeField, HideInInspector] private double offsetSeconds;

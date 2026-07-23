@@ -33,6 +33,7 @@ namespace MilliRhythm.Rhythm
 				1 => NoteType.Up,
 				2 => NoteType.Down,
 				3 => NoteType.Right,
+				_ => throw new ArgumentOutOfRangeException(nameof(lane), lane, null)
 			};
 		}
 	}
