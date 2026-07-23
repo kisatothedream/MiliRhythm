@@ -16,14 +16,17 @@ MonoBehaviour:
   ChartType: 0
   Difficulty: 0
   audioClip: {fileID: 8300000, guid: 8f29d94daebc0da49a9fa54d225e2f4a, type: 3}
-  bpm: 120
-  offsetSeconds: 0.18
+  bpm: 74
+  offsetSeconds: 0.52
   notes:
-  - Tick: 1200
+  - Tick: 480
     Lane: 0
     LengthTick: 0
-  - Tick: 2640
+  - Tick: 1920
     Lane: 0
+    LengthTick: 1920
+  - Tick: 3840
+    Lane: 1
     LengthTick: 0
   - Tick: 4320
     Lane: 0
