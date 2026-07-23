@@ -15,8 +15,13 @@ MonoBehaviour:
   m_GroupName: Default Local Group
   m_GUID: 0372e1eb82bf3ee41a525c81bb643914
   m_SerializeEntries:
+  - m_GUID: 146481ed4358a2b4cb62565fba95afee
+    m_Address: ChartDataRepository
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 843f96582cb7ab54b9cf3688da175ffc
-    m_Address: Assets/Data/Music/MusicDataRepository.asset
+    m_Address: MusicDataRepository
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

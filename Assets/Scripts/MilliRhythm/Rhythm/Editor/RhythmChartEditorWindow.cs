@@ -550,14 +550,14 @@ namespace MilliRhythm.Rhythm.Editor
 
 			DrawRecordingIndicator(timelineRect);
 
-			DrawWaveform(timelineRect);
+			// DrawWaveform(timelineRect);
 
 			DrawBeatGrid(timelineRect);
 			DrawNotes(timelineRect);
 			DrawPlayhead(timelineRect);
 			DrawTimelineHeader(timelineRect);
 			DrawLaneBackgrounds(labelRect, timelineRect);
-			DrawWaveformLabel(labelRect);
+			// DrawWaveformLabel(labelRect);
 
 			HandleTimelineInput(timelineRect);
 		}

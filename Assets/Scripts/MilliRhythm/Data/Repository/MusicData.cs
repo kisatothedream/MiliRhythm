@@ -3,6 +3,7 @@ using Cysharp.Threading.Tasks;
 using MilliRhythm.Data.GameDataService;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace MilliRhythm.Data.Repository
 {
@@ -25,20 +26,28 @@ namespace MilliRhythm.Data.Repository
 
 	public class MusicDataRepository : IGameDataRepository
 	{
+		private AsyncOperationHandle<MusicDataScriptableObject> handle;
 		private MusicDataScriptableObject musicDataObject;
-		private const string FileName = "Assets/Data/Music/MusicDataRepository.asset";
+		private const string FileKey = "MusicDataRepository";
 
 		private Dictionary<int, MusicData> musicDataMap = new();
 		private List<MusicData> musicDataList;
 
 		public async UniTask LoadAsync()
 		{
-			musicDataObject = await Addressables.LoadAssetAsync<MusicDataScriptableObject>(FileName).Task;
+			handle = Addressables.LoadAssetAsync<MusicDataScriptableObject>(FileKey);
+			musicDataObject = await handle.Task;
 			musicDataList = new List<MusicData>(musicDataObject.MusicDataList);
 			foreach (var musicData in musicDataList)
 			{
 				musicDataMap.Add(musicData.Id, musicData);
 			}
+		}
+
+		public void Release()
+		{
+			if (handle.IsValid())
+				Addressables.Release(handle);
 		}
 
 		public MusicData GetMusicDataById(int id)

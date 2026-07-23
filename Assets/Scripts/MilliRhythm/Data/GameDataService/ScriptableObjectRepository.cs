@@ -5,5 +5,6 @@ namespace MilliRhythm.Data.GameDataService
 	public abstract class ScriptableObjectRepository : IGameDataRepository
 	{
 		public abstract UniTask LoadAsync();
+		public abstract void Release();
 	}
 }

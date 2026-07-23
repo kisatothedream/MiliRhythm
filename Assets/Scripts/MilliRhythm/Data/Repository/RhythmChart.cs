@@ -4,6 +4,12 @@ using UnityEngine;
 
 namespace MilliRhythm.Rhythm
 {
+	public enum ChartType
+	{
+		Melody,
+		Beat,
+	}
+
 	public enum Difficulty
 	{
 		Easy,
@@ -17,6 +23,7 @@ namespace MilliRhythm.Rhythm
 	public class RhythmChart : ScriptableObject
 	{
 		[field: SerializeField] public int MusicId;
+		[field: SerializeField] public ChartType ChartType;
 		[field: SerializeField] public Difficulty Difficulty;
 
 		[SerializeField] private AudioClip audioClip;

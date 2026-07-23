@@ -27,6 +27,11 @@ namespace MilliRhythm.Data.GameDataService
 			}
 		}
 
+		public void Release()
+		{
+			dataById.Clear();
+		}
+
 		public TData Get(TKey id)
 		{
 			if (!dataById.TryGetValue(id, out var data))

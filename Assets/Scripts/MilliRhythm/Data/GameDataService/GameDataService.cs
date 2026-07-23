@@ -37,6 +37,7 @@ namespace MilliRhythm.Data.GameDataService
 				Register(localizationRepository);
 
 				await CreateAndRegisterAsync<MusicDataRepository>();
+				await CreateAndRegisterAsync<RhythmChartRepository>();
 				Initialized = true;
 
 				Debug.Log("Game Static Data Loaded");
@@ -77,6 +78,14 @@ namespace MilliRhythm.Data.GameDataService
 			}
 
 			return (TRepository)repository;
+		}
+
+		public static void ReleaseAllRepositories()
+		{
+			foreach (var repository in repositories.Values)
+			{
+				repository.Release();
+			}
 		}
 	}
 }
