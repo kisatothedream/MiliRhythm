@@ -832,7 +832,6 @@ namespace MilliRhythm.Rhythm.Editor
 				selectedNoteIndex = chart.Notes.IndexOf(note);
 
 				EditorUtility.SetDirty(chart);
-				RefreshPreview();
 				Repaint();
 			}
 
@@ -1139,7 +1138,6 @@ namespace MilliRhythm.Rhythm.Editor
 			selectedNoteIndex = FindNoteIndex(snappedTick, lane);
 
 			EditorUtility.SetDirty(chart);
-			RefreshPreview();
 			Repaint();
 		}
 
@@ -1159,7 +1157,6 @@ namespace MilliRhythm.Rhythm.Editor
 			note.Lane = lane;
 
 			EditorUtility.SetDirty(chart);
-			RefreshPreview();
 		}
 
 		private void DeleteSelectedNote()
@@ -1395,7 +1392,6 @@ namespace MilliRhythm.Rhythm.Editor
 		{
 			var elapsed = EditorApplication.timeSinceStartup - playbackStartDspTime;
 			playHeadTime = playbackStartChartTime + elapsed;
-			RefreshPreview();
 		}
 
 		private void FollowPlayhead()
@@ -1523,7 +1519,6 @@ namespace MilliRhythm.Rhythm.Editor
 			selectedNoteIndex = FindNoteIndex(recordedTick, lane);
 
 			EditorUtility.SetDirty(chart);
-			RefreshPreview();
 			Repaint();
 		}
 
