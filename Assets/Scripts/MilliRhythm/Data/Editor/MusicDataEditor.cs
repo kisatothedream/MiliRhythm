@@ -33,7 +33,7 @@ namespace MilliRhythm.Data.Editor
 					.Select(AssetDatabase.GUIDToAssetPath)
 					.Select(AssetDatabase.LoadAssetAtPath<MusicData>)
 					.Where(musicData => musicData != null)
-					.OrderBy(musicData => musicData.name)
+					.OrderBy(musicData => musicData.Id)
 					.ToList();
 
 				Undo.RecordObject(t, "Refresh Music Data List");
