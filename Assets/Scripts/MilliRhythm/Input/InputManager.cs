@@ -6,7 +6,7 @@ namespace MilliRhythm.Input
 	public class InputManager
 	{
 		public static InputManager Instance { get; private set; }
-		private readonly MilliRhythmInputs techLabsInputs;
+		private readonly MilliRhythmInputs milliRhythmInputs;
 		private MilliRhythmInputs.GameActions characterActions;
 
 		private InputSystemInputSource inputSystemInputSource;
@@ -15,8 +15,8 @@ namespace MilliRhythm.Input
 
 		private InputManager()
 		{
-			techLabsInputs = new MilliRhythmInputs();
-			techLabsInputs.Enable();
+			milliRhythmInputs = new MilliRhythmInputs();
+			milliRhythmInputs.Enable();
 		}
 
 		[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
@@ -35,7 +35,7 @@ namespace MilliRhythm.Input
 
 		private void Init()
 		{
-			inputSystemInputSource = new InputSystemInputSource(techLabsInputs);
+			inputSystemInputSource = new InputSystemInputSource(milliRhythmInputs);
 
 			//Initialize Feature Controls
 			GameControls = new GameControls();
