@@ -1,12 +1,9 @@
 {
-    "name": "Rhythm.Runtime",
+    "name": "Scene.Runtime",
     "rootNamespace": "",
     "references": [
-        "GUID:f51ebe6a0ceec4240a699833d6309b23",
-        "GUID:027509302a7b57f4aaf546660678db09",
-        "GUID:56edc74b087e8a0479f1f6c90f12921e",
-        "GUID:d47b8f88bce20904287a99b36fdd9903",
-        "GUID:c29ab804a1950d348b7bb925fb47bd66"
+        "GUID:c29ab804a1950d348b7bb925fb47bd66",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
