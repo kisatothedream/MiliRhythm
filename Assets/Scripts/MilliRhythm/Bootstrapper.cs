@@ -1,4 +1,6 @@
 using System;
+using Cysharp.Threading.Tasks;
+using MilliRhythm.Data.GameDataService;
 using MilliRhythm.Rhythm;
 using MilliRhythm.Scene;
 using MilliRhythm.Scene.Contracts;
@@ -11,10 +13,12 @@ namespace MilliRhythm
 		[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
 		private static void BeforeSceneLoad()
 		{
+			InitializeGameAsync().Forget();
 		}
 
-		private static void InitializeGame()
+		private static async UniTask InitializeGameAsync()
 		{
+			await GameDataLoader.LoadAsync();
 			SceneController.Instance.Initialize(CreateScene);
 		}
 
