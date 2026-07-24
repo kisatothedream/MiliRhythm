@@ -18,5 +18,10 @@ MonoBehaviour:
   <DescriptionKey>k__BackingField: 
   <JacketThumbnail>k__BackingField: {fileID: 0}
   <JacketPath>k__BackingField: 
-  <AudioPath>k__BackingField: 
+  <AudioClipReference>k__BackingField:
+    m_AssetGUID: 8f29d94daebc0da49a9fa54d225e2f4a
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 0
   <PreviewAudioPath>k__BackingField: 

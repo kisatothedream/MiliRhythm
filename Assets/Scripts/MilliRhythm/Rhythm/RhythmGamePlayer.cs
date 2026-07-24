@@ -4,6 +4,8 @@ using Cysharp.Threading.Tasks;
 using MilliRhythm.Data.Common;
 using MilliRhythm.Data.Repository;
 using MilliRhythm.Input;
+using MilliRhythm.Scene;
+using MilliRhythm.Scene.Contracts;
 using R3;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -13,6 +15,10 @@ namespace MilliRhythm.Rhythm
 {
 	public struct RhythmGameContext
 	{
+		public int CurrentMusicId;
+		public ChartType CurrentChartType;
+		public Difficulty CurrentDifficulty;
+
 		public AudioClip AudioClip;
 		public RhythmChart Chart;
 		public double StartTime;
@@ -65,6 +71,9 @@ namespace MilliRhythm.Rhythm
 			var audioClip = await audioClipHandle.Task;
 			var ctx = new RhythmGameContext
 			{
+				CurrentMusicId = musicData.Id,
+				CurrentChartType = rhythmChart.ChartType,
+				CurrentDifficulty = rhythmChart.Difficulty,
 				Chart = rhythmChart,
 				AudioClip = audioClip,
 				StartTime = AudioSettings.dspTime + 1f,
@@ -97,10 +106,20 @@ namespace MilliRhythm.Rhythm
 		{
 			while (clock.SongTime < endTime)
 			{
+				//Paused
 				TrySpawnNotes();
 				UpdateNotes();
 				await UniTask.NextFrame();
 			}
+
+			EndGame();
+		}
+
+		private void EndGame()
+		{
+			//Show Result and Retry
+			//Return To Music Select Scene
+			SceneController.Instance.RequestChangeScene(new MusicSelectorSceneParameter(context.CurrentMusicId, context.CurrentChartType, context.CurrentDifficulty));
 		}
 
 		private void UpdateNotes()
@@ -151,7 +170,6 @@ namespace MilliRhythm.Rhythm
 
 		private void JudgeNotesDown(int lane)
 		{
-			Debug.Log($"Judge Down");
 			foreach (var note in activeNotes)
 			{
 				if (note.IsJudgedDown) continue;
@@ -169,7 +187,6 @@ namespace MilliRhythm.Rhythm
 
 		private void JudgeNotesUp(int lane)
 		{
-			Debug.Log($"Judge Up");
 			foreach (var note in activeNotes)
 			{
 				if (!note.IsLongNote) continue;

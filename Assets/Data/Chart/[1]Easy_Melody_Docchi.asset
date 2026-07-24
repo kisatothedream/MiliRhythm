@@ -15,11 +15,10 @@ MonoBehaviour:
   MusicId: 1
   ChartType: 0
   Difficulty: 0
-  audioClip: {fileID: 8300000, guid: 8f29d94daebc0da49a9fa54d225e2f4a, type: 3}
   bpm: 74
-  offsetSeconds: 0.52
+  offsetSeconds: 0.54
   notes:
-  - Tick: 480
+  - Tick: 0
     Lane: 0
     LengthTick: 0
   - Tick: 1920
@@ -34,3 +33,4 @@ MonoBehaviour:
   - Tick: 6240
     Lane: 0
     LengthTick: 0
+  editorAudioClip: {fileID: 0}

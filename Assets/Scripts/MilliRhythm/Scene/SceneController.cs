@@ -38,7 +38,7 @@ namespace MilliRhythm.Scene
 			await SceneManager.LoadSceneAsync(currentScene.SceneIndex, LoadSceneMode.Single).ToUniTask();
 
 			await currentScene.Load();
-			currentScene.Init(sceneParameter);
+			await currentScene.Init(sceneParameter);
 
 			await currentScene.PlayEnterTransition();
 			isLoading = false;
