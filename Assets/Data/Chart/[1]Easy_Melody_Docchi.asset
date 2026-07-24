@@ -33,4 +33,4 @@ MonoBehaviour:
   - Tick: 6240
     Lane: 0
     LengthTick: 0
-  editorAudioClip: {fileID: 0}
+  editorAudioClip: {fileID: 8300000, guid: 8f29d94daebc0da49a9fa54d225e2f4a, type: 3}
