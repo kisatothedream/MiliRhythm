@@ -20,7 +20,7 @@ namespace MilliRhythm.Data.Repository
 		//Resource
 		[field: SerializeField] public Sprite JacketThumbnail { get; private set; }
 		[field: SerializeField] public string JacketPath { get; private set; }
-		[field: SerializeField] public string AudioPath { get; private set; }
+		[field: SerializeField] public AssetReferenceT<AudioClip> AudioClipReference { get; private set; }
 		[field: SerializeField] public string PreviewAudioPath { get; private set; }
 	}
 

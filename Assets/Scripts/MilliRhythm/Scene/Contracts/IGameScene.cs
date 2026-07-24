@@ -6,7 +6,7 @@ namespace MilliRhythm.Scene.Contracts
 	{
 		public abstract int SceneIndex { get; }
 		public abstract UniTask Load();
-		public abstract void Init(IGameSceneParameter parameter);
+		public abstract UniTask Init(IGameSceneParameter parameter);
 		public abstract void Start();
 		public abstract void Finish();
 		public abstract UniTask PlayEnterTransition();
@@ -19,7 +19,7 @@ namespace MilliRhythm.Scene.Contracts
 		public UniTask Load();
 
 		//이번 씬 세션에서 사용할 요소 로드
-		public void Init(IGameSceneParameter parameter);
+		public UniTask Init(IGameSceneParameter parameter);
 		public void Start();
 		public void Finish();
 

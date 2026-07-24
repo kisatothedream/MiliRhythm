@@ -2,17 +2,32 @@ using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using MilliRhythm.Data.Common;
+using MilliRhythm.Data.Repository;
 using MilliRhythm.Input;
 using R3;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace MilliRhythm.Rhythm
 {
+	public struct RhythmGameContext
+	{
+		public AudioClip AudioClip;
+		public RhythmChart Chart;
+		public double StartTime;
+		public double EndTime;
+	}
+
+	public enum RhythmGameModifier
+	{
+	}
+
 	public partial class RhythmGamePlayer : MonoBehaviour
 	{
 		private GameControls controls => InputManager.Instance.GameControls;
 		private RhythmClock clock;
-		[SerializeField] private RhythmChart chart;
+
+		private RhythmGameContext context;
 		[SerializeField] private AudioSource audioSource;
 		[SerializeField] private Note[] notePrefabs;
 		private List<RhythmNote> notes;
@@ -24,7 +39,6 @@ namespace MilliRhythm.Rhythm
 		[SerializeField] private Transform startPoint;
 		[SerializeField] private Transform endPoint;
 		private float laneLength;
-		private float speed;
 
 		private const double PerfectRangeTime = 0.045f;
 		private const double GoodRangeTime = 0.09f;
@@ -33,12 +47,7 @@ namespace MilliRhythm.Rhythm
 
 		private CompositeDisposable disposable;
 
-		private void Awake()
-		{
-			clock = new();
-		}
-
-		private void Register()
+		private void RegisterInputs()
 		{
 			disposable = new CompositeDisposable();
 			controls.Left.Subscribe(OnLeft).AddTo(disposable);
@@ -52,23 +61,42 @@ namespace MilliRhythm.Rhythm
 			disposable.Dispose();
 		}
 
-		public void PlayFromStart()
+		public void Finish()
 		{
-			Register();
+			Unregister();
+		}
 
-			nextNoteIndex = 0;
+		public async UniTask<RhythmGameContext> BuildContext(RhythmChart rhythmChart, MusicData musicData)
+		{
+			var audioClip = await Addressables.LoadAssetAsync<AudioClip>(musicData.AudioClipReference).Task;
+			var ctx = new RhythmGameContext
+			{
+				Chart = rhythmChart,
+				AudioClip = audioClip,
+				StartTime = AudioSettings.dspTime + 1f,
+				EndTime = audioClip.length + 5f,
+			};
+			return ctx;
+		}
+
+		public async UniTask InitializeGamePlayer(RhythmChart rhythmChart, MusicData musicData)
+		{
+			RegisterInputs();
+			context = await BuildContext(rhythmChart, musicData);
+
+			clock = new RhythmClock();
 			laneLength = Mathf.Abs(startPoint.position.y - endPoint.position.y);
-			speed = laneLength / ApproachingTime;
 
-			var startTime = AudioSettings.dspTime + 1f;
-			var endTime = chart.AudioClip.length + 5f;
-			activeNotes.Clear();
-			clock.StartClock(startTime);
-			audioSource.clip = chart.AudioClip;
-			audioSource.PlayScheduled(startTime);
-			notes = new List<RhythmNote>(chart.Notes);
+			clock.StartClock(context.StartTime);
+			audioSource.clip = context.AudioClip;
+			audioSource.PlayScheduled(context.StartTime);
+			notes = new List<RhythmNote>(context.Chart.Notes);
 			notes.Sort((a, b) => a.Tick.CompareTo(b.Tick));
-			PlaySong(endTime).Forget();
+		}
+
+		public void StartGame()
+		{
+			PlaySong(context.EndTime).Forget();
 		}
 
 		private async UniTask PlaySong(double endTime)
@@ -102,7 +130,7 @@ namespace MilliRhythm.Rhythm
 			while (nextNoteIndex < notes.Count)
 			{
 				var note = notes[nextNoteIndex];
-				var judgeTime = chart.TickToTime(note);
+				var judgeTime = context.Chart.TickToTime(note);
 				var spawnTime = judgeTime - ApproachingTime;
 
 				if (spawnTime > clock.SongTime)
@@ -116,13 +144,13 @@ namespace MilliRhythm.Rhythm
 		private void Spawn(RhythmNote note, double judgeTime)
 		{
 			var noteInstance = Instantiate(notePrefabs[note.Lane], lanes[note.Lane].localPosition, Quaternion.identity, lanes[note.Lane]);
-			var length = chart.TickToTime(note.LengthTick);
+			var noteLength = context.Chart.TickToTime(note);
 			noteInstance.Lane = note.Lane;
-			noteInstance.NoteLength = length;
+			noteInstance.NoteLength = noteLength;
 			noteInstance.StartTime = judgeTime - ApproachingTime;
 			noteInstance.HeadTime = judgeTime;
-			noteInstance.TailTime = judgeTime + length;
-			noteInstance.EndTime = judgeTime + length + 1;
+			noteInstance.TailTime = judgeTime + noteLength;
+			noteInstance.EndTime = judgeTime + noteLength + 1;
 			noteInstance.LaneLength = laneLength;
 			activeNotes.Add(noteInstance);
 		}

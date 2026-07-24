@@ -10,5 +10,6 @@ namespace MilliRhythm.Scene.Contracts
 	{
 		public int MusicId;
 		public ChartType ChartType;
+		public Difficulty Difficulty;
 	}
 }

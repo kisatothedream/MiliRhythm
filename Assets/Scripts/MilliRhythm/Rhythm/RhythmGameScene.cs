@@ -1,7 +1,11 @@
+using System;
 using Cysharp.Threading.Tasks;
 using MilliRhythm.CustomException;
+using MilliRhythm.Data.GameDataService;
 using MilliRhythm.Scene.Contracts;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using Object = UnityEngine.Object;
 
 namespace MilliRhythm.Rhythm
 {
@@ -20,16 +24,26 @@ namespace MilliRhythm.Rhythm
 			}
 		}
 
-		public override void Init(IGameSceneParameter parameter)
+		public override async UniTask Init(IGameSceneParameter parameter)
 		{
+			if (parameter is not RhythmGameSceneParameter sceneParameter)
+			{
+				throw new ArgumentException($"Scene parameter is not {typeof(RhythmGameSceneParameter)}");
+			}
+
+			var music = GameDataService.GetMusicData(sceneParameter.MusicId);
+			var chart = GameDataService.GetChartData(sceneParameter.MusicId, sceneParameter.ChartType, sceneParameter.Difficulty);
+			await rhythmGamePlayer.InitializeGamePlayer(chart, music);
 		}
 
 		public override void Start()
 		{
+			rhythmGamePlayer.StartGame();
 		}
 
 		public override void Finish()
 		{
+			rhythmGamePlayer.Finish();
 		}
 
 		public override async UniTask PlayEnterTransition()

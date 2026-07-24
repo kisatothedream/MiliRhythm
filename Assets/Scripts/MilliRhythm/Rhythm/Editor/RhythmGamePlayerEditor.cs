@@ -14,7 +14,7 @@ namespace MilliRhythm.Rhythm.Editor
 
 			if (GUILayout.Button("Play"))
 			{
-				t.PlayFromStart();
+				t.StartGame();
 			}
 		}
 		
