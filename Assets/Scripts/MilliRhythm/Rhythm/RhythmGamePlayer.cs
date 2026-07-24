@@ -7,6 +7,7 @@ using MilliRhythm.Input;
 using R3;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace MilliRhythm.Rhythm
 {
@@ -47,28 +48,21 @@ namespace MilliRhythm.Rhythm
 
 		private CompositeDisposable disposable;
 
-		private void RegisterInputs()
-		{
-			disposable = new CompositeDisposable();
-			controls.Left.Subscribe(OnLeft).AddTo(disposable);
-			controls.Up.Subscribe(OnUp).AddTo(disposable);
-			controls.Down.Subscribe(OnDown).AddTo(disposable);
-			controls.Right.Subscribe(OnRight).AddTo(disposable);
-		}
-
-		private void Unregister()
-		{
-			disposable.Dispose();
-		}
+		private AsyncOperationHandle<AudioClip> audioClipHandle;
 
 		public void Finish()
 		{
 			Unregister();
+			if (audioClipHandle.IsValid())
+			{
+				Addressables.Release(audioClipHandle);
+			}
 		}
 
-		public async UniTask<RhythmGameContext> BuildContext(RhythmChart rhythmChart, MusicData musicData)
+		private async UniTask<RhythmGameContext> BuildContext(RhythmChart rhythmChart, MusicData musicData)
 		{
-			var audioClip = await Addressables.LoadAssetAsync<AudioClip>(musicData.AudioClipReference).Task;
+			audioClipHandle = Addressables.LoadAssetAsync<AudioClip>(musicData.AudioClipReference);
+			var audioClip = await audioClipHandle.Task;
 			var ctx = new RhythmGameContext
 			{
 				Chart = rhythmChart,
@@ -155,36 +149,11 @@ namespace MilliRhythm.Rhythm
 			activeNotes.Add(noteInstance);
 		}
 
-		private void OnLeft(bool pressed)
-		{
-			if (pressed) JudgeNotesDown(NoteType.Left.GetLane());
-			else JudgeNotesUp(NoteType.Left.GetLane());
-		}
-
-		private void OnUp(bool pressed)
-		{
-			if (pressed) JudgeNotesDown(NoteType.Up.GetLane());
-			else JudgeNotesUp(NoteType.Up.GetLane());
-		}
-
-		private void OnDown(bool pressed)
-		{
-			if (pressed) JudgeNotesDown(NoteType.Down.GetLane());
-			else JudgeNotesUp(NoteType.Down.GetLane());
-		}
-
-		private void OnRight(bool pressed)
-		{
-			if (pressed) JudgeNotesDown(NoteType.Right.GetLane());
-			else JudgeNotesUp(NoteType.Right.GetLane());
-		}
-
 		private void JudgeNotesDown(int lane)
 		{
 			Debug.Log($"Judge Down");
-			for (var i = 0; i < activeNotes.Count; i++)
+			foreach (var note in activeNotes)
 			{
-				var note = activeNotes[i];
 				if (note.IsJudgedDown) continue;
 				if (note.Lane != lane) continue;
 
@@ -201,9 +170,8 @@ namespace MilliRhythm.Rhythm
 		private void JudgeNotesUp(int lane)
 		{
 			Debug.Log($"Judge Up");
-			for (var i = 0; i < activeNotes.Count; i++)
+			foreach (var note in activeNotes)
 			{
-				var note = activeNotes[i];
 				if (!note.IsLongNote) continue;
 				if (!note.IsJudgedDown) continue;
 				if (note.IsJudgedUp) continue;
@@ -260,10 +228,8 @@ namespace MilliRhythm.Rhythm
 
 			CreateEditorPreviewRoots();
 
-			for (var i = 0; i < previewChart.Notes.Count; i++)
+			foreach (var rhythmNote in previewChart.Notes)
 			{
-				var rhythmNote = previewChart.Notes[i];
-
 				if (!CanCreateEditorPreviewNote(rhythmNote.Lane))
 				{
 					continue;
@@ -307,10 +273,8 @@ namespace MilliRhythm.Rhythm
 
 		public void UpdateEditorPreview(double songTime)
 		{
-			for (var i = 0; i < editorPreviewNotes.Count; i++)
+			foreach (var note in editorPreviewNotes)
 			{
-				var note = editorPreviewNotes[i];
-
 				if (note == null)
 				{
 					continue;
@@ -344,10 +308,8 @@ namespace MilliRhythm.Rhythm
 				return;
 			}
 
-			for (var lane = 0; lane < lanes.Length; lane++)
+			foreach (var laneTransform in lanes)
 			{
-				var laneTransform = lanes[lane];
-
 				if (laneTransform == null)
 				{
 					continue;
