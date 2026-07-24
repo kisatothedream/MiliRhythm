@@ -3,15 +3,13 @@ using Cysharp.Threading.Tasks;
 using MilliRhythm.CustomException;
 using MilliRhythm.Data.GameDataService;
 using MilliRhythm.Scene.Contracts;
-using UnityEngine;
-using UnityEngine.AddressableAssets;
 using Object = UnityEngine.Object;
 
 namespace MilliRhythm.Rhythm
 {
 	public sealed class RhythmGameScene : GameSceneBase
 	{
-		public override int SceneIndex => 1;
+		public override int SceneIndex => 2;
 
 		private RhythmGamePlayer rhythmGamePlayer;
 

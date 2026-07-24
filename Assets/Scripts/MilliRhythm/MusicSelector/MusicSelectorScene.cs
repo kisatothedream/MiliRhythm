@@ -1,16 +1,33 @@
-using UnityEngine;
+using Cysharp.Threading.Tasks;
+using MilliRhythm.Scene.Contracts;
 
-public class MusicSelectorScene : MonoBehaviour
+namespace MilliRhythm.MusicSelector
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+	public class MusicSelectorScene : GameSceneBase
+	{
+		public override int SceneIndex => 1;
+		public override async UniTask Load()
+		{
+		}
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+		public override async UniTask Init(IGameSceneParameter parameter)
+		{
+		}
+
+		public override void Start()
+		{
+		}
+
+		public override void Finish()
+		{
+		}
+
+		public override async UniTask PlayEnterTransition()
+		{
+		}
+
+		public override async UniTask PlayExitTransition()
+		{
+		}
+	}
 }

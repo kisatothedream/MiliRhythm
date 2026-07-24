@@ -1,6 +1,7 @@
 using System;
 using Cysharp.Threading.Tasks;
 using MilliRhythm.Data.GameDataService;
+using MilliRhythm.MusicSelector;
 using MilliRhythm.Rhythm;
 using MilliRhythm.Scene;
 using MilliRhythm.Scene.Contracts;
@@ -27,6 +28,7 @@ namespace MilliRhythm
 			return sceneParameter switch
 			{
 				RhythmGameSceneParameter => new RhythmGameScene(),
+				MusicSelectorSceneParameter => new MusicSelectorScene(),
 				_ => throw new ArgumentOutOfRangeException(nameof(sceneParameter), sceneParameter, null)
 			};
 		}
