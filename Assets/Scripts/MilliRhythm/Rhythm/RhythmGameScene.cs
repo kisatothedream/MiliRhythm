@@ -1,16 +1,26 @@
+using Cysharp.Threading.Tasks;
+using MilliRhythm.CustomException;
 using MilliRhythm.Scene.Contracts;
+using UnityEngine;
 
 namespace MilliRhythm.Rhythm
 {
 	public sealed class RhythmGameScene : GameSceneBase
 	{
-		public override string SceneName => "RhythmGameScene";
+		public override int SceneIndex => 1;
 
-		public override void Load()
+		private RhythmGamePlayer rhythmGamePlayer;
+
+		public override async UniTask Load()
 		{
+			rhythmGamePlayer = Object.FindFirstObjectByType<RhythmGamePlayer>();
+			if (rhythmGamePlayer == null)
+			{
+				throw new MissingSceneComponentException(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name, typeof(RhythmGamePlayer));
+			}
 		}
 
-		public override void Init()
+		public override void Init(IGameSceneParameter parameter)
 		{
 		}
 
@@ -22,11 +32,11 @@ namespace MilliRhythm.Rhythm
 		{
 		}
 
-		public override void PlayEnterTransition()
+		public override async UniTask PlayEnterTransition()
 		{
 		}
 
-		public override void PlayExitTransition()
+		public override async UniTask PlayExitTransition()
 		{
 		}
 	}

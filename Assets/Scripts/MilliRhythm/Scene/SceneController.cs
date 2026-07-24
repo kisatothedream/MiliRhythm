@@ -28,15 +28,20 @@ namespace MilliRhythm.Scene
 		private async UniTask LoadSceneAsync(IGameSceneParameter sceneParameter)
 		{
 			isLoading = true;
-			currentScene?.Finish();
+			if (currentScene != null)
+			{
+				await currentScene.PlayExitTransition();
+				currentScene.Finish();
+			}
 
 			currentScene = sceneFactory.Invoke(sceneParameter);
-			await SceneManager.LoadSceneAsync(currentScene.SceneName, LoadSceneMode.Single).ToUniTask();
+			await SceneManager.LoadSceneAsync(currentScene.SceneIndex, LoadSceneMode.Single).ToUniTask();
 
-			currentScene.Load();
-			currentScene.Init();
+			await currentScene.Load();
+			currentScene.Init(sceneParameter);
+
+			await currentScene.PlayEnterTransition();
 			isLoading = false;
-
 			currentScene.Start();
 		}
 	}
