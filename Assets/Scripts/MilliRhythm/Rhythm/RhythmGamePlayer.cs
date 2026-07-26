@@ -52,13 +52,17 @@ namespace MilliRhythm.Rhythm
 		private const double NormalRangeTime = 0.135f;
 		private const double BadRangeTime = 0.160f;
 
-		private CompositeDisposable disposable;
+		private CompositeDisposable inputDisposable;
+		private CompositeDisposable characterDisposable;
 
 		private AsyncOperationHandle<AudioClip> audioClipHandle;
 
+		[SerializeField] private RhythmGameCharacter character;
+
 		public void Finish()
 		{
-			Unregister();
+			UnregisterInputs();
+			UnregisterCharacter();
 			if (audioClipHandle.IsValid())
 			{
 				Addressables.Release(audioClipHandle);
@@ -85,6 +89,7 @@ namespace MilliRhythm.Rhythm
 		public async UniTask InitializeGamePlayer(RhythmChart rhythmChart, MusicData musicData)
 		{
 			RegisterInputs();
+			RegisterCharacter();
 			context = await BuildContext(rhythmChart, musicData);
 
 			clock = new RhythmClock();
@@ -119,7 +124,8 @@ namespace MilliRhythm.Rhythm
 		{
 			//Show Result and Retry
 			//Return To Music Select Scene
-			SceneController.Instance.RequestChangeScene(new MusicSelectorSceneParameter(context.CurrentMusicId, context.CurrentChartType, context.CurrentDifficulty));
+			SceneController.Instance.RequestChangeScene(new MusicSelectorSceneParameter(context.CurrentMusicId, context.CurrentChartType,
+				context.CurrentDifficulty));
 		}
 
 		private void UpdateNotes()

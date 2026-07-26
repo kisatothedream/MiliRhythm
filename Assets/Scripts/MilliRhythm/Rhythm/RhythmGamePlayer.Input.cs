@@ -6,16 +6,16 @@ namespace MilliRhythm.Rhythm
 	{
 		private void RegisterInputs()
 		{
-			disposable = new CompositeDisposable();
-			controls.Left.Subscribe(OnLeft).AddTo(disposable);
-			controls.Up.Subscribe(OnUp).AddTo(disposable);
-			controls.Down.Subscribe(OnDown).AddTo(disposable);
-			controls.Right.Subscribe(OnRight).AddTo(disposable);
+			inputDisposable = new CompositeDisposable();
+			controls.Left.Subscribe(OnLeft).AddTo(inputDisposable);
+			controls.Up.Subscribe(OnUp).AddTo(inputDisposable);
+			controls.Down.Subscribe(OnDown).AddTo(inputDisposable);
+			controls.Right.Subscribe(OnRight).AddTo(inputDisposable);
 		}
 
-		private void Unregister()
+		private void UnregisterInputs()
 		{
-			disposable.Dispose();
+			inputDisposable.Dispose();
 		}
 
 		private void OnLeft(bool pressed)
