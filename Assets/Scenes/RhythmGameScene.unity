@@ -1143,7 +1143,7 @@ MonoBehaviour:
   - {fileID: 1215924530}
   startPoint: {fileID: 1789318870}
   endPoint: {fileID: 402460690}
-  character: {fileID: 0}
+  character: {fileID: 1977033682}
 --- !u!4 &1323735456
 Transform:
   m_ObjectHideFlags: 0
@@ -1378,7 +1378,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &4048723876031674486
+--- !u!1001 &1977033681
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -1388,11 +1388,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2734844854305047335, guid: 7b8bc5bd76629854a8f5e20b6815a999, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.4
+      value: -0.34682
       objectReference: {fileID: 0}
     - target: {fileID: 2734844854305047335, guid: 7b8bc5bd76629854a8f5e20b6815a999, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.61
+      value: 3.59
       objectReference: {fileID: 0}
     - target: {fileID: 2734844854305047335, guid: 7b8bc5bd76629854a8f5e20b6815a999, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1435,6 +1435,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b8bc5bd76629854a8f5e20b6815a999, type: 3}
+--- !u!114 &1977033682 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4971669463602903498, guid: 7b8bc5bd76629854a8f5e20b6815a999, type: 3}
+  m_PrefabInstance: {fileID: 1977033681}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd5ff43868bfb7f45bb20237f92f0e75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Rhythm.Runtime::MilliRhythm.Rhythm.RhythmGameCharacter
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1453,4 +1464,4 @@ SceneRoots:
   - {fileID: 576975820}
   - {fileID: 1789318870}
   - {fileID: 402460690}
-  - {fileID: 4048723876031674486}
+  - {fileID: 1977033681}

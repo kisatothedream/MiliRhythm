@@ -26,14 +26,16 @@ namespace MilliRhythm.Rhythm
 		[field: SerializeField] public ChartType ChartType;
 		[field: SerializeField] public Difficulty Difficulty;
 
-		[SerializeField] private AudioClip audioClip;
 		[SerializeField, HideInInspector] private double bpm;
 		[SerializeField, HideInInspector] private double offsetSeconds;
 		[SerializeField] private List<RhythmNote> notes = new();
 		private const int ticksPerBeat = 480;
 		private const int laneCount = 4;
 
-		public AudioClip AudioClip => audioClip;
+#if UNITY_EDITOR
+		[SerializeField] private AudioClip editorAudioClip;
+		public AudioClip EditorAudioClip => editorAudioClip;
+#endif
 		public double Bpm => bpm;
 		public double OffsetSeconds => offsetSeconds;
 		public int TicksPerBeat => ticksPerBeat;

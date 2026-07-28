@@ -1170,7 +1170,7 @@ namespace MilliRhythm.Rhythm.Editor
 
 		private void StartPlayback()
 		{
-			if (chart == null || chart.AudioClip == null)
+			if (chart == null || chart.EditorAudioClip == null)
 			{
 				return;
 			}
@@ -1186,7 +1186,7 @@ namespace MilliRhythm.Rhythm.Editor
 			playbackStartDspTime = EditorApplication.timeSinceStartup;
 			isPlaying = true;
 
-			AudioPreviewUtility.Play(chart.AudioClip, (float)playHeadTime);
+			AudioPreviewUtility.Play(chart.EditorAudioClip, (float)playHeadTime);
 		}
 
 		private void PausePlayback()
@@ -1221,12 +1221,12 @@ namespace MilliRhythm.Rhythm.Editor
 		{
 			if (isPlaying &&
 			    chart != null &&
-			    chart.AudioClip != null)
+			    chart.EditorAudioClip != null)
 			{
 				UpdatePlayheadTime();
 
 				if (playHeadTime >=
-				    chart.AudioClip.length)
+				    chart.EditorAudioClip.length)
 				{
 					StopPlayback();
 				}
@@ -1449,7 +1449,7 @@ namespace MilliRhythm.Rhythm.Editor
 
 		private void CacheWaveform()
 		{
-			var audioClip = chart?.AudioClip;
+			var audioClip = chart?.EditorAudioClip;
 
 			if (audioClip == null)
 			{
@@ -1539,7 +1539,7 @@ namespace MilliRhythm.Rhythm.Editor
 
 			EditorGUI.DrawRect(waveformRect, new Color(0.075f, 0.075f, 0.075f));
 
-			if (chart.AudioClip == null)
+			if (chart.EditorAudioClip == null)
 			{
 				DrawWaveformMessage(waveformRect, "AudioClip이 없습니다.");
 				return;
@@ -1588,7 +1588,7 @@ namespace MilliRhythm.Rhythm.Editor
 				var endTime = XToTime(pixelX + 1f, timelineRect);
 
 				if (endTime < 0.0 ||
-				    startTime > chart.AudioClip.length)
+				    startTime > chart.EditorAudioClip.length)
 				{
 					continue;
 				}
@@ -1634,15 +1634,15 @@ namespace MilliRhythm.Rhythm.Editor
 
 		private int TimeToWaveformFrame(double time)
 		{
-			if (chart?.AudioClip == null ||
+			if (chart?.EditorAudioClip == null ||
 			    waveformFrameCount <= 0)
 			{
 				return 0;
 			}
 
-			var clampedTime = Math.Clamp(time, 0.0, chart.AudioClip.length);
+			var clampedTime = Math.Clamp(time, 0.0, chart.EditorAudioClip.length);
 
-			var normalizedTime = clampedTime / chart.AudioClip.length;
+			var normalizedTime = clampedTime / chart.EditorAudioClip.length;
 
 			return Mathf.Clamp(Mathf.FloorToInt((float)(normalizedTime * waveformFrameCount)), 0, waveformFrameCount - 1);
 		}
