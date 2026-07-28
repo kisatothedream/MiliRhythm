@@ -50,6 +50,8 @@ namespace MilliRhythm.Data.Repository
 				Addressables.Release(handle);
 		}
 
+		public List<MusicData> GetAllMusicData() => musicDataList;
+
 		public MusicData GetMusicDataById(int id)
 		{
 			if (!musicDataMap.TryGetValue(id, out var data))
