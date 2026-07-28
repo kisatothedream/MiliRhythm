@@ -1,7 +1,7 @@
 using Cysharp.Threading.Tasks;
 using MilliRhythm.Scene.Contracts;
 
-namespace MilliRhythm.MusicSelector
+namespace MilliRhythm.TrackSelector
 {
 	public class MusicSelectorScene : GameSceneBase
 	{
