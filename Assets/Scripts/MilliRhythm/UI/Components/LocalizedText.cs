@@ -22,11 +22,13 @@ namespace MilliRhythm.UI.Components
 
 		private void OnEnable()
 		{
+			L10N.OnLanguageChanged += OnLanguageChanged;
 			Refresh();
 		}
 
 		private void OnDisable()
 		{
+			L10N.OnLanguageChanged -= OnLanguageChanged;
 		}
 
 		public void SetLocalizationKey(string key)
@@ -60,7 +62,7 @@ namespace MilliRhythm.UI.Components
 			Debug.LogWarning($"Localization key not found. " + $"Object: {name}, Key: {localizationKey}", this);
 		}
 
-		private void OnLanguageChanged(LanguageType language)
+		private void OnLanguageChanged()
 		{
 			Refresh();
 		}
