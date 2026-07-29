@@ -22,7 +22,7 @@ namespace MilliRhythm
 		{
 			await GameDataLoader.LoadAsync();
 			SceneController.Instance.Initialize(CreateScene);
-			SceneController.Instance.RequestChangeScene(new RhythmGameSceneParameter(1, ChartType.Melody, Difficulty.Easy));
+			SceneController.Instance.RequestChangeScene(new MusicSelectorSceneParameter());
 
 			ConfigManager.Instance.Load();
 		}

@@ -1086,7 +1086,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: TrackSelector.Runtime::MilliRhythm.TrackSelector.TrackSelectorListView
   selectedMark: {fileID: 0}
   button: {fileID: 33183389}
-  jacketImage: {fileID: 0}
+  thumbnailImage: {fileID: 0}
   trackName: {fileID: 0}
 --- !u!222 &434478082
 CanvasRenderer:
@@ -1150,7 +1150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: TrackSelector.Runtime::MilliRhythm.TrackSelector.TrackSelectorListView
   selectedMark: {fileID: 0}
   button: {fileID: 1600982216}
-  jacketImage: {fileID: 0}
+  thumbnailImage: {fileID: 0}
   trackName: {fileID: 0}
 --- !u!222 &465642572
 CanvasRenderer:
@@ -1572,6 +1572,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 775579424}
   m_CullTransparentMesh: 1
+--- !u!1 &817374257
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 817374259}
+  - component: {fileID: 817374258}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &817374258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 817374257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d828afd2e0269f479412d10934d1bee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Audio.Runtime::MilliRhythm.Audio.AudioManager
+  audioMixer: {fileID: 24100000, guid: 4348e60d07897804486496b7c8d346f9, type: 2}
+--- !u!4 &817374259
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 817374257}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.06024, y: 0.03012, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &931995946
 GameObject:
   m_ObjectHideFlags: 0
@@ -1878,7 +1923,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: TrackSelector.Runtime::MilliRhythm.TrackSelector.TrackSelectorListView
   selectedMark: {fileID: 0}
   button: {fileID: 640510466}
-  jacketImage: {fileID: 0}
+  thumbnailImage: {fileID: 0}
   trackName: {fileID: 0}
 --- !u!222 &1193154935
 CanvasRenderer:
@@ -2873,3 +2918,4 @@ SceneRoots:
   - {fileID: 1893638853}
   - {fileID: 1089592602}
   - {fileID: 310938063}
+  - {fileID: 817374259}

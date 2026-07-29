@@ -13,7 +13,7 @@ namespace MilliRhythm.Audio
 		[SerializeField] private AudioMixer audioMixer;
 
 		private const string MasterVolumeParameter = "MasterVolume";
-		private const string MusicVolumeParameter = "BgmVolume";
+		private const string MusicVolumeParameter = "MusicVolume";
 		private const string SfxVolumeParameter = "SfxVolume";
 
 		private void Awake()
