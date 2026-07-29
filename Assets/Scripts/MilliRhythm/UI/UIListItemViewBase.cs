@@ -6,11 +6,11 @@ namespace MilliRhythm.UI
 	public abstract class UIListItemViewBase<TModel, TId> : MonoBehaviour where TModel : UIListItemModelBase<TId> where TId : IEquatable<TId>
 	{
 		public TId Id => model.Id;
-		protected TModel model;
+		public TModel Model { get; protected set; }
 
 		public virtual void Set(TModel m)
 		{
-			model = m;
+			Model = m;
 			ApplyModel(m);
 		}
 

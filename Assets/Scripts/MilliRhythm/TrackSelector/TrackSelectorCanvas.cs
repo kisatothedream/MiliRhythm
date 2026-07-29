@@ -31,8 +31,8 @@ namespace MilliRhythm.TrackSelector
 					JacketSpriteReference = musicData.JacketSprite,
 					PreviewAudioClip = musicData.PreviewAudioClip,
 					AudioClipReference = musicData.AudioClipReference,
-					trackName = musicData.Name,
-					trackVocal = musicData.Vocals,
+					TrackName = musicData.Name,
+					TrackVocal = musicData.Vocals,
 				};
 			}
 

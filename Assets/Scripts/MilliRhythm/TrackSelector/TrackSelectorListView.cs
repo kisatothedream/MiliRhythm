@@ -6,11 +6,15 @@ using UnityEngine.UI;
 
 namespace MilliRhythm.TrackSelector
 {
-	public class TrackSelectorListView: UIListItemViewBase<TrackSelectorListModel, int>
+	public class TrackSelectorListView : UIListItemViewBase<TrackSelectorListModel, int>
 	{
+		public bool IsFiltered { get; private set; }
+		public int NavigationId { get; private set; }
 		[SerializeField] private GameObject selectedMark;
 		[SerializeField] private Button button;
+
 		[SerializeField] private Image thumbnailImage;
+
 		//랭크 정보
 		[SerializeField] private TextMeshProUGUI trackName;
 		private Action<TrackSelectorListModel> onClickButtonAction;
@@ -32,9 +36,14 @@ namespace MilliRhythm.TrackSelector
 
 		protected override void ApplyModel(TrackSelectorListModel m)
 		{
-			model = m;
-			thumbnailImage.sprite = model.ThumbnailSprite;
-			trackName.text = $"{model.trackName}";
+			Model = m;
+			thumbnailImage.sprite = Model.ThumbnailSprite;
+			trackName.text = $"{Model.TrackName}";
+		}
+
+		public void SetNavigationId(int navigationId)
+		{
+			NavigationId = navigationId;
 		}
 
 		protected override void UpdateUI(bool selected)
@@ -44,7 +53,13 @@ namespace MilliRhythm.TrackSelector
 
 		private void OnClickButtonAction()
 		{
-			onClickButtonAction?.Invoke(model);
+			onClickButtonAction?.Invoke(Model);
+		}
+
+		public void SetFiltered(bool isFiltered)
+		{
+			IsFiltered = isFiltered;
+			gameObject.SetActive(!isFiltered);
 		}
 	}
 }

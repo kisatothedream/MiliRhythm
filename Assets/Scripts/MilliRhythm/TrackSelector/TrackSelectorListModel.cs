@@ -15,8 +15,8 @@ namespace MilliRhythm.TrackSelector
 		public AssetReferenceSprite JacketSpriteReference;
 		public AudioClip PreviewAudioClip;
 		public AssetReferenceT<AudioClip> AudioClipReference;
-		public string trackName;
-		public Member trackVocal;
+		public string TrackName;
+		public Member TrackVocal;
 		public string Rank;
 	}
 }
