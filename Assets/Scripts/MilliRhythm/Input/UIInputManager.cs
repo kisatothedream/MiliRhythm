@@ -30,7 +30,6 @@ namespace MilliRhythm.Input
 
 		public void Unregister(IUIInputListener inputListener)
 		{
-			//자기 차례에 자기가 제대로 하는건가??
 			popupStack.Pop();
 			UnregisterToControls(inputListener);
 		}
