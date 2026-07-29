@@ -65,6 +65,11 @@ namespace MilliRhythm.Data.GameDataService
 			}
 		}
 
+		private static void Replace(LocalizationDataRepository repository)
+		{
+			repositories[typeof(LocalizationDataRepository)] = repository;
+		}
+
 		public static TRepository GetData<TRepository>() where TRepository : IGameDataRepository
 		{
 			if (!Initialized)
@@ -86,6 +91,24 @@ namespace MilliRhythm.Data.GameDataService
 			{
 				repository.Release();
 			}
+		}
+
+		public static async UniTask RequestReloadLanguage(LanguageType type)
+		{
+			try
+			{
+				var last = repositories[typeof(LocalizationDataRepository)];
+				var localizationRepository = new LocalizationDataRepository(type);
+				await localizationRepository.LoadAsync();
+				Replace(localizationRepository);
+				last.Release();
+			}
+			catch (Exception e)
+			{
+				throw new Exception($"Failed to reload language. Type: {type}. Reason: {e.Message}", e);
+			}
+
+			L10N.RefreshLanguage();
 		}
 	}
 }
