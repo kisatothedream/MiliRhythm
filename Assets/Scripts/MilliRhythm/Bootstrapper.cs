@@ -1,5 +1,6 @@
 using System;
 using Cysharp.Threading.Tasks;
+using MilliRhythm.Config;
 using MilliRhythm.Data.GameDataService;
 using MilliRhythm.Rhythm;
 using MilliRhythm.Scene;
@@ -22,6 +23,8 @@ namespace MilliRhythm
 			await GameDataLoader.LoadAsync();
 			SceneController.Instance.Initialize(CreateScene);
 			SceneController.Instance.RequestChangeScene(new RhythmGameSceneParameter(1, ChartType.Melody, Difficulty.Easy));
+
+			ConfigManager.Instance.Load();
 		}
 
 		private static GameSceneBase CreateScene(IGameSceneParameter sceneParameter)
