@@ -11,8 +11,10 @@ namespace MilliRhythm.TrackSelector
 		{
 		}
 
-		public Sprite MiniJacketSprite;
+		public Sprite ThumbnailSprite;
 		public AssetReferenceSprite JacketSpriteReference;
+		public AudioClip PreviewAudioClip;
+		public AssetReferenceT<AudioClip> AudioClipReference;
 		public string trackName;
 		public Member trackVocal;
 		public string Rank;

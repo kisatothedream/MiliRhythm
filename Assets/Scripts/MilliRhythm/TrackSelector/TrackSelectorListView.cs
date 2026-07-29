@@ -10,7 +10,8 @@ namespace MilliRhythm.TrackSelector
 	{
 		[SerializeField] private GameObject selectedMark;
 		[SerializeField] private Button button;
-		[SerializeField] private Image jacketImage;
+		[SerializeField] private Image thumbnailImage;
+		//랭크 정보
 		[SerializeField] private TextMeshProUGUI trackName;
 		private Action<TrackSelectorListModel> onClickButtonAction;
 
@@ -32,7 +33,7 @@ namespace MilliRhythm.TrackSelector
 		protected override void ApplyModel(TrackSelectorListModel m)
 		{
 			model = m;
-			jacketImage.sprite = model.MiniJacketSprite;
+			thumbnailImage.sprite = model.ThumbnailSprite;
 			trackName.text = $"{model.trackName}";
 		}
 

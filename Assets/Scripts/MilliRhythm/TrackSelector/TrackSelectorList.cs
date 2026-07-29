@@ -5,7 +5,7 @@ namespace MilliRhythm.TrackSelector
 {
 	public class TrackSelectorList : UIListBase<TrackSelectorListModel, TrackSelectorListView, int>
 	{
-		private Action<TrackSelectorListModel> onSelectionChanged;
+		public Action<TrackSelectorListModel> OnSelectionChanged;
 		private TrackSelectorListModel selectedTrack;
 	}
 }
