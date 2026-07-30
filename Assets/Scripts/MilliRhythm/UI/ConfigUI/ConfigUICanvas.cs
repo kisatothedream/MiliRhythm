@@ -8,6 +8,8 @@ namespace MilliRhythm.UI.ConfigUI
 {
 	public class ConfigUICanvas : MonoBehaviour
 	{
+		[SerializeField] private GameObject panel;
+
 		//Volume
 		[SerializeField] private Slider masterVolumeSlider;
 		[SerializeField] private Slider musicVolumeSlider;
@@ -18,6 +20,8 @@ namespace MilliRhythm.UI.ConfigUI
 		[SerializeField] private Toggle koreanToggle;
 		[SerializeField] private Toggle englishToggle;
 
+		[SerializeField] private Button quitButton;
+
 		private void Awake()
 		{
 			masterVolumeSlider.onValueChanged.AddListener(OnMasterVolumeChanged);
@@ -27,6 +31,8 @@ namespace MilliRhythm.UI.ConfigUI
 			japaneseToggle.onValueChanged.AddListener(selected => OnLanguageSelected(selected, LanguageType.Japanese));
 			koreanToggle.onValueChanged.AddListener(selected => OnLanguageSelected(selected, LanguageType.Korean));
 			englishToggle.onValueChanged.AddListener(selected => OnLanguageSelected(selected, LanguageType.English));
+
+			quitButton.onClick.AddListener(Quit);
 		}
 
 		private void OnDestroy()
@@ -38,11 +44,25 @@ namespace MilliRhythm.UI.ConfigUI
 			japaneseToggle.onValueChanged.RemoveListener(selected => OnLanguageSelected(selected, LanguageType.Japanese));
 			koreanToggle.onValueChanged.RemoveListener(selected => OnLanguageSelected(selected, LanguageType.Korean));
 			englishToggle.onValueChanged.RemoveListener(selected => OnLanguageSelected(selected, LanguageType.English));
+
+			quitButton.onClick.RemoveListener(Quit);
 		}
 
 		private void OnEnable()
 		{
 			Refresh();
+		}
+
+		public void Show()
+		{
+			panel.SetActive(true);
+			Refresh();
+		}
+
+		private void Quit()
+		{
+			panel.SetActive(false);
+			ConfigManager.Instance.Save();
 		}
 
 		private void Refresh()

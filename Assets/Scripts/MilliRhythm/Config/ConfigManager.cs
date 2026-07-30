@@ -76,5 +76,14 @@ namespace MilliRhythm.Config
 			Config.Language = type;
 			OnLanguageChangedAction?.Invoke(Config.Language);
 		}
+
+		public void Save()
+		{
+			PlayerPrefs.SetFloat(MasterVolumeKey, Config.MasterVolume);
+			PlayerPrefs.SetFloat(MusicVolumeKey, Config.MusicVolume);
+			PlayerPrefs.SetFloat(SfxVolumeKey, Config.SfxVolume);
+			PlayerPrefs.SetInt(LanguageKey, Config.Language.ToInt());
+			PlayerPrefs.Save();
+		}
 	}
 }
