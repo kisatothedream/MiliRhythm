@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using MilliRhythm.Data.GameDataService;
+using MilliRhythm.TrackSelector;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
-namespace MilliRhythm.TrackSelector
+namespace MilliRhythm.UI.TrackSelectorUI
 {
 	public class TrackSelectorCanvas : MonoBehaviour
 	{
