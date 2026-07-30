@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using MilliRhythm.Data.Domain;
+using UnityEngine;
 
 namespace MilliRhythm.UI.TrackSelectorUI
 {
@@ -9,6 +10,7 @@ namespace MilliRhythm.UI.TrackSelectorUI
 	{
 		public Action<TrackSelectorListModel> OnSelectionChanged;
 		private TrackSelectorListView selectedTrack;
+		private int filteredItemCount;
 
 		public override void Set(List<TrackSelectorListModel> models)
 		{
@@ -26,16 +28,19 @@ namespace MilliRhythm.UI.TrackSelectorUI
 
 		public void ResetNavigationId()
 		{
+			filteredItemCount = 0;
 			for (var i = 0; i < listItems.Count; i++)
 			{
 				var item = listItems[i];
 				if (!item.IsFiltered)
 				{
 					item.SetNavigationId(i);
+					filteredItemCount++;
 				}
 			}
 
-			OnClickViewButtonAction(listItems.First(item => item.NavigationId == 0));
+			SelectTrack(0);
+			Debug.Log($"filteredItemCount {filteredItemCount}");
 		}
 
 		public void ClearFilter()
@@ -59,12 +64,43 @@ namespace MilliRhythm.UI.TrackSelectorUI
 			ResetNavigationId();
 		}
 
+		public void SelectTrack(int navigationId) => SelectTrack(listItems.FirstOrDefault(item => item.NavigationId == navigationId));
+		public void SelectTrack(TrackSelectorListView track) => OnClickViewButtonAction(track);
+
 		private void OnClickViewButtonAction(TrackSelectorListView track)
 		{
+			if (track == null)
+			{
+				//빈 트랙 처리
+			}
+
 			selectedTrack?.Deselect();
 			selectedTrack = track;
 			selectedTrack.Select();
 			OnSelectionChanged?.Invoke(selectedTrack.Model);
+		}
+
+		public void Navigate(UINavigationType navigationType)
+		{
+			var currentNavigationId = selectedTrack.NavigationId;
+			switch (navigationType)
+			{
+				case UINavigationType.Up:
+					currentNavigationId = Mathf.Clamp(currentNavigationId - 1, 0, filteredItemCount-1);
+					break;
+				case UINavigationType.Down:
+					currentNavigationId = Mathf.Clamp(currentNavigationId + 1, 0, filteredItemCount-1);
+					break;
+				case UINavigationType.Left:
+					currentNavigationId = Mathf.Clamp(currentNavigationId - 3, 0, filteredItemCount-1);
+					break;
+				case UINavigationType.Right:
+					currentNavigationId = Mathf.Clamp(currentNavigationId + 3, 0, filteredItemCount-1);
+					break;
+				default:
+					throw new ArgumentOutOfRangeException(nameof(navigationType), navigationType, null);
+			}
+			SelectTrack(currentNavigationId);
 		}
 	}
 }

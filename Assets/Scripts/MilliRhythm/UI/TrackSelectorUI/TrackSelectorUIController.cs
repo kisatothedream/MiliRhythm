@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
@@ -12,7 +11,7 @@ namespace MilliRhythm.UI.TrackSelectorUI
 {
 	public class TrackSelectorUIController : MonoBehaviour
 	{
-		[SerializeField] private TrackSelectorList trackSelectorList;
+		[SerializeField] private TrackSelectorListPanel trackSelectorPanel;
 		[SerializeField] private TrackInfoPanel trackInfoPanel;
 
 		//Track Detail Info Panel
@@ -41,8 +40,12 @@ namespace MilliRhythm.UI.TrackSelectorUI
 				models.Add(model);
 			}
 
-			trackSelectorList.OnSelectionChanged = OnTrackSelectionChanged;
-			trackSelectorList.Set(models);
+			trackSelectorPanel.Set(models, OnTrackSelectionChanged);
+		}
+
+		public void Finish()
+		{
+			trackSelectorPanel.Finish();
 		}
 
 		private void OnTrackSelectionChanged(TrackSelectorListModel model)
@@ -55,28 +58,29 @@ namespace MilliRhythm.UI.TrackSelectorUI
 
 		private async UniTask SelectTrackAsync(TrackSelectorListModel model)
 		{
-			trackLoadingCts?.Cancel();
-			trackLoadingCts?.Dispose();
-			trackLoadingCts = new CancellationTokenSource();
+			// trackLoadingCts?.Cancel();
+			// trackLoadingCts?.Dispose();
+			// trackLoadingCts = new CancellationTokenSource();
 
-			try
-			{
-				trackInfoPanel.ResetToPlaceholder();
-				audioPlayer.StopTrackPreview();
-				await UniTask.WaitForSeconds(0.2f, cancellationToken: trackLoadingCts.Token);
-				var jacketHandle = await LoadJacketAsync(model.JacketSpriteReference, trackLoadingCts.Token);
-				ReleaseCurrentJacket();
-				currentJacketHandle = jacketHandle;
+			// try
+			// {
+			trackInfoPanel.ResetToPlaceholder();
+			audioPlayer.StopTrackPreview();
+			// await UniTask.WaitForSeconds(0.2f, cancellationToken: trackLoadingCts.Token);
+			// var jacketHandle = await LoadJacketAsync(model.JacketSpriteReference, trackLoadingCts.Token);
+			// ReleaseCurrentJacket();
+			// currentJacketHandle = jacketHandle;
 
-				var jacketSprite = jacketHandle.Result;
+			// var jacketSprite = jacketHandle.Result;
 
-				trackInfoPanel.SetTrackInfo(jacketSprite, model.TrackName, "");
-				var previewAudioClip = model.PreviewAudioClip;
-				audioPlayer.PlayTrackPreview(previewAudioClip);
-			}
-			catch (OperationCanceledException e)
-			{
-			}
+			var jacketSprite = model.ThumbnailSprite;
+			trackInfoPanel.SetTrackInfo(jacketSprite, model.TrackName, "");
+			var previewAudioClip = model.PreviewAudioClip;
+			audioPlayer.PlayTrackPreview(previewAudioClip);
+			// }
+			// catch (OperationCanceledException e)
+			// {
+			// }
 		}
 
 		private async UniTask<AsyncOperationHandle<Sprite>> LoadJacketAsync(AssetReferenceSprite spriteReference, CancellationToken token)

@@ -31,6 +31,7 @@ namespace MilliRhythm.TrackSelector
 
 		public override void Finish()
 		{
+			trackSelectorUIController.Finish();
 		}
 
 		public override async UniTask PlayEnterTransition()
