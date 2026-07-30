@@ -69,12 +69,14 @@ namespace MilliRhythm.UI.TrackSelectorUI
 
 		private void OnClickViewButtonAction(TrackSelectorListView track)
 		{
+			selectedTrack?.Deselect();
+
 			if (track == null)
 			{
-				//빈 트랙 처리
+				OnSelectionChanged?.Invoke(null);
+				return;
 			}
 
-			selectedTrack?.Deselect();
 			selectedTrack = track;
 			selectedTrack.Select();
 			OnSelectionChanged?.Invoke(selectedTrack.Model);
@@ -86,20 +88,21 @@ namespace MilliRhythm.UI.TrackSelectorUI
 			switch (navigationType)
 			{
 				case UINavigationType.Up:
-					currentNavigationId = Mathf.Clamp(currentNavigationId - 1, 0, filteredItemCount-1);
+					currentNavigationId = Mathf.Clamp(currentNavigationId - 1, 0, filteredItemCount - 1);
 					break;
 				case UINavigationType.Down:
-					currentNavigationId = Mathf.Clamp(currentNavigationId + 1, 0, filteredItemCount-1);
+					currentNavigationId = Mathf.Clamp(currentNavigationId + 1, 0, filteredItemCount - 1);
 					break;
 				case UINavigationType.Left:
-					currentNavigationId = Mathf.Clamp(currentNavigationId - 3, 0, filteredItemCount-1);
+					currentNavigationId = Mathf.Clamp(currentNavigationId - 3, 0, filteredItemCount - 1);
 					break;
 				case UINavigationType.Right:
-					currentNavigationId = Mathf.Clamp(currentNavigationId + 3, 0, filteredItemCount-1);
+					currentNavigationId = Mathf.Clamp(currentNavigationId + 3, 0, filteredItemCount - 1);
 					break;
 				default:
 					throw new ArgumentOutOfRangeException(nameof(navigationType), navigationType, null);
 			}
+
 			SelectTrack(currentNavigationId);
 		}
 	}

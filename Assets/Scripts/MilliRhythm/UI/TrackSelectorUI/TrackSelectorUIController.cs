@@ -73,6 +73,12 @@ namespace MilliRhythm.UI.TrackSelectorUI
 
 			// var jacketSprite = jacketHandle.Result;
 
+			if (model == null)
+			{
+				//TODO : 필터 결과가 없다는 것 보여주기
+				return;
+			}
+
 			var jacketSprite = model.ThumbnailSprite;
 			trackInfoPanel.SetTrackInfo(jacketSprite, model.TrackName, "");
 			var previewAudioClip = model.PreviewAudioClip;
