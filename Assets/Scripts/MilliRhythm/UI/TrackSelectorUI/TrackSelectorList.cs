@@ -8,11 +8,19 @@ namespace MilliRhythm.UI.TrackSelectorUI
 	public class TrackSelectorList : UIListBase<TrackSelectorListModel, TrackSelectorListView, int>
 	{
 		public Action<TrackSelectorListModel> OnSelectionChanged;
-		private TrackSelectorListModel selectedTrack;
+		private TrackSelectorListView selectedTrack;
 
 		public override void Set(List<TrackSelectorListModel> models)
 		{
-			base.Set(models);
+			Clear();
+			foreach (var model in models)
+			{
+				var item = Instantiate(listItemPrefab, content);
+				listItems.Add(item);
+				item.Set(model);
+				item.SetButtonAction(OnClickViewButtonAction);
+			}
+
 			ResetNavigationId();
 		}
 
@@ -26,6 +34,8 @@ namespace MilliRhythm.UI.TrackSelectorUI
 					item.SetNavigationId(i);
 				}
 			}
+
+			OnClickViewButtonAction(listItems.First(item => item.NavigationId == 0));
 		}
 
 		public void ClearFilter()
@@ -47,6 +57,14 @@ namespace MilliRhythm.UI.TrackSelectorUI
 			}
 
 			ResetNavigationId();
+		}
+
+		private void OnClickViewButtonAction(TrackSelectorListView track)
+		{
+			selectedTrack?.Deselect();
+			selectedTrack = track;
+			selectedTrack.Select();
+			OnSelectionChanged?.Invoke(selectedTrack.Model);
 		}
 	}
 }

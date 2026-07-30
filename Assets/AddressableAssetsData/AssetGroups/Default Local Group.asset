@@ -30,6 +30,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fb422341a2f828d45b2b4baf44b09cbe
+    m_Address: Assets/Images/Jacket
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 1518c0e0ec8856a4285053f713b56e1b, type: 2}
   m_SchemaSet:

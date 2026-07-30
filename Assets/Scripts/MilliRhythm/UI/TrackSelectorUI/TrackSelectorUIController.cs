@@ -38,10 +38,11 @@ namespace MilliRhythm.UI.TrackSelectorUI
 					TrackName = musicData.Name,
 					TrackVocal = musicData.Vocals,
 				};
+				models.Add(model);
 			}
 
-			trackSelectorList.Set(models);
 			trackSelectorList.OnSelectionChanged = OnTrackSelectionChanged;
+			trackSelectorList.Set(models);
 		}
 
 		private void OnTrackSelectionChanged(TrackSelectorListModel model)

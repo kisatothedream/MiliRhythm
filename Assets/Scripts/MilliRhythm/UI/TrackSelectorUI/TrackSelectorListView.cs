@@ -16,7 +16,8 @@ namespace MilliRhythm.UI.TrackSelectorUI
 
 		//랭크 정보
 		[SerializeField] private TextMeshProUGUI trackName;
-		private Action<TrackSelectorListModel> onClickButtonAction;
+		private Action<TrackSelectorListView> onClickButtonAction;
+		private bool isSelected;
 
 		private void Awake()
 		{
@@ -28,7 +29,7 @@ namespace MilliRhythm.UI.TrackSelectorUI
 			button.onClick.RemoveListener(OnClickButtonAction);
 		}
 
-		public void SetButtonAction(Action<TrackSelectorListModel> action)
+		public void SetButtonAction(Action<TrackSelectorListView> action)
 		{
 			onClickButtonAction = action;
 		}
@@ -45,6 +46,14 @@ namespace MilliRhythm.UI.TrackSelectorUI
 			NavigationId = navigationId;
 		}
 
+		public void Select()
+		{
+		}
+
+		public void Deselect()
+		{
+		}
+
 		protected override void UpdateUI(bool selected)
 		{
 			selectedMark.SetActive(selected);
@@ -52,7 +61,7 @@ namespace MilliRhythm.UI.TrackSelectorUI
 
 		private void OnClickButtonAction()
 		{
-			onClickButtonAction?.Invoke(Model);
+			onClickButtonAction?.Invoke(this);
 		}
 
 		public void SetFiltered(bool isFiltered)

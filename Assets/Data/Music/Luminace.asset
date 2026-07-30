@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 615bfaa9734a6324eaeec9fb1576fac0, type: 3}
-  m_Name: Docchi
+  m_Name: Luminace
   m_EditorClassIdentifier: Data.Runtime::MilliRhythm.Data.Repository.MusicData
-  <Id>k__BackingField: 1
-  <Name>k__BackingField: "\u3069\u3063\u3061\uFF1F\uFF01"
+  <Id>k__BackingField: 2
+  <Name>k__BackingField: "\u30EB\u30DF\u30CA\u30B9"
   <NameKey>k__BackingField: 
-  <Vocals>k__BackingField: 64
-  <ThumbnailSprite>k__BackingField: {fileID: 21300000, guid: 3798a3cd07ea34147954d9835d4e02bb, type: 3}
+  <Vocals>k__BackingField: 128
+  <ThumbnailSprite>k__BackingField: {fileID: 21300000, guid: 4c1fe4d831253b94cb3e58c266e9934a, type: 3}
   <JacketSprite>k__BackingField:
-    m_AssetGUID: 3798a3cd07ea34147954d9835d4e02bb
-    m_SubObjectName: Docchi
+    m_AssetGUID: 4c1fe4d831253b94cb3e58c266e9934a
+    m_SubObjectName: 
     m_SubObjectType: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     m_SubObjectGUID: 

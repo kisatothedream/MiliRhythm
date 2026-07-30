@@ -137,7 +137,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: TrackSelector.Runtime::MilliRhythm.TrackSelector.TrackSelectorListView
   selectedMark: {fileID: 2042095870101538379}
   button: {fileID: 7881130405102685567}
-  jacketImage: {fileID: 5879356753463728910}
+  thumbnailImage: {fileID: 5879356753463728910}
   trackName: {fileID: 8367365738553422715}
 --- !u!1 &4802118200144010280
 GameObject:
@@ -281,8 +281,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Luminace - OtonoseRaco
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: cd9d5ac363e78d149af08c75a35677a8, type: 2}
+  m_sharedMaterial: {fileID: 3304100286385516870, guid: cd9d5ac363e78d149af08c75a35677a8, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

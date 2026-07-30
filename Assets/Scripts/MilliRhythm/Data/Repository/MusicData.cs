@@ -15,8 +15,8 @@ namespace MilliRhythm.Data.Repository
 
 		//Non-localized Text
 		[field: SerializeField] public string Name { get; private set; }
+		[field: SerializeField] public string NameKey { get; private set; }
 		[field: SerializeField] public Member Vocals { get; private set; }
-		[field: SerializeField] public string DescriptionKey { get; private set; }
 
 		//Resource
 		[field: SerializeField] public Sprite ThumbnailSprite { get; private set; }
