@@ -21,6 +21,7 @@ namespace MilliRhythm.UI.TrackSelectorUI
 
 		private void Awake()
 		{
+			selectedMark.SetActive(false);
 			button.onClick.AddListener(OnClickButtonAction);
 		}
 
@@ -48,10 +49,12 @@ namespace MilliRhythm.UI.TrackSelectorUI
 
 		public void Select()
 		{
+			UpdateUI(true);
 		}
 
 		public void Deselect()
 		{
+			UpdateUI(false);
 		}
 
 		protected override void UpdateUI(bool selected)
