@@ -77,6 +77,7 @@ namespace MilliRhythm.UI.ConfigUI
 		private void OnLanguageSelected(bool selected, LanguageType type)
 		{
 			if (!selected) return;
+			ConfigManager.Instance.ChangeLanguage(type);
 		}
 	}
 }

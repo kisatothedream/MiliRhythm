@@ -23,6 +23,7 @@ namespace MilliRhythm.Data.GameDataService
 		internal static async UniTask Initialize()
 		{
 			await LoadGameDataAsync();
+			ConfigManager.Instance.OnLanguageChangedAction += ChangeLanguage;
 		}
 
 		private static async UniTask LoadGameDataAsync()
@@ -95,7 +96,12 @@ namespace MilliRhythm.Data.GameDataService
 			}
 		}
 
-		public static async UniTask RequestReloadLanguage(LanguageType type)
+		private static void ChangeLanguage(LanguageType type)
+		{
+			RequestReloadLanguage(type).Forget();
+		}
+
+		private static async UniTask RequestReloadLanguage(LanguageType type)
 		{
 			try
 			{

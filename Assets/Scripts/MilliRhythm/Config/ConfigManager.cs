@@ -18,6 +18,7 @@ namespace MilliRhythm.Config
 		public event Action<float> OnMasterVolumeChangedAction;
 		public event Action<float> OnMusicVolumeChangedAction;
 		public event Action<float> OnSfxVolumeChangedAction;
+		public event Action<LanguageType> OnLanguageChangedAction;
 
 		private ConfigManager()
 		{
@@ -68,6 +69,12 @@ namespace MilliRhythm.Config
 			}
 
 			return 20 * Mathf.Log10(volume);
+		}
+
+		public void ChangeLanguage(LanguageType type)
+		{
+			Config.Language = type;
+			OnLanguageChangedAction?.Invoke(Config.Language);
 		}
 	}
 }
