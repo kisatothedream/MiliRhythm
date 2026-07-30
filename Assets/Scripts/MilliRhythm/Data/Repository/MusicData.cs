@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using MilliRhythm.Data.Common;
+using MilliRhythm.Data.Domain;
 using MilliRhythm.Data.GameDataService;
 using UnityEngine;
 using UnityEngine.AddressableAssets;

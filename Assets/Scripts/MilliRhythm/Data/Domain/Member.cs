@@ -1,6 +1,6 @@
 using System;
 
-namespace MilliRhythm.Data.Common
+namespace MilliRhythm.Data.Domain
 {
 	[Flags]
 	public enum Member

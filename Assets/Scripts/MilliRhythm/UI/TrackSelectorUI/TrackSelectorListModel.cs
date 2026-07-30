@@ -1,9 +1,8 @@
-using MilliRhythm.Data.Common;
-using MilliRhythm.UI;
+using MilliRhythm.Data.Domain;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-namespace MilliRhythm.TrackSelector
+namespace MilliRhythm.UI.TrackSelectorUI
 {
 	public class TrackSelectorListModel : UIListItemModelBase<int>
 	{

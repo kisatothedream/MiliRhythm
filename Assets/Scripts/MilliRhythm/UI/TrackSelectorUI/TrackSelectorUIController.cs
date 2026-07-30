@@ -2,23 +2,26 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using MilliRhythm.Audio;
 using MilliRhythm.Data.GameDataService;
-using MilliRhythm.TrackSelector;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace MilliRhythm.UI.TrackSelectorUI
 {
-	public class TrackSelectorCanvas : MonoBehaviour
+	public class TrackSelectorUIController : MonoBehaviour
 	{
-		[SerializeField] private TrackSelectorList trackSelectorList = new();
+		[SerializeField] private TrackSelectorList trackSelectorList;
+		[SerializeField] private TrackInfoPanel trackInfoPanel;
 
 		//Track Detail Info Panel
 		[SerializeField] private Sprite jacketPlaceHolderSprite;
 
 		private CancellationTokenSource trackLoadingCts;
 		private AsyncOperationHandle<Sprite>? currentJacketHandle;
+
+		[SerializeField] private TrackSelectorAudioPlayer audioPlayer;
 
 		public void Set()
 		{
@@ -57,14 +60,18 @@ namespace MilliRhythm.UI.TrackSelectorUI
 
 			try
 			{
+				trackInfoPanel.ResetToPlaceholder();
+				audioPlayer.StopTrackPreview();
 				await UniTask.WaitForSeconds(0.2f, cancellationToken: trackLoadingCts.Token);
 				var jacketHandle = await LoadJacketAsync(model.JacketSpriteReference, trackLoadingCts.Token);
 				ReleaseCurrentJacket();
 				currentJacketHandle = jacketHandle;
-				
+
 				var jacketSprite = jacketHandle.Result;
-				
+
+				trackInfoPanel.SetTrackInfo(jacketSprite, model.TrackName, "");
 				var previewAudioClip = model.PreviewAudioClip;
+				audioPlayer.PlayTrackPreview(previewAudioClip);
 			}
 			catch (OperationCanceledException e)
 			{

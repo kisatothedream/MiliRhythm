@@ -1,10 +1,9 @@
 using System;
-using MilliRhythm.UI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace MilliRhythm.TrackSelector
+namespace MilliRhythm.UI.TrackSelectorUI
 {
 	public class TrackSelectorListView : UIListItemViewBase<TrackSelectorListModel, int>
 	{

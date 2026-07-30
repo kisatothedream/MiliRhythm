@@ -1,4 +1,4 @@
-namespace MilliRhythm.Data.Common
+namespace MilliRhythm.Data.Domain
 {
 	public enum NoteJudgementResult
 	{

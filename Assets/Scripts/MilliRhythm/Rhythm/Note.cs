@@ -1,5 +1,5 @@
 using System;
-using MilliRhythm.Data.Common;
+using MilliRhythm.Data.Domain;
 using UnityEngine;
 
 namespace MilliRhythm.Rhythm

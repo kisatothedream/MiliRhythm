@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using MilliRhythm.Data.Common;
-using MilliRhythm.UI;
+using MilliRhythm.Data.Domain;
 
-namespace MilliRhythm.TrackSelector
+namespace MilliRhythm.UI.TrackSelectorUI
 {
 	public class TrackSelectorList : UIListBase<TrackSelectorListModel, TrackSelectorListView, int>
 	{
