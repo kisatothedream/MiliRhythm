@@ -1,4 +1,5 @@
 #if UNITY_EDITOR
+using MilliRhythm.Data.Domain;
 using MilliRhythm.Data.Repository;
 using UnityEditor;
 using UnityEngine;

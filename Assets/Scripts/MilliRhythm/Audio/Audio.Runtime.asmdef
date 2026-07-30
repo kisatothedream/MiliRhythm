@@ -1,13 +1,8 @@
 {
-    "name": "UI.Editor",
+    "name": "Audio.Runtime",
     "rootNamespace": "",
     "references": [
-        "GUID:dcf152551f6afb14ebf5ac2dfa27f4fd",
-        "GUID:ba65712605553484abe60886bd0d163c",
-        "GUID:027509302a7b57f4aaf546660678db09",
-        "GUID:6055be8ebefd69e48b49212b09b47b2f",
-        "GUID:4b20123213808f847aca63f0fbd2cc3a",
-        "GUID:d8ca893eb13b5d844a187b05c5fc7800"
+        "GUID:30dfd04223b4c464eae28792eb1908d0"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

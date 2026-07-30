@@ -1,6 +1,8 @@
 using System;
 using Cysharp.Threading.Tasks;
+using MilliRhythm.Data.Domain;
 using MilliRhythm.Data.GameDataService;
+using UnityEngine;
 
 namespace MilliRhythm.Data.Repository
 {
@@ -25,6 +27,7 @@ namespace MilliRhythm.Data.Repository
 		{
 			fileName = GetFileName(language);
 			await base.LoadAsync();
+			Debug.Log($"Changed Language To {language}");
 		}
 
 		private static string GetFileName(LanguageType language)
@@ -42,12 +45,5 @@ namespace MilliRhythm.Data.Repository
 		{
 			return Get(key).Text;
 		}
-	}
-
-	public enum LanguageType
-	{
-		Korean,
-		English,
-		Japanese,
 	}
 }

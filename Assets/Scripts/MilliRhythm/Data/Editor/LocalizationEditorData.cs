@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
+using MilliRhythm.Data.Domain;
 using MilliRhythm.Data.Repository;
 using UnityEditor;
 using UnityEngine;
