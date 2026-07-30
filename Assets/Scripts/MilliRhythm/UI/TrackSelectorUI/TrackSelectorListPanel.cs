@@ -2,11 +2,13 @@ using System;
 using System.Collections.Generic;
 using MilliRhythm.Input;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace MilliRhythm.UI.TrackSelectorUI
 {
 	public class TrackSelectorListPanel : MonoBehaviour, IUIInputListener
 	{
+		[SerializeField] private ScrollRect scrollRect;
 		[SerializeField] private TrackSelectorList trackSelectorList;
 		private Action<TrackSelectorListModel> onTrackSelectionChanged;
 
@@ -15,12 +17,14 @@ namespace MilliRhythm.UI.TrackSelectorUI
 			trackSelectorList.Set(models);
 			onTrackSelectionChanged = action;
 			trackSelectorList.OnSelectionChanged += onTrackSelectionChanged;
+			trackSelectorList.OnSelectionChanged += EnsureItemVisible;
 			this.RegisterUIInputListener();
 		}
 
 		public void Finish()
 		{
 			trackSelectorList.OnSelectionChanged -= onTrackSelectionChanged;
+			trackSelectorList.OnSelectionChanged -= EnsureItemVisible;
 			this.UnregisterUIInputListener();
 		}
 
@@ -43,6 +47,38 @@ namespace MilliRhythm.UI.TrackSelectorUI
 				trackSelectorList.Navigate(UINavigationType.Down);
 			}
 		}
+		
+		private void EnsureItemVisible(TrackSelectorListModel _)
+		{
+			RectTransform item = trackSelectorList.selectedTrack.GetComponent<RectTransform>();
+			var viewport = scrollRect.viewport;
+			var content = scrollRect.content;
+
+			Canvas.ForceUpdateCanvases();
+
+			var itemBounds = RectTransformUtility.CalculateRelativeRectTransformBounds(
+				viewport,
+				item);
+
+			var viewportRect = viewport.rect;
+			var offset = 0f;
+
+			if (itemBounds.min.x < viewportRect.xMin)
+			{
+				offset = itemBounds.min.x - viewportRect.xMin;
+			}
+			else if (itemBounds.max.x > viewportRect.xMax)
+			{
+				offset = itemBounds.max.x - viewportRect.xMax;
+			}
+
+			if (Mathf.Approximately(offset, 0f))
+				return;
+
+			var position = content.anchoredPosition;
+			position.x -= offset;
+			content.anchoredPosition = position;
+		}
 
 		public void OnSubmit(bool value)
 		{
@@ -51,5 +87,6 @@ namespace MilliRhythm.UI.TrackSelectorUI
 		public void OnCancel(bool value)
 		{
 		}
+		
 	}
 }

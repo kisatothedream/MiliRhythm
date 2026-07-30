@@ -9,7 +9,7 @@ namespace MilliRhythm.UI.TrackSelectorUI
 	public class TrackSelectorList : UIListBase<TrackSelectorListModel, TrackSelectorListView, int>
 	{
 		public Action<TrackSelectorListModel> OnSelectionChanged;
-		private TrackSelectorListView selectedTrack;
+		public TrackSelectorListView selectedTrack { get; private set; }
 		private int filteredItemCount;
 
 		public override void Set(List<TrackSelectorListModel> models)
