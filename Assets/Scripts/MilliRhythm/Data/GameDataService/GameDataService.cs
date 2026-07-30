@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using MilliRhythm.Config;
+using MilliRhythm.Data.Domain;
 using MilliRhythm.Data.Repository;
 using UnityEngine;
 
@@ -31,7 +33,7 @@ namespace MilliRhythm.Data.GameDataService
 			try
 			{
 				//TODO: 현재 언어 기반으로 변경
-				var localizationRepository = new LocalizationDataRepository(LanguageType.Korean);
+				var localizationRepository = new LocalizationDataRepository(ConfigManager.Instance.Config.Language);
 
 				await localizationRepository.LoadAsync();
 				Register(localizationRepository);

@@ -2,7 +2,7 @@
     "name": "Config.Runtime",
     "rootNamespace": "",
     "references": [
-        "GUID:027509302a7b57f4aaf546660678db09"
+        "GUID:d8ca893eb13b5d844a187b05c5fc7800"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

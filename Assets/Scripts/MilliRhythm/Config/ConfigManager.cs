@@ -1,4 +1,5 @@
-using MilliRhythm.Data.Repository;
+using System;
+using MilliRhythm.Data.Domain;
 using UnityEngine;
 
 namespace MilliRhythm.Config
@@ -14,6 +15,10 @@ namespace MilliRhythm.Config
 
 		public GameConfig Config { get; private set; }
 
+		public event Action<float> OnMasterVolumeChangedAction;
+		public event Action<float> OnMusicVolumeChangedAction;
+		public event Action<float> OnSfxVolumeChangedAction;
+
 		private ConfigManager()
 		{
 		}
@@ -25,9 +30,44 @@ namespace MilliRhythm.Config
 				MasterVolume = PlayerPrefs.GetFloat(MasterVolumeKey, 0.5f),
 				MusicVolume = PlayerPrefs.GetFloat(MusicVolumeKey, 0.5f),
 				SfxVolume = PlayerPrefs.GetFloat(SfxVolumeKey, 0.5f),
-				Language = LanguageTypeExtensions.ToLanguageType(PlayerPrefs.GetInt(LanguageKey, 0)),
+				Language = LanguageTypeExtensions.ToLanguageType(PlayerPrefs.GetInt(LanguageKey, LanguageType.Japanese.ToInt())),
 			};
+			ApplyAllConfigs(Config);
 		}
 
+		private void ApplyAllConfigs(GameConfig config)
+		{
+			ChangeMasterVolume(config.MasterVolume);
+			ChangeMusicVolume(config.MusicVolume);
+			ChangeSfxVolume(config.SfxVolume);
+		}
+
+		public void ChangeMasterVolume(float volume)
+		{
+			Config.MasterVolume = volume;
+			OnMasterVolumeChangedAction?.Invoke(ConvertVolumeToDb(Config.MasterVolume));
+		}
+
+		public void ChangeMusicVolume(float volume)
+		{
+			Config.MusicVolume = volume;
+			OnMusicVolumeChangedAction?.Invoke(ConvertVolumeToDb(Config.MusicVolume));
+		}
+
+		public void ChangeSfxVolume(float volume)
+		{
+			Config.SfxVolume = volume;
+			OnSfxVolumeChangedAction?.Invoke(ConvertVolumeToDb(Config.SfxVolume));
+		}
+
+		private float ConvertVolumeToDb(float volume)
+		{
+			if (volume <= 0)
+			{
+				return -80f;
+			}
+
+			return 20 * Mathf.Log10(volume);
+		}
 	}
 }

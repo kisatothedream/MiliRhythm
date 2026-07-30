@@ -20,11 +20,10 @@ namespace MilliRhythm
 
 		private static async UniTask InitializeGameAsync()
 		{
+			ConfigManager.Instance.Load();
 			await GameDataLoader.LoadAsync();
 			SceneController.Instance.Initialize(CreateScene);
 			SceneController.Instance.RequestChangeScene(new MusicSelectorSceneParameter());
-
-			ConfigManager.Instance.Load();
 		}
 
 		private static GameSceneBase CreateScene(IGameSceneParameter sceneParameter)

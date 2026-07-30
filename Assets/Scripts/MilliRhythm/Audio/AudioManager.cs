@@ -1,4 +1,3 @@
-using System;
 using MilliRhythm.Config;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -7,9 +6,6 @@ namespace MilliRhythm.Audio
 {
 	public class AudioManager : MonoBehaviour
 	{
-		public static AudioManager Instance => instance;
-		private static AudioManager instance;
-
 		[SerializeField] private AudioMixer audioMixer;
 
 		private const string MasterVolumeParameter = "MasterVolume";
@@ -19,14 +15,28 @@ namespace MilliRhythm.Audio
 		private void Awake()
 		{
 			ApplyConfig();
+			ConfigManager.Instance.OnMasterVolumeChangedAction += OnMasterVolumeChanged;
+			ConfigManager.Instance.OnMusicVolumeChangedAction += OnMusicVolumeChanged;
+			ConfigManager.Instance.OnSfxVolumeChangedAction += OnSfxVolumeChanged;
+		}
+
+		private void OnDestroy()
+		{
+			ConfigManager.Instance.OnMasterVolumeChangedAction -= OnMasterVolumeChanged;
+			ConfigManager.Instance.OnMusicVolumeChangedAction -= OnMusicVolumeChanged;
+			ConfigManager.Instance.OnSfxVolumeChangedAction -= OnSfxVolumeChanged;
 		}
 
 		public void ApplyConfig()
 		{
 			var config = ConfigManager.Instance.Config;
-			audioMixer.SetFloat(MasterVolumeParameter, config.MasterVolume);
-			audioMixer.SetFloat(MusicVolumeParameter, config.MusicVolume);
-			audioMixer.SetFloat(SfxVolumeParameter, config.SfxVolume);
+			OnMasterVolumeChanged(config.MasterVolume);
+			OnMusicVolumeChanged(config.MusicVolume);
+			OnSfxVolumeChanged(config.SfxVolume);
 		}
+
+		private void OnMasterVolumeChanged(float volume) => audioMixer.SetFloat(MasterVolumeParameter, volume);
+		private void OnMusicVolumeChanged(float volume) => audioMixer.SetFloat(MusicVolumeParameter, volume);
+		private void OnSfxVolumeChanged(float volume) => audioMixer.SetFloat(SfxVolumeParameter, volume);
 	}
 }
