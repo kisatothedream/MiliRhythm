@@ -12,6 +12,7 @@ namespace MilliRhythm.UI.TrackSelectorUI.Filter
 				if (filter.HasFlag(item.Model.Member))
 				{
 					item.Select();
+					AddItem(item);
 				}
 				else
 				{

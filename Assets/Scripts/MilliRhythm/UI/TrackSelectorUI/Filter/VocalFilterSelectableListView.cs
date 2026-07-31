@@ -1,4 +1,3 @@
-using System;
 using MilliRhythm.Data.Domain;
 using MilliRhythm.UI.Components;
 using UnityEngine;
@@ -8,6 +7,7 @@ namespace MilliRhythm.UI.TrackSelectorUI.Filter
 {
 	public class VocalFilterSelectableListView : SelectableListViewBase<VocalFilterSelectableListModel, int>, INavigatable
 	{
+		[SerializeField] private GameObject focusMark;
 		[SerializeField] private GameObject selectedMark;
 		[SerializeField] private Image filterImage;
 		[SerializeField] private LocalizedText filterText;
@@ -16,6 +16,7 @@ namespace MilliRhythm.UI.TrackSelectorUI.Filter
 		private void Awake()
 		{
 			Deselect();
+			Unfocus();
 		}
 
 		protected override void ApplyModel(VocalFilterSelectableListModel model)
@@ -30,14 +31,17 @@ namespace MilliRhythm.UI.TrackSelectorUI.Filter
 
 		public void Focus()
 		{
+			ApplyFocusState(true);
 		}
 
 		public void Unfocus()
 		{
+			ApplyFocusState(false);
 		}
 
 		public void ApplyFocusState(bool focused)
 		{
+			focusMark.SetActive(focused);
 		}
 	}
 

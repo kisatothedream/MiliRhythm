@@ -52,7 +52,7 @@ namespace MilliRhythm.UI.Components
 			return selectedItems;
 		}
 
-		private void OnClickViewItem(SelectableListViewBase<TModel, TKey> item)
+		public void ToggleViewItemSelection(SelectableListViewBase<TModel, TKey> item)
 		{
 			if (!item.IsSelected)
 			{
@@ -65,5 +65,7 @@ namespace MilliRhythm.UI.Components
 				RemoveItem(item);
 			}
 		}
+
+		private void OnClickViewItem(SelectableListViewBase<TModel, TKey> item) => ToggleViewItemSelection(item);
 	}
 }

@@ -5,6 +5,7 @@ using Cysharp.Threading.Tasks;
 using MilliRhythm.Audio;
 using MilliRhythm.Data.Domain;
 using MilliRhythm.Data.GameDataService;
+using MilliRhythm.UI.Components;
 using MilliRhythm.UI.TrackSelectorUI.Filter;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -145,8 +146,11 @@ namespace MilliRhythm.UI.TrackSelectorUI
 				{
 					LastFilter = Member.AkubiDemonspade,
 				});
-				var filter = result.Payload.FilterMember;
-				trackSelectorPanel.ApplyFilter(filter);
+				if (result.Result == PopupResult.Confirm)
+				{
+					var filter = result.Payload.FilterMember;
+					trackSelectorPanel.ApplyFilter(filter);
+				}
 			}
 		}
 	}

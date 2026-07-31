@@ -11,7 +11,7 @@ namespace MilliRhythm.UI.TrackSelectorUI
 	{
 		public Action<TrackSelectorListModel> OnSelectionChanged;
 		public TrackSelectorListView selectedTrack { get; private set; }
-		private int filteredItemCount;
+		private int visibleItemCount;
 
 		public override void Set(List<TrackSelectorListModel> models)
 		{
@@ -22,6 +22,7 @@ namespace MilliRhythm.UI.TrackSelectorUI
 				listItems.Add(item);
 				item.Set(model);
 				item.SetButtonAction(OnClickViewButtonAction);
+				item.SetVisible(true);
 			}
 
 			ResetNavigationId();
@@ -29,26 +30,27 @@ namespace MilliRhythm.UI.TrackSelectorUI
 
 		public void ResetNavigationId()
 		{
-			filteredItemCount = 0;
+			var id = 0;
+			visibleItemCount = 0;
 			for (var i = 0; i < listItems.Count; i++)
 			{
 				var item = listItems[i];
-				if (!item.IsFiltered)
+				if (item.IsVisible)
 				{
-					item.SetNavigationId(i);
-					filteredItemCount++;
+					item.SetNavigationId(id++);
+					visibleItemCount++;
 				}
 			}
 
 			SelectTrack(0);
-			Debug.Log($"filteredItemCount {filteredItemCount}");
 		}
 
 		public void ClearFilter()
 		{
-			foreach (var item in listItems)
+			for (var i = 0; i < listItems.Count; i++)
 			{
-				item.SetFiltered(false);
+				var item = listItems[i];
+				item.SetVisible(true);
 			}
 
 			ResetNavigationId();
@@ -57,15 +59,23 @@ namespace MilliRhythm.UI.TrackSelectorUI
 		public void FilterByVocal(Member filter)
 		{
 			ClearFilter();
-			foreach (var filteredItem in listItems.Where(item => (item.Model.TrackVocal & filter) == 0).ToArray())
+			if (filter == 0)
 			{
-				filteredItem.SetFiltered(true);
+				return;
+			}
+
+			foreach (var item in listItems)
+			{
+				if (!filter.HasFlag(item.Model.TrackVocal))
+				{
+					item.SetVisible(false);
+				}
 			}
 
 			ResetNavigationId();
 		}
 
-		public void SelectTrack(int navigationId) => SelectTrack(listItems.FirstOrDefault(item => item.NavigationId == navigationId));
+		public void SelectTrack(int navigationId) => SelectTrack(listItems.FirstOrDefault(item => item.IsVisible && item.NavigationId == navigationId));
 		public void SelectTrack(TrackSelectorListView track) => OnClickViewButtonAction(track);
 
 		private void OnClickViewButtonAction(TrackSelectorListView track)
@@ -89,16 +99,16 @@ namespace MilliRhythm.UI.TrackSelectorUI
 			switch (navigationType)
 			{
 				case UINavigationType.Up:
-					currentNavigationId = Mathf.Clamp(currentNavigationId - 1, 0, filteredItemCount - 1);
+					currentNavigationId = Mathf.Clamp(currentNavigationId - 1, 0, visibleItemCount - 1);
 					break;
 				case UINavigationType.Down:
-					currentNavigationId = Mathf.Clamp(currentNavigationId + 1, 0, filteredItemCount - 1);
+					currentNavigationId = Mathf.Clamp(currentNavigationId + 1, 0, visibleItemCount - 1);
 					break;
 				case UINavigationType.Left:
-					currentNavigationId = Mathf.Clamp(currentNavigationId - 3, 0, filteredItemCount - 1);
+					currentNavigationId = Mathf.Clamp(currentNavigationId - 3, 0, visibleItemCount - 1);
 					break;
 				case UINavigationType.Right:
-					currentNavigationId = Mathf.Clamp(currentNavigationId + 3, 0, filteredItemCount - 1);
+					currentNavigationId = Mathf.Clamp(currentNavigationId + 3, 0, visibleItemCount - 1);
 					break;
 			}
 

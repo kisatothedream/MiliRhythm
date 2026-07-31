@@ -8,7 +8,7 @@ namespace MilliRhythm.UI.TrackSelectorUI
 {
 	public class TrackSelectorListView : UIListItemViewBase<TrackSelectorListModel, int>
 	{
-		public bool IsFiltered { get; private set; }
+		public bool IsVisible { get; private set; }
 		public int NavigationId { get; private set; }
 		[SerializeField] private GameObject selectedMark;
 		[SerializeField] private Button button;
@@ -68,10 +68,10 @@ namespace MilliRhythm.UI.TrackSelectorUI
 			onClickButtonAction?.Invoke(this);
 		}
 
-		public void SetFiltered(bool isFiltered)
+		public void SetVisible(bool isVisible)
 		{
-			IsFiltered = isFiltered;
-			gameObject.SetActive(!isFiltered);
+			IsVisible = isVisible;
+			gameObject.SetActive(isVisible);
 		}
 	}
 }
