@@ -32,6 +32,11 @@ namespace MilliRhythm.Input
 		{
 			popupStack.Pop();
 			UnregisterToControls(inputListener);
+
+			if (popupStack.TryPeek(out var current))
+			{
+				RegisterToControls(current);
+			}
 		}
 
 		private void RegisterToControls(IUIInputListener inputListener)
