@@ -17,7 +17,7 @@ namespace MilliRhythm.UI.Components
 		[SerializeField] private Button dismissArea;
 		protected TPopupParameter parameter;
 
-		private TPopupResponse response;
+		protected TPopupResponse response;
 		private CancellationTokenSource cts;
 
 		private void Awake()
@@ -67,7 +67,7 @@ namespace MilliRhythm.UI.Components
 			cts = null;
 		}
 
-		protected void Confirm()
+		protected virtual void Confirm()
 		{
 			response.Result = PopupResult.Confirm;
 			DisposeToken();

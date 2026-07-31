@@ -47,7 +47,7 @@ namespace MilliRhythm.UI.Components
 			selectedItems.Clear();
 		}
 
-		public HashSet<SelectableListViewBase<TModel, TKey>> GetItems()
+		public HashSet<SelectableListViewBase<TModel, TKey>> GetSelectedItems()
 		{
 			return selectedItems;
 		}

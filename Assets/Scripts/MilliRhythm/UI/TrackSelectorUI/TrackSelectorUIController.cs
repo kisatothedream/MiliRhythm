@@ -1,11 +1,15 @@
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using MilliRhythm.Audio;
+using MilliRhythm.Data.Domain;
 using MilliRhythm.Data.GameDataService;
+using MilliRhythm.UI.TrackSelectorUI.Filter;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.UI;
 
 namespace MilliRhythm.UI.TrackSelectorUI
 {
@@ -13,6 +17,8 @@ namespace MilliRhythm.UI.TrackSelectorUI
 	{
 		[SerializeField] private TrackSelectorListPanel trackSelectorPanel;
 		[SerializeField] private TrackInfoPanel trackInfoPanel;
+		[SerializeField] private VocalFilterPopup filterPopup;
+		[SerializeField] private Button filterButton;
 
 		//Track Detail Info Panel
 		[SerializeField] private Sprite jacketPlaceHolderSprite;
@@ -21,6 +27,16 @@ namespace MilliRhythm.UI.TrackSelectorUI
 		private AsyncOperationHandle<Sprite>? currentJacketHandle;
 
 		[SerializeField] private TrackSelectorAudioPlayer audioPlayer;
+
+		private void Awake()
+		{
+			filterButton.onClick.AddListener(DisplayFilterPopup);
+		}
+
+		private void OnDestroy()
+		{
+			filterButton.onClick.RemoveListener(DisplayFilterPopup);
+		}
 
 		public void Set()
 		{
@@ -116,6 +132,22 @@ namespace MilliRhythm.UI.TrackSelectorUI
 				Addressables.Release(handle);
 
 			currentJacketHandle = null;
+		}
+
+		public void DisplayFilterPopup()
+		{
+			DisplayFilterPopupAsync().Forget();
+			return;
+
+			async UniTask DisplayFilterPopupAsync()
+			{
+				var result = await filterPopup.Display(new VocalFilterPopupParameter()
+				{
+					LastFilter = Member.AkubiDemonspade,
+				});
+				var filter = result.Payload.FilterMember;
+				trackSelectorPanel.ApplyFilter(filter);
+			}
 		}
 	}
 }

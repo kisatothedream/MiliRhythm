@@ -21,20 +21,21 @@ namespace MilliRhythm.Data.Domain
 	{
 		public static string GetMemberNameKey(this Member member)
 		{
-			return member switch
-			{
-				// Member.AkubiDemonspade => ,
-				// Member.AmakamiKonomi => expr,
-				// Member.AmayoLiz => expr,
-				// Member.KomawariKoma => expr,
-				// Member.NemukumoTsukuri => expr,
-				// Member.NijipukaNuhu => expr,
-				// Member.NononoNono => expr,
-				// Member.OtonoseRako => expr,
-				// Member.YugiriRay => expr,
-				// Member.YuragiYura => expr,
-				// _ => throw new ArgumentOutOfRangeException(nameof(member), member, null)
-			};
+			return "temp";
+			// return member switch
+			// {
+			// 	// Member.AkubiDemonspade => ,
+			// 	// Member.AmakamiKonomi => expr,
+			// 	// Member.AmayoLiz => expr,
+			// 	// Member.KomawariKoma => expr,
+			// 	// Member.NemukumoTsukuri => expr,
+			// 	// Member.NijipukaNuhu => expr,
+			// 	// Member.NononoNono => expr,
+			// 	// Member.OtonoseRako => expr,
+			// 	// Member.YugiriRay => expr,
+			// 	// Member.YuragiYura => expr,
+			// 	// _ => throw new ArgumentOutOfRangeException(nameof(member), member, null)
+			// };
 		}
 	}
 }

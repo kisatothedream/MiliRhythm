@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using MilliRhythm.Data.Domain;
 using MilliRhythm.Input;
 using UnityEngine;
 using UnityEngine.UI;
@@ -26,6 +27,11 @@ namespace MilliRhythm.UI.TrackSelectorUI
 			trackSelectorList.OnSelectionChanged -= onTrackSelectionChanged;
 			trackSelectorList.OnSelectionChanged -= EnsureItemVisible;
 			this.UnregisterUIInputListener();
+		}
+
+		public void ApplyFilter(Member filter)
+		{
+			trackSelectorList.FilterByVocal(filter);
 		}
 
 		public void OnNavigate(Vector2 value)

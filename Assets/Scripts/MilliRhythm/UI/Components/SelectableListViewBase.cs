@@ -10,14 +10,6 @@ namespace MilliRhythm.UI.Components
 		private Action<SelectableListViewBase<TModel, TKey>> onSelectAction;
 		public bool IsSelected;
 
-		protected override void ApplyModel(TModel model)
-		{
-		}
-
-		protected override void UpdateUI(bool selected)
-		{
-		}
-
 		public void RegisterOnSelectAction(Action<SelectableListViewBase<TModel, TKey>> action)
 		{
 			onSelectAction = action;
