@@ -10,8 +10,11 @@ namespace MilliRhythm.UI.TrackSelectorUI.Filter
 	public class VocalFilterPopup : PopupUIBase<VocalFilterPopupParameter, VocalFilterPopupResponse, VocalFilterPopupPayload>
 	{
 		[SerializeField] private VocalFilterSelectableList list;
-		private VocalFilterSelectableListView focusedViewItem;
+
+		[SerializeField] private NavigatableButton confirmButtonNavigator;
+		private INavigatable focusedNavigatableItem;
 		private int focusedViewItemIndex;
+		private int filterSize => Enum.GetValues(typeof(Member)).Length;
 
 		protected override void Set()
 		{
@@ -64,17 +67,34 @@ namespace MilliRhythm.UI.TrackSelectorUI.Filter
 				case UINavigationType.Right:
 					delta = 1;
 					break;
+				case UINavigationType.None:
+					return;
 			}
 
-			var next = Mathf.Clamp(focusedViewItemIndex + delta, 0, Enum.GetValues(typeof(Member)).Length - 1);
-			FocusTo(next);
+			var next = Mathf.Clamp(focusedViewItemIndex + delta, 0, Enum.GetValues(typeof(Member)).Length);
+			focusedViewItemIndex = next;
+			if (next < filterSize)
+			{
+				FocusTo(next);
+			}
+			else
+			{
+				FocusTo(confirmButtonNavigator);
+			}
 		}
 
 		public override void OnSubmit(bool pressed)
 		{
 			if (!pressed) return;
 			//현재 네비게이션 버튼 아이템을 선택
-			list.ToggleViewItemSelection(focusedViewItem);
+			if (focusedNavigatableItem is VocalFilterSelectableListView focusedListItem)
+			{
+				list.ToggleViewItemSelection(focusedListItem);
+			}
+			else
+			{
+				Confirm();
+			}
 		}
 
 		public override void OnCancel(bool value)
@@ -82,12 +102,17 @@ namespace MilliRhythm.UI.TrackSelectorUI.Filter
 			Cancel();
 		}
 
-		public void FocusTo(int index)
+		private void FocusTo(int index)
 		{
-			focusedViewItem?.Unfocus();
-			focusedViewItemIndex = index;
-			focusedViewItem = list.listItems.First(item => item.Id == focusedViewItemIndex);
-			focusedViewItem.Focus();
+			
+			FocusTo(list.listItems.First(item => item.Id == focusedViewItemIndex));
+		}
+
+		private void FocusTo(INavigatable navigatable)
+		{
+			focusedNavigatableItem?.Unfocus();
+			focusedNavigatableItem = navigatable;
+			focusedNavigatableItem?.Focus();
 		}
 	}
 

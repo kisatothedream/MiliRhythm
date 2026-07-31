@@ -16,6 +16,12 @@ namespace MilliRhythm.UI.TrackSelectorUI
 		public void Set(List<TrackSelectorListModel> models, Action<TrackSelectorListModel> action)
 		{
 			trackSelectorList.Set(models);
+			// var dummy = new List<TrackSelectorListModel>();
+			// for (int i = 0; i < 30; i++)
+			// {
+			// 	dummy.Add(new TrackSelectorListModel(i));
+			// }
+			// trackSelectorList.Set(dummy);
 			onTrackSelectionChanged = action;
 			trackSelectorList.OnSelectionChanged += onTrackSelectionChanged;
 			trackSelectorList.OnSelectionChanged += EnsureItemVisible;
@@ -38,7 +44,7 @@ namespace MilliRhythm.UI.TrackSelectorUI
 		{
 			trackSelectorList.Navigate(value.ToUINavigationType());
 		}
-		
+
 		private void EnsureItemVisible(TrackSelectorListModel _)
 		{
 			RectTransform item = trackSelectorList.selectedTrack.GetComponent<RectTransform>();
@@ -78,6 +84,5 @@ namespace MilliRhythm.UI.TrackSelectorUI
 		public void OnCancel(bool value)
 		{
 		}
-		
 	}
 }
