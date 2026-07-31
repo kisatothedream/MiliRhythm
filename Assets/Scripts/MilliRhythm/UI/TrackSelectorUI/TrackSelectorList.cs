@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using MilliRhythm.Data.Domain;
+using MilliRhythm.UI.Components;
 using UnityEngine;
 
 namespace MilliRhythm.UI.TrackSelectorUI
@@ -99,8 +100,6 @@ namespace MilliRhythm.UI.TrackSelectorUI
 				case UINavigationType.Right:
 					currentNavigationId = Mathf.Clamp(currentNavigationId + 3, 0, filteredItemCount - 1);
 					break;
-				default:
-					throw new ArgumentOutOfRangeException(nameof(navigationType), navigationType, null);
 			}
 
 			SelectTrack(currentNavigationId);

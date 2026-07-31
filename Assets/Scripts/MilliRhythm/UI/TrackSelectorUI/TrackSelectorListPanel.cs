@@ -30,22 +30,7 @@ namespace MilliRhythm.UI.TrackSelectorUI
 
 		public void OnNavigate(Vector2 value)
 		{
-			if (value.x > 0.5f)
-			{
-				trackSelectorList.Navigate(UINavigationType.Right);
-			}
-			else if (value.x < -0.5f)
-			{
-				trackSelectorList.Navigate(UINavigationType.Left);
-			}
-			else if (value.y > 0.5f)
-			{
-				trackSelectorList.Navigate(UINavigationType.Up);
-			}
-			else if (value.y < -0.5f)
-			{
-				trackSelectorList.Navigate(UINavigationType.Down);
-			}
+			trackSelectorList.Navigate(value.ToUINavigationType());
 		}
 		
 		private void EnsureItemVisible(TrackSelectorListModel _)
