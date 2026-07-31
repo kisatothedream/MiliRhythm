@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace MilliRhythm.UI
+namespace MilliRhythm.UI.Components
 {
 	public class UIListBase<TItemListModel, TItemListView, TId> : MonoBehaviour
 		where TItemListModel : UIListItemModelBase<TId>

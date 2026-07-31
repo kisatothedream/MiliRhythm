@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace MilliRhythm.UI
+namespace MilliRhythm.UI.Components
 {
 	public abstract class UIListItemViewBase<TModel, TId> : MonoBehaviour where TModel : UIListItemModelBase<TId> where TId : IEquatable<TId>
 	{

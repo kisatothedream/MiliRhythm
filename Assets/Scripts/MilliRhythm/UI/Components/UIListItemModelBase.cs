@@ -1,6 +1,6 @@
 using System;
 
-namespace MilliRhythm.UI
+namespace MilliRhythm.UI.Components
 {
 	public class UIListItemModelBase<TId> where TId : IEquatable<TId>
 	{
