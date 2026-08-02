@@ -22,15 +22,15 @@ namespace MilliRhythm.UI.Components
 
 		private void Awake()
 		{
-			confirmButton.onClick.AddListener(Confirm);
-			cancelButton.onClick.AddListener(Cancel);
+			confirmButton?.onClick.AddListener(Confirm);
+			cancelButton?.onClick.AddListener(Cancel);
 			dismissArea.onClick.AddListener(Dismiss);
 		}
 
 		private void OnDestroy()
 		{
-			confirmButton.onClick.RemoveListener(Confirm);
-			cancelButton.onClick.RemoveListener(Cancel);
+			confirmButton?.onClick.RemoveListener(Confirm);
+			cancelButton?.onClick.RemoveListener(Cancel);
 			dismissArea.onClick.RemoveListener(Dismiss);
 		}
 
@@ -99,9 +99,13 @@ namespace MilliRhythm.UI.Components
 		Dismiss,
 	}
 
+	public class CommonPopupParameter : PopupParameterBase
+	{
+	}
+
 	public abstract class PopupParameterBase
 	{
-		public bool CanDismiss;
+		public bool CanDismiss = false;
 	}
 
 	public class CommonPopupResponse : PopupResponse<CommonPopupResultPayload>

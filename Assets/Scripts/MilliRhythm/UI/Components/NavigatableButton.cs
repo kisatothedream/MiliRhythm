@@ -18,5 +18,10 @@ namespace MilliRhythm.UI.Components
 		{
 			transform.localScale = (focused ? 1.2f : 1) * Vector3.one;
 		}
+
+		public void OnNavigate(UINavigationType direction)
+		{
+		}
+
 	}
 }

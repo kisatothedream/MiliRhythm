@@ -43,6 +43,10 @@ namespace MilliRhythm.UI.TrackSelectorUI.Filter
 		{
 			focusMark.SetActive(focused);
 		}
+
+		public void OnNavigate(UINavigationType direction)
+		{
+		}
 	}
 
 	public class VocalFilterSelectableListModel : SelectableListModelBase<int>

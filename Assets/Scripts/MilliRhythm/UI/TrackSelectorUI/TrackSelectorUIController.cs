@@ -21,7 +21,7 @@ namespace MilliRhythm.UI.TrackSelectorUI
 		[SerializeField] private TrackInfoPanel trackInfoPanel;
 		[SerializeField] private VocalFilterPopup filterPopup;
 		[SerializeField] private Button filterButton;
-		[SerializeField] private ConfigPanel configCanvas;
+		[SerializeField] private ConfigPopup configPopup;
 		[SerializeField] private Button configButton;
 
 		//Track Detail Info Panel
@@ -30,6 +30,7 @@ namespace MilliRhythm.UI.TrackSelectorUI
 		private CancellationTokenSource trackLoadingCts;
 		private AsyncOperationHandle<Sprite>? currentJacketHandle;
 
+		[SerializeField] private AudioManager manager; 
 		[SerializeField] private TrackSelectorAudioPlayer audioPlayer;
 
 		private void Awake()
@@ -46,6 +47,7 @@ namespace MilliRhythm.UI.TrackSelectorUI
 
 		public void Set()
 		{
+			manager.Initialize();
 			var data = GameDataService.GetAllMusicData();
 			var models = new List<TrackSelectorListModel>();
 			foreach (var musicData in data)
@@ -159,9 +161,15 @@ namespace MilliRhythm.UI.TrackSelectorUI
 			}
 		}
 
-		public void DisplayConfigPopup()
+		private void DisplayConfigPopup()
 		{
-			configCanvas.Show();
+			DisplayConfigPopupAsync().Forget();
+			return;
+
+			async UniTask DisplayConfigPopupAsync()
+			{
+				await configPopup.Display(null);
+			}
 		}
 	}
 }

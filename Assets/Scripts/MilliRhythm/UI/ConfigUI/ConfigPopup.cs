@@ -1,18 +1,21 @@
+using System;
 using MilliRhythm.Config;
 using MilliRhythm.Data.Domain;
+using MilliRhythm.UI.Components;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace MilliRhythm.UI.ConfigUI
 {
-	public class ConfigPanel : MonoBehaviour
+	public class ConfigPopup : PopupUIBase<CommonPopupParameter, CommonPopupResponse, CommonPopupResultPayload>
 	{
-		[SerializeField] private GameObject panel;
+		private INavigatable[] navigatables;
+		private INavigatable currentNavigatable;
 
 		//Volume
-		[SerializeField] private Slider masterVolumeSlider;
-		[SerializeField] private Slider musicVolumeSlider;
-		[SerializeField] private Slider sfxVolumeSlider;
+		[SerializeField] private NavigatableSlider masterVolumeSlider;
+		[SerializeField] private NavigatableSlider musicVolumeSlider;
+		[SerializeField] private NavigatableSlider sfxVolumeSlider;
 
 		//Toggle Group
 		[SerializeField] private Toggle japaneseToggle;
@@ -23,6 +26,9 @@ namespace MilliRhythm.UI.ConfigUI
 
 		private void Awake()
 		{
+			response = new CommonPopupResponse();
+
+			navigatables = GetComponentsInChildren<INavigatable>(true);
 			masterVolumeSlider.onValueChanged.AddListener(OnMasterVolumeChanged);
 			musicVolumeSlider.onValueChanged.AddListener(OnMusicVolumeChanged);
 			sfxVolumeSlider.onValueChanged.AddListener(OnSfxVolumeChanged);
@@ -31,7 +37,8 @@ namespace MilliRhythm.UI.ConfigUI
 			koreanToggle.onValueChanged.AddListener(selected => OnLanguageSelected(selected, LanguageType.Korean));
 			englishToggle.onValueChanged.AddListener(selected => OnLanguageSelected(selected, LanguageType.English));
 
-			quitButton.onClick.AddListener(Quit);
+			quitButton.onClick.AddListener(Confirm);
+			Refresh();
 		}
 
 		private void OnDestroy()
@@ -44,24 +51,13 @@ namespace MilliRhythm.UI.ConfigUI
 			koreanToggle.onValueChanged.RemoveListener(selected => OnLanguageSelected(selected, LanguageType.Korean));
 			englishToggle.onValueChanged.RemoveListener(selected => OnLanguageSelected(selected, LanguageType.English));
 
-			quitButton.onClick.RemoveListener(Quit);
+			quitButton.onClick.RemoveListener(Confirm);
 		}
 
-		private void OnEnable()
+		protected override void Set()
 		{
 			Refresh();
-		}
-
-		public void Show()
-		{
-			panel.SetActive(true);
-			Refresh();
-		}
-
-		private void Quit()
-		{
-			panel.SetActive(false);
-			ConfigManager.Instance.Save();
+			currentNavigatable = navigatables[0];
 		}
 
 		private void Refresh()
@@ -97,6 +93,46 @@ namespace MilliRhythm.UI.ConfigUI
 		{
 			if (!selected) return;
 			ConfigManager.Instance.ChangeLanguage(type);
+		}
+
+		public override void OnNavigate(Vector2 value)
+		{
+			var direction = value.ToUINavigationType();
+			switch (direction)
+			{
+				case UINavigationType.None:
+					break;
+				case UINavigationType.Up:
+					Select(Array.IndexOf(navigatables, currentNavigatable) - 1);
+					break;
+				case UINavigationType.Down:
+					Select(Array.IndexOf(navigatables, currentNavigatable) + 1);
+					break;
+				case UINavigationType.Left:
+				case UINavigationType.Right:
+					currentNavigatable.OnNavigate(direction);
+					break;
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
+		}
+
+		private void Select(int index)
+		{
+			var next = Math.Clamp(index, 0, navigatables.Length - 1);
+			currentNavigatable = navigatables[next];
+		}
+
+		public override void OnSubmit(bool value)
+		{
+			ConfigManager.Instance.Save();
+			Confirm();
+		}
+
+		public override void OnCancel(bool value)
+		{
+			Confirm();
+			ConfigManager.Instance.Save();
 		}
 	}
 }
