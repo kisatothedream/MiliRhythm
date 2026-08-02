@@ -1,13 +1,12 @@
 using System;
 using System.Collections.Generic;
 using MilliRhythm.Data.Domain;
-using MilliRhythm.Input;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace MilliRhythm.UI.TrackSelectorUI
 {
-	public class TrackSelectorListPanel : MonoBehaviour, IUIInputListener
+	public class TrackSelectorListPanel : MonoBehaviour
 	{
 		[SerializeField] private ScrollRect scrollRect;
 		[SerializeField] private TrackSelectorList trackSelectorList;
@@ -25,14 +24,12 @@ namespace MilliRhythm.UI.TrackSelectorUI
 			onTrackSelectionChanged = action;
 			trackSelectorList.OnSelectionChanged += onTrackSelectionChanged;
 			trackSelectorList.OnSelectionChanged += EnsureItemVisible;
-			this.RegisterUIInputListener();
 		}
 
 		public void Finish()
 		{
 			trackSelectorList.OnSelectionChanged -= onTrackSelectionChanged;
 			trackSelectorList.OnSelectionChanged -= EnsureItemVisible;
-			this.UnregisterUIInputListener();
 		}
 
 		public void ApplyFilter(Member filter)

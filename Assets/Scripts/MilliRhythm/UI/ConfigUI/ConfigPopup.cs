@@ -131,6 +131,7 @@ namespace MilliRhythm.UI.ConfigUI
 
 		public override void OnCancel(bool value)
 		{
+			if(!value) return;
 			Confirm();
 			ConfigManager.Instance.Save();
 		}

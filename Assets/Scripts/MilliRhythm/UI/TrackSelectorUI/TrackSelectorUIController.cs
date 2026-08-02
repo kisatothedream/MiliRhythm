@@ -1,10 +1,10 @@
-using System;
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using MilliRhythm.Audio;
 using MilliRhythm.Data.Domain;
 using MilliRhythm.Data.GameDataService;
+using MilliRhythm.Input;
 using MilliRhythm.UI.Components;
 using MilliRhythm.UI.ConfigUI;
 using MilliRhythm.UI.TrackSelectorUI.Filter;
@@ -15,7 +15,7 @@ using UnityEngine.UI;
 
 namespace MilliRhythm.UI.TrackSelectorUI
 {
-	public class TrackSelectorUIController : MonoBehaviour
+	public class TrackSelectorUIController : MonoBehaviour, IUIInputListener
 	{
 		[SerializeField] private TrackSelectorListPanel trackSelectorPanel;
 		[SerializeField] private TrackInfoPanel trackInfoPanel;
@@ -32,10 +32,13 @@ namespace MilliRhythm.UI.TrackSelectorUI
 
 		[SerializeField] private TrackSelectorAudioPlayer audioPlayer;
 
+		private bool isPopupOpened;
+
 		private void Awake()
 		{
 			filterButton.onClick.AddListener(DisplayFilterPopup);
 			configButton.onClick.AddListener(DisplayConfigPopup);
+
 		}
 
 		private void OnDestroy()
@@ -63,11 +66,13 @@ namespace MilliRhythm.UI.TrackSelectorUI
 			}
 
 			trackSelectorPanel.Set(models, OnTrackSelectionChanged);
+			this.RegisterUIInputListener();
 		}
 
 		public void Finish()
 		{
 			trackSelectorPanel.Finish();
+			this.UnregisterUIInputListener();
 		}
 
 		private void OnTrackSelectionChanged(TrackSelectorListModel model)
@@ -142,11 +147,13 @@ namespace MilliRhythm.UI.TrackSelectorUI
 
 		public void DisplayFilterPopup()
 		{
+			if(isPopupOpened) return;
 			DisplayFilterPopupAsync().Forget();
 			return;
 
 			async UniTask DisplayFilterPopupAsync()
 			{
+				isPopupOpened = true;
 				var result = await filterPopup.Display(new VocalFilterPopupParameter()
 				{
 					LastFilter = Member.AkubiDemonspade,
@@ -156,18 +163,42 @@ namespace MilliRhythm.UI.TrackSelectorUI
 					var filter = result.Payload.FilterMember;
 					trackSelectorPanel.ApplyFilter(filter);
 				}
+
+				isPopupOpened = false;
 			}
 		}
 
 		private void DisplayConfigPopup()
 		{
+			if(isPopupOpened) return;
 			DisplayConfigPopupAsync().Forget();
 			return;
 
 			async UniTask DisplayConfigPopupAsync()
 			{
+				isPopupOpened = true;
 				await configPopup.Display(null);
+				isPopupOpened = false;
 			}
+		}
+
+		public void OnNavigate(Vector2 value)
+		{
+			if(isPopupOpened) return;
+			trackSelectorPanel.OnNavigate(value);
+		}
+
+		public void OnSubmit(bool value)
+		{
+			if(isPopupOpened) return;
+			trackSelectorPanel.OnSubmit(value);
+		}
+
+		public void OnCancel(bool value)
+		{
+			if(isPopupOpened) return;
+			if(!value) return;
+			DisplayConfigPopup();
 		}
 	}
 }
