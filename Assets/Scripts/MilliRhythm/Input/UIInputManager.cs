@@ -46,6 +46,7 @@ namespace MilliRhythm.Input
 			uiControls.Navigate.Subscribe(inputListener.OnNavigate).AddTo(disposable);
 			uiControls.Submit.Subscribe(inputListener.OnSubmit).AddTo(disposable);
 			uiControls.Cancel.Subscribe(inputListener.OnCancel).AddTo(disposable);
+			uiControls.View.Subscribe(inputListener.OnView).AddTo(disposable);
 		}
 
 		private void UnregisterToControls(IUIInputListener inputListener)

@@ -10,9 +10,11 @@ namespace MilliRhythm.Input
 		public ReadOnlyReactiveProperty<Vector2> Navigate => navigate;
 		public ReadOnlyReactiveProperty<bool> Submit => submit;
 		public ReadOnlyReactiveProperty<bool> Cancel => cancel;
+		public ReadOnlyReactiveProperty<bool> View => view;
 		private readonly ReactiveProperty<Vector2> navigate = new();
 		private readonly ReactiveProperty<bool> submit = new();
 		private readonly ReactiveProperty<bool> cancel = new();
+		private readonly ReactiveProperty<bool> view = new();
 
 		public override void AddInputSource(IInputSource inputSource)
 		{
@@ -29,6 +31,7 @@ namespace MilliRhythm.Input
 			navigate.Value = default;
 			submit.Value = false;
 			cancel.Value = false;
+			view.Value = false;
 		}
 
 		public void Dispose()
@@ -36,6 +39,7 @@ namespace MilliRhythm.Input
 			navigate?.Dispose();
 			submit?.Dispose();
 			cancel?.Dispose();
+			view?.Dispose();
 		}
 	}
 
@@ -56,6 +60,7 @@ namespace MilliRhythm.Input
 			protected void OnNavigate(Vector2 value) => controls.navigate.Value = value;
 			protected void OnSubmit(bool value) => controls.submit.Value = value;
 			protected void OnCancel(bool value) => controls.cancel.Value = value;
+			protected void OnView(bool value) => controls.view.Value = value;
 		}
 
 		private class InputSystemInputAdapter : UIInputAdapter, MilliRhythmInputs.IUIActions
@@ -70,6 +75,7 @@ namespace MilliRhythm.Input
 			public void OnNavigate(InputAction.CallbackContext context) => OnNavigate(context.ReadValue<Vector2>());
 			public void OnSubmit(InputAction.CallbackContext context) => OnSubmit(context.ReadValueAsButton());
 			public void OnCancel(InputAction.CallbackContext context) => OnCancel(context.ReadValueAsButton());
+			public void OnView(InputAction.CallbackContext context) => OnView(context.ReadValueAsButton());
 
 			public override void Register()
 			{

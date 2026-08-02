@@ -102,6 +102,10 @@ namespace MilliRhythm.UI.TrackSelectorUI.Filter
 			Cancel();
 		}
 
+		public override void OnView(bool value)
+		{
+		}
+
 		private void FocusTo(int index)
 		{
 			

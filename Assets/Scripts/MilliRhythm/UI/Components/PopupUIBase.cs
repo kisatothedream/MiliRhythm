@@ -89,6 +89,7 @@ namespace MilliRhythm.UI.Components
 		public abstract void OnNavigate(Vector2 value);
 		public abstract void OnSubmit(bool value);
 		public abstract void OnCancel(bool value);
+		public abstract void OnView(bool value);
 	}
 
 

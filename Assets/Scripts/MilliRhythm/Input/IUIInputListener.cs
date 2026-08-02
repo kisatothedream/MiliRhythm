@@ -7,6 +7,7 @@ namespace MilliRhythm.Input
 		public void OnNavigate(Vector2 value);
 		public void OnSubmit(bool value);
 		public void OnCancel(bool value);
+		public void OnView(bool value);
 	}
 
 	public static class IUIInputListenerExtensions

@@ -135,5 +135,9 @@ namespace MilliRhythm.UI.ConfigUI
 			Confirm();
 			ConfigManager.Instance.Save();
 		}
+
+		public override void OnView(bool value)
+		{
+		}
 	}
 }

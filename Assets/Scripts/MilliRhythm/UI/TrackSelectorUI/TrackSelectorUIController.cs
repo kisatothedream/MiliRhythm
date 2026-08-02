@@ -38,7 +38,6 @@ namespace MilliRhythm.UI.TrackSelectorUI
 		{
 			filterButton.onClick.AddListener(DisplayFilterPopup);
 			configButton.onClick.AddListener(DisplayConfigPopup);
-
 		}
 
 		private void OnDestroy()
@@ -147,7 +146,7 @@ namespace MilliRhythm.UI.TrackSelectorUI
 
 		public void DisplayFilterPopup()
 		{
-			if(isPopupOpened) return;
+			if (isPopupOpened) return;
 			DisplayFilterPopupAsync().Forget();
 			return;
 
@@ -161,6 +160,7 @@ namespace MilliRhythm.UI.TrackSelectorUI
 				if (result.Result == PopupResult.Confirm)
 				{
 					var filter = result.Payload.FilterMember;
+					UpdateFilterButton(filter == 0);
 					trackSelectorPanel.ApplyFilter(filter);
 				}
 
@@ -168,9 +168,14 @@ namespace MilliRhythm.UI.TrackSelectorUI
 			}
 		}
 
+		private void UpdateFilterButton(bool hasFilter)
+		{
+			//TODO: Apply Filtered Image
+		}
+
 		private void DisplayConfigPopup()
 		{
-			if(isPopupOpened) return;
+			if (isPopupOpened) return;
 			DisplayConfigPopupAsync().Forget();
 			return;
 
@@ -184,21 +189,28 @@ namespace MilliRhythm.UI.TrackSelectorUI
 
 		public void OnNavigate(Vector2 value)
 		{
-			if(isPopupOpened) return;
+			if (isPopupOpened) return;
 			trackSelectorPanel.OnNavigate(value);
 		}
 
 		public void OnSubmit(bool value)
 		{
-			if(isPopupOpened) return;
+			if (isPopupOpened) return;
 			trackSelectorPanel.OnSubmit(value);
 		}
 
 		public void OnCancel(bool value)
 		{
-			if(isPopupOpened) return;
-			if(!value) return;
+			if (isPopupOpened) return;
+			if (!value) return;
 			DisplayConfigPopup();
+		}
+
+		public void OnView(bool value)
+		{
+			if (isPopupOpened) return;
+			if (!value) return;
+			DisplayFilterPopup();
 		}
 	}
 }
