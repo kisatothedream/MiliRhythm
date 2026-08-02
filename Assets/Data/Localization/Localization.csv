@@ -1,0 +1,11 @@
+Id,Text_KO,Text_EN,Text_JP
+UI_START_GAME,게임 시작,Start Game,ゲーム開始
+UI_CONTINUE,계속하기,Continue,続ける
+UI_SETTINGS,설정,Settings,設定
+UI_EXIT_GAME,게임 종료,Exit Game,ゲーム終了
+UI_CONFIRM,확인,Confirm,確認
+UI_CANCEL,취소,Cancel,キャンセル
+UI_RETRY,재시도,Retry,リトライ
+UI_BACK,뒤로,Back,戻る
+UI_LOADING,로딩 중...,Loading...,ロード中...
+UI_PAUSE,일시 정지,Paused,一時停止

@@ -5,7 +5,7 @@ UI_SETTINGS,설정
 UI_EXIT_GAME,게임 종료
 UI_CONFIRM,확인
 UI_CANCEL,취소
-UI_RETRY,다시 시도
+UI_RETRY,재시도
 UI_BACK,뒤로
-UI_LOADING,불러오는 중입니다.
+UI_LOADING,로딩 중...
 UI_PAUSE,일시 정지
