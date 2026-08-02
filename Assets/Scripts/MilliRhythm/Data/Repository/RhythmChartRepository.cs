@@ -9,14 +9,14 @@ namespace MilliRhythm.Data.Repository
 {
 	public class RhythmChartRepository : IGameDataRepository
 	{
-		private AsyncOperationHandle<RhythmChartDataScriptableObject> handle;
-		private RhythmChartDataScriptableObject rhythmChartDataScriptableObject;
+		private AsyncOperationHandle<RhythmChartDataCollection> handle;
+		private RhythmChartDataCollection rhythmChartDataCollection;
 		private const string FileKey = "ChartDataRepository";
 
 		public async UniTask LoadAsync()
 		{
-			handle = Addressables.LoadAssetAsync<RhythmChartDataScriptableObject>(FileKey);
-			rhythmChartDataScriptableObject = await handle.Task;
+			handle = Addressables.LoadAssetAsync<RhythmChartDataCollection>(FileKey);
+			rhythmChartDataCollection = await handle.Task;
 		}
 
 		public void Release()
@@ -26,6 +26,6 @@ namespace MilliRhythm.Data.Repository
 		}
 
 		public RhythmChart GetChart(int id, ChartType chartType, Difficulty difficulty) =>
-			rhythmChartDataScriptableObject.ChartDataList.First(item => item.MusicId == id && item.ChartType == chartType && item.Difficulty == difficulty);
+			rhythmChartDataCollection.ChartDataList.First(item => item.MusicId == id && item.ChartType == chartType && item.Difficulty == difficulty);
 	}
 }

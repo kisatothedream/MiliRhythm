@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace MilliRhythm.Data.Repository
 {
-	public class RhythmChartDataScriptableObject : ScriptableObject
+	public class RhythmChartDataCollection : ScriptableObject
 	{
 		public List<RhythmChart> ChartDataList => chartDataList;
 		[SerializeField] private List<RhythmChart> chartDataList;

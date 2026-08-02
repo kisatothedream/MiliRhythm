@@ -24,45 +24,4 @@ namespace MilliRhythm.Data.Repository
 		[field: SerializeField] public AudioClip PreviewAudioClip { get; private set; }
 		[field: SerializeField] public AssetReferenceT<AudioClip> AudioClipReference { get; private set; }
 	}
-
-	public class MusicDataRepository : IGameDataRepository
-	{
-		private AsyncOperationHandle<MusicDataScriptableObject> handle;
-		private MusicDataScriptableObject musicDataObject;
-		private const string FileKey = "MusicDataRepository";
-
-		private Dictionary<int, MusicData> musicDataMap = new();
-		private List<MusicData> musicDataList;
-
-		public async UniTask LoadAsync()
-		{
-			handle = Addressables.LoadAssetAsync<MusicDataScriptableObject>(FileKey);
-			musicDataObject = await handle.Task;
-			musicDataList = new List<MusicData>(musicDataObject.MusicDataList);
-			foreach (var musicData in musicDataList)
-			{
-				musicDataMap.Add(musicData.Id, musicData);
-			}
-		}
-
-		public void Release()
-		{
-			if (handle.IsValid())
-				Addressables.Release(handle);
-		}
-
-		public List<MusicData> GetAllMusicData() => musicDataList;
-
-		public MusicData GetMusicDataById(int id)
-		{
-			if (!musicDataMap.TryGetValue(id, out var data))
-			{
-				throw new KeyNotFoundException($"MusicData with id {id} not found");
-			}
-
-			return data;
-		}
-
-		public List<MusicData> GetMusicDataList() => musicDataList;
-	}
 }
