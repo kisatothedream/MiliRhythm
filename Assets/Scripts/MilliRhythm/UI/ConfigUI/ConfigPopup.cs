@@ -63,9 +63,9 @@ namespace MilliRhythm.UI.ConfigUI
 		private void Refresh()
 		{
 			var config = ConfigManager.Instance.Config;
-			masterVolumeSlider.value = config.MasterVolume;
-			musicVolumeSlider.value = config.MusicVolume;
-			sfxVolumeSlider.value = config.SfxVolume;
+			masterVolumeSlider.SetValueWithoutNotify(config.MasterVolume);
+			musicVolumeSlider.SetValueWithoutNotify(config.MusicVolume);
+			sfxVolumeSlider.SetValueWithoutNotify(config.SfxVolume);
 
 			var language = ConfigManager.Instance.Config.Language;
 
