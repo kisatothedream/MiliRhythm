@@ -1,4 +1,3 @@
-using System;
 using MilliRhythm.Config;
 using MilliRhythm.Data.Domain;
 using UnityEngine;
@@ -6,7 +5,7 @@ using UnityEngine.UI;
 
 namespace MilliRhythm.UI.ConfigUI
 {
-	public class ConfigUICanvas : MonoBehaviour
+	public class ConfigPanel : MonoBehaviour
 	{
 		[SerializeField] private GameObject panel;
 

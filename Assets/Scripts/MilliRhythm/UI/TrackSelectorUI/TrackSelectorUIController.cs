@@ -6,6 +6,7 @@ using MilliRhythm.Audio;
 using MilliRhythm.Data.Domain;
 using MilliRhythm.Data.GameDataService;
 using MilliRhythm.UI.Components;
+using MilliRhythm.UI.ConfigUI;
 using MilliRhythm.UI.TrackSelectorUI.Filter;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -20,6 +21,8 @@ namespace MilliRhythm.UI.TrackSelectorUI
 		[SerializeField] private TrackInfoPanel trackInfoPanel;
 		[SerializeField] private VocalFilterPopup filterPopup;
 		[SerializeField] private Button filterButton;
+		[SerializeField] private ConfigPanel configCanvas;
+		[SerializeField] private Button configButton;
 
 		//Track Detail Info Panel
 		[SerializeField] private Sprite jacketPlaceHolderSprite;
@@ -32,11 +35,13 @@ namespace MilliRhythm.UI.TrackSelectorUI
 		private void Awake()
 		{
 			filterButton.onClick.AddListener(DisplayFilterPopup);
+			configButton.onClick.AddListener(DisplayConfigPopup);
 		}
 
 		private void OnDestroy()
 		{
 			filterButton.onClick.RemoveListener(DisplayFilterPopup);
+			configButton.onClick.RemoveListener(DisplayConfigPopup);
 		}
 
 		public void Set()
@@ -152,6 +157,11 @@ namespace MilliRhythm.UI.TrackSelectorUI
 					trackSelectorPanel.ApplyFilter(filter);
 				}
 			}
+		}
+
+		public void DisplayConfigPopup()
+		{
+			configCanvas.Show();
 		}
 	}
 }
