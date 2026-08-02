@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using MilliRhythm.Data.Domain;
 using MilliRhythm.Data.Repository;
 using MilliRhythm.Rhythm;
 
@@ -11,6 +12,7 @@ namespace MilliRhythm.Data.GameDataService
 		public static List<MusicData> GetAllMusicData() => ((MusicDataRepository)repositories[typeof(MusicDataRepository)]).GetAllMusicData();
 		public static MusicData GetMusicData(int id) => ((MusicDataRepository)repositories[typeof(MusicDataRepository)]).GetMusicDataById(id);
 		public static RhythmChart GetChartData(int id, ChartType chartType, Difficulty difficulty) => ((RhythmChartRepository)repositories[typeof(RhythmChartRepository)]).GetChart(id, chartType, difficulty);
+		public static MemberData GetMemberData(Member member) => ((MemberDataRepository)repositories[typeof(MemberDataRepository)]).GetMemberData(member);
 
 		public static LocalizationData GetLocalization(string key)
 		{

@@ -25,6 +25,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 724d0787cd6de4a4ba2c96c32bd7d976
+    m_Address: MemberDataRepository
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 843f96582cb7ab54b9cf3688da175ffc
     m_Address: MusicDataRepository
     m_ReadOnly: 0

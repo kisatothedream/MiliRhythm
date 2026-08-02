@@ -12,7 +12,7 @@ namespace MilliRhythm.Data.Domain
 		NemukumoTsukuri = 1 << 4,
 		NijipukaNuhu = 1 << 5,
 		NononoNono = 1 << 6,
-		OtonoseRako = 1 << 7,
+		OtonoseRaco = 1 << 7,
 		YugiriRay = 1 << 8,
 		YuragiYura = 1 << 9,
 	}
