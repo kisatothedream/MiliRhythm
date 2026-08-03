@@ -33,9 +33,9 @@ namespace MilliRhythm.UI.ConfigUI
 			musicVolumeSlider.onValueChanged.AddListener(OnMusicVolumeChanged);
 			sfxVolumeSlider.onValueChanged.AddListener(OnSfxVolumeChanged);
 
-			japaneseToggle.onValueChanged.AddListener(selected => OnLanguageSelected(selected, LanguageType.Japanese));
-			koreanToggle.onValueChanged.AddListener(selected => OnLanguageSelected(selected, LanguageType.Korean));
-			englishToggle.onValueChanged.AddListener(selected => OnLanguageSelected(selected, LanguageType.English));
+			japaneseToggle.onValueChanged.AddListener(OnJaSelected);
+			koreanToggle.onValueChanged.AddListener(OnKoSelected);
+			englishToggle.onValueChanged.AddListener(OnEnSelected);
 
 			quitButton.onClick.AddListener(Confirm);
 			Refresh();
@@ -47,9 +47,9 @@ namespace MilliRhythm.UI.ConfigUI
 			musicVolumeSlider.onValueChanged.RemoveListener(OnMusicVolumeChanged);
 			sfxVolumeSlider.onValueChanged.RemoveListener(OnSfxVolumeChanged);
 
-			japaneseToggle.onValueChanged.RemoveListener(selected => OnLanguageSelected(selected, LanguageType.Japanese));
-			koreanToggle.onValueChanged.RemoveListener(selected => OnLanguageSelected(selected, LanguageType.Korean));
-			englishToggle.onValueChanged.RemoveListener(selected => OnLanguageSelected(selected, LanguageType.English));
+			japaneseToggle.onValueChanged.RemoveListener(OnJaSelected);
+			koreanToggle.onValueChanged.RemoveListener(OnKoSelected);
+			englishToggle.onValueChanged.RemoveListener(OnEnSelected);
 
 			quitButton.onClick.RemoveListener(Confirm);
 		}
@@ -88,6 +88,10 @@ namespace MilliRhythm.UI.ConfigUI
 		{
 			ConfigManager.Instance.ChangeSfxVolume(volume);
 		}
+
+		private void OnJaSelected(bool selected) => OnLanguageSelected(selected, LanguageType.Japanese);
+		private void OnKoSelected(bool selected) => OnLanguageSelected(selected, LanguageType.Korean);
+		private void OnEnSelected(bool selected) => OnLanguageSelected(selected, LanguageType.English);
 
 		private void OnLanguageSelected(bool selected, LanguageType type)
 		{
