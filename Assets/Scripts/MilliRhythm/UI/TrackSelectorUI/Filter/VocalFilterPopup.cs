@@ -83,9 +83,8 @@ namespace MilliRhythm.UI.TrackSelectorUI.Filter
 			}
 		}
 
-		public override void OnSubmit(bool pressed)
+		public override void OnSubmit()
 		{
-			if (!pressed) return;
 			//현재 네비게이션 버튼 아이템을 선택
 			if (focusedNavigatableItem is VocalFilterSelectableListView focusedListItem)
 			{
@@ -97,12 +96,12 @@ namespace MilliRhythm.UI.TrackSelectorUI.Filter
 			}
 		}
 
-		public override void OnCancel(bool value)
+		public override void OnCancel()
 		{
 			Cancel();
 		}
 
-		public override void OnView(bool value)
+		public override void OnView()
 		{
 		}
 

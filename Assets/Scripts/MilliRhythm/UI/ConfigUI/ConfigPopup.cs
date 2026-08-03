@@ -28,6 +28,8 @@ namespace MilliRhythm.UI.ConfigUI
 		[SerializeField] private NavigatableButton quitGameButton;
 		[SerializeField] private NavigatableButton creditButton;
 
+		private bool isPopupOpened;
+
 		private void Awake()
 		{
 			response = new CommonPopupResponse();
@@ -134,39 +136,47 @@ namespace MilliRhythm.UI.ConfigUI
 			currentNavigatable = navigatables[next];
 		}
 
-		public override void OnSubmit(bool value)
+		public override void OnSubmit()
 		{
-			if (!value) return;
 			ConfigManager.Instance.Save();
 			currentNavigatable.OnSubmit();
 		}
 
-		public override void OnCancel(bool value)
+		public override void OnCancel()
 		{
-			if (!value) return;
 			Confirm();
 			ConfigManager.Instance.Save();
 		}
 
-		public override void OnView(bool value)
+		public override void OnView()
 		{
 		}
 
-		public void DisplayConfigGamePopup()
+		private void DisplayConfigGamePopup()
 		{
-			UniTask.Action(async () => { await creditPopup.Display(null); });
+			if(isPopupOpened) return;
+			UniTask.Action(async () =>
+			{
+				isPopupOpened = true;
+				await creditPopup.Display(null);
+				isPopupOpened = false;
+			})();
 		}
 
 		public void DisplayQuitGamePopup()
 		{
+			if(isPopupOpened) return;
 			UniTask.Action(async () =>
 			{
+				isPopupOpened = true;
 				var result = await quitGamePopup.Display(null);
 				if (result.Result == PopupResult.Confirm)
 				{
 					Application.Quit();
 				}
-			});
+
+				isPopupOpened = false;
+			})();
 		}
 	}
 }

@@ -11,7 +11,8 @@ namespace MilliRhythm.UI.TrackSelectorUI
 		[SerializeField] private ScrollRect scrollRect;
 		[SerializeField] private TrackSelectorList trackSelectorList;
 		private Action<TrackSelectorListModel> onTrackSelectionChanged;
-		public TrackSelectorListModel SelectedTrack => trackSelectorList.SelectedTrack.Model;
+
+		public TrackSelectorListModel SelectedTrackModel => trackSelectorList.SelectedTrack == null ? null : trackSelectorList.SelectedTrack.Model;
 
 		public void Set(List<TrackSelectorListModel> models, Action<TrackSelectorListModel> action)
 		{
@@ -45,6 +46,7 @@ namespace MilliRhythm.UI.TrackSelectorUI
 
 		private void EnsureItemVisible(TrackSelectorListModel _)
 		{
+			if (trackSelectorList.SelectedTrack == null) return;
 			RectTransform item = trackSelectorList.SelectedTrack.GetComponent<RectTransform>();
 			var viewport = scrollRect.viewport;
 			var content = scrollRect.content;

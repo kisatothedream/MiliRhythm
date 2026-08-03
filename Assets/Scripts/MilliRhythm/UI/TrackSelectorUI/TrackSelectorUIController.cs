@@ -197,13 +197,14 @@ namespace MilliRhythm.UI.TrackSelectorUI
 		private void DisplayGameStartPopup()
 		{
 			if (isPopupOpened) return;
+			if (trackSelectorPanel.SelectedTrackModel == null) return;
 			DisplayGameStartPopupAsync().Forget();
 			return;
 
 			async UniTask DisplayGameStartPopupAsync()
 			{
 				isPopupOpened = true;
-				var result = await startPopup.Display(new GameStartPopupParameter() { Model = trackSelectorPanel.SelectedTrack });
+				var result = await startPopup.Display(new GameStartPopupParameter() { Model = trackSelectorPanel.SelectedTrackModel });
 				isPopupOpened = false;
 				if (result.Result == PopupResult.Confirm)
 				{
@@ -213,27 +214,27 @@ namespace MilliRhythm.UI.TrackSelectorUI
 			}
 		}
 
-		public void OnNavigate(Vector2 value)
+		public void Navigate(Vector2 value)
 		{
 			if (isPopupOpened) return;
 			trackSelectorPanel.OnNavigate(value);
 		}
 
-		public void OnSubmit(bool value)
+		public void Submit(bool value)
 		{
 			if (isPopupOpened) return;
 			if (!value) return;
 			DisplayGameStartPopup();
 		}
 
-		public void OnCancel(bool value)
+		public void Cancel(bool value)
 		{
 			if (isPopupOpened) return;
 			if (!value) return;
 			DisplayConfigPopup();
 		}
 
-		public void OnView(bool value)
+		public void View(bool value)
 		{
 			if (isPopupOpened) return;
 			if (!value) return;

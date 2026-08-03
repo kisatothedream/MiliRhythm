@@ -84,6 +84,7 @@ namespace MilliRhythm.UI.TrackSelectorUI
 
 			if (track == null)
 			{
+				SelectedTrack = null;
 				OnSelectionChanged?.Invoke(null);
 				return;
 			}

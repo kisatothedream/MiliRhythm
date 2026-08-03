@@ -1,6 +1,5 @@
 using System;
 using MilliRhythm.UI.Components;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,7 +15,6 @@ namespace MilliRhythm.UI.TrackSelectorUI
 		[SerializeField] private Image thumbnailImage;
 
 		//랭크 정보
-		[SerializeField] private TextMeshProUGUI trackName;
 		private Action<TrackSelectorListView> onClickButtonAction;
 		private bool isSelected;
 
@@ -40,7 +38,6 @@ namespace MilliRhythm.UI.TrackSelectorUI
 		{
 			Model = m;
 			thumbnailImage.sprite = Model.ThumbnailSprite;
-			trackName.text = $"{Model.TrackName}";
 		}
 
 		public void SetNavigationId(int navigationId)

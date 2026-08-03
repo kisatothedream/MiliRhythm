@@ -43,10 +43,10 @@ namespace MilliRhythm.Input
 		{
 			var disposable = new CompositeDisposable();
 			disposables.Add(inputListener, disposable);
-			uiControls.Navigate.Subscribe(inputListener.OnNavigate).AddTo(disposable);
-			uiControls.Submit.Subscribe(inputListener.OnSubmit).AddTo(disposable);
-			uiControls.Cancel.Subscribe(inputListener.OnCancel).AddTo(disposable);
-			uiControls.View.Subscribe(inputListener.OnView).AddTo(disposable);
+			uiControls.Navigate.Subscribe(inputListener.Navigate).AddTo(disposable);
+			uiControls.Submit.Subscribe(inputListener.Submit).AddTo(disposable);
+			uiControls.Cancel.Subscribe(inputListener.Cancel).AddTo(disposable);
+			uiControls.View.Subscribe(inputListener.View).AddTo(disposable);
 		}
 
 		private void UnregisterToControls(IUIInputListener inputListener)

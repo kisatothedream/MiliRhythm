@@ -14,17 +14,17 @@ namespace MilliRhythm.UI.ConfigUI
 		{
 		}
 
-		public override void OnSubmit(bool value)
+		public override void OnSubmit()
 		{
 			Confirm();
 		}
 
-		public override void OnCancel(bool value)
+		public override void OnCancel()
 		{
 			Cancel();
 		}
 
-		public override void OnView(bool value)
+		public override void OnView()
 		{
 		}
 	}

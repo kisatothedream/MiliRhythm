@@ -86,10 +86,33 @@ namespace MilliRhythm.UI.Components
 			DisposeToken();
 		}
 
+		public void Navigate(Vector2 value)
+		{
+			OnNavigate(value);
+		}
+
 		public abstract void OnNavigate(Vector2 value);
-		public abstract void OnSubmit(bool value);
-		public abstract void OnCancel(bool value);
-		public abstract void OnView(bool value);
+
+		public void Submit(bool value)
+		{
+			if (!value) return;
+			OnSubmit();
+		}
+		public abstract void OnSubmit();
+
+		public void Cancel(bool value)
+		{
+			if (!value) return;
+			OnCancel();
+		}
+		public abstract void OnCancel();
+
+		public void View(bool value)
+		{
+			if(!value) return;
+			OnView();
+		}
+		public abstract void OnView();
 	}
 
 
