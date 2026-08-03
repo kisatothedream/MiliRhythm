@@ -24,14 +24,14 @@ namespace MilliRhythm.UI.Components
 		{
 			confirmButton?.onClick.AddListener(Confirm);
 			cancelButton?.onClick.AddListener(Cancel);
-			dismissArea.onClick.AddListener(Dismiss);
+			dismissArea?.onClick.AddListener(Dismiss);
 		}
 
 		private void OnDestroy()
 		{
 			confirmButton?.onClick.RemoveListener(Confirm);
 			cancelButton?.onClick.RemoveListener(Cancel);
-			dismissArea.onClick.RemoveListener(Dismiss);
+			dismissArea?.onClick.RemoveListener(Dismiss);
 		}
 
 		public async UniTask<TPopupResponse> Display(TPopupParameter param)
