@@ -1,4 +1,5 @@
 using System;
+using Cysharp.Threading.Tasks;
 using MilliRhythm.Config;
 using MilliRhythm.Data.Domain;
 using MilliRhythm.UI.Components;
@@ -22,7 +23,10 @@ namespace MilliRhythm.UI.ConfigUI
 		[SerializeField] private Toggle koreanToggle;
 		[SerializeField] private Toggle englishToggle;
 
-		[SerializeField] private Button quitButton;
+		[SerializeField] private QuitGamePopup quitGamePopup;
+		[SerializeField] private CreditPopup creditPopup;
+		[SerializeField] private NavigatableButton quitGameButton;
+		[SerializeField] private NavigatableButton creditButton;
 
 		private void Awake()
 		{
@@ -37,7 +41,9 @@ namespace MilliRhythm.UI.ConfigUI
 			koreanToggle.onValueChanged.AddListener(OnKoSelected);
 			englishToggle.onValueChanged.AddListener(OnEnSelected);
 
-			quitButton.onClick.AddListener(Confirm);
+			quitGameButton.onClick.AddListener(DisplayQuitGamePopup);
+			creditButton.onClick.AddListener(DisplayConfigGamePopup);
+
 			Refresh();
 		}
 
@@ -51,7 +57,8 @@ namespace MilliRhythm.UI.ConfigUI
 			koreanToggle.onValueChanged.RemoveListener(OnKoSelected);
 			englishToggle.onValueChanged.RemoveListener(OnEnSelected);
 
-			quitButton.onClick.RemoveListener(Confirm);
+			quitGameButton.onClick.RemoveListener(DisplayQuitGamePopup);
+			creditButton.onClick.RemoveListener(DisplayConfigGamePopup);
 		}
 
 		protected override void Set()
@@ -129,19 +136,37 @@ namespace MilliRhythm.UI.ConfigUI
 
 		public override void OnSubmit(bool value)
 		{
+			if (!value) return;
 			ConfigManager.Instance.Save();
-			Confirm();
+			currentNavigatable.OnSubmit();
 		}
 
 		public override void OnCancel(bool value)
 		{
-			if(!value) return;
+			if (!value) return;
 			Confirm();
 			ConfigManager.Instance.Save();
 		}
 
 		public override void OnView(bool value)
 		{
+		}
+
+		public void DisplayConfigGamePopup()
+		{
+			UniTask.Action(async () => { await creditPopup.Display(null); });
+		}
+
+		public void DisplayQuitGamePopup()
+		{
+			UniTask.Action(async () =>
+			{
+				var result = await quitGamePopup.Display(null);
+				if (result.Result == PopupResult.Confirm)
+				{
+					Application.Quit();
+				}
+			});
 		}
 	}
 }

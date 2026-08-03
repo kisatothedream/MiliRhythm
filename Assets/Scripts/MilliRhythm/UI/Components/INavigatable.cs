@@ -6,5 +6,6 @@ namespace MilliRhythm.UI.Components
 		void Unfocus();
 		abstract void ApplyFocusState(bool focused);
 		void OnNavigate(UINavigationType direction);
+		void OnSubmit();
 	}
 }

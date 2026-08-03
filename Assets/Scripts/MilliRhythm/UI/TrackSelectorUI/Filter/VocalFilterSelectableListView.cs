@@ -47,6 +47,10 @@ namespace MilliRhythm.UI.TrackSelectorUI.Filter
 		public void OnNavigate(UINavigationType direction)
 		{
 		}
+
+		public void OnSubmit()
+		{
+		}
 	}
 
 	public class VocalFilterSelectableListModel : SelectableListModelBase<int>

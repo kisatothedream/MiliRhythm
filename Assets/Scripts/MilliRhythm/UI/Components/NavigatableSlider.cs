@@ -34,5 +34,9 @@ namespace MilliRhythm.UI.Components
 					break;
 			}
 		}
+
+		public void OnSubmit()
+		{
+		}
 	}
 }

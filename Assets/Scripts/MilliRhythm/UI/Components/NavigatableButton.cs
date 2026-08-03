@@ -1,8 +1,9 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace MilliRhythm.UI.Components
 {
-	public class NavigatableButton : MonoBehaviour, INavigatable
+	public class NavigatableButton : Button, INavigatable
 	{
 		public void Focus()
 		{
@@ -23,5 +24,9 @@ namespace MilliRhythm.UI.Components
 		{
 		}
 
+		public void OnSubmit()
+		{
+			onClick?.Invoke();
+		}
 	}
 }

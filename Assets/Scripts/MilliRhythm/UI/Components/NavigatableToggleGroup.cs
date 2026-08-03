@@ -41,6 +41,10 @@ namespace MilliRhythm.UI.Components
 			}
 		}
 
+		public void OnSubmit()
+		{
+		}
+
 		private int FindCurrentItem() => Array.FindIndex(toggles, toggle => toggle.isOn);
 		private void Select(int index)
 		{
