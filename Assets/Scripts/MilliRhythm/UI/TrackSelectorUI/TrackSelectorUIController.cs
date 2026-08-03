@@ -222,6 +222,7 @@ namespace MilliRhythm.UI.TrackSelectorUI
 		public void OnSubmit(bool value)
 		{
 			if (isPopupOpened) return;
+			if (!value) return;
 			DisplayGameStartPopup();
 		}
 

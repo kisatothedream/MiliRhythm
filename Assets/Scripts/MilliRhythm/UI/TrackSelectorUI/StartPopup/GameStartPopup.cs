@@ -13,6 +13,11 @@ namespace MilliRhythm.UI.TrackSelectorUI.StartPopup
 		protected override void Set()
 		{
 			navigatables = GetComponentsInChildren<INavigatable>();
+			response = new GameStartPopupResponse();
+			response.Payload = new GameStartPopupPayload
+			{
+				TrackId = parameter.Model.Id,
+			};
 		}
 
 		public override void OnNavigate(Vector2 value)
@@ -35,6 +40,8 @@ namespace MilliRhythm.UI.TrackSelectorUI.StartPopup
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
+
+			response.Payload.ChartType = Array.IndexOf(navigatables, currentNavigatable) == 0 ? ChartType.Melody : ChartType.Beat;
 		}
 
 		private void Select(int index)
