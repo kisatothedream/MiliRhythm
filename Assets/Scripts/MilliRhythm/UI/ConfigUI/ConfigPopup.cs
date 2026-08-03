@@ -66,7 +66,7 @@ namespace MilliRhythm.UI.ConfigUI
 		protected override void Set()
 		{
 			Refresh();
-			currentNavigatable = navigatables[0];
+			Select(0);
 		}
 
 		private void Refresh()
@@ -132,8 +132,10 @@ namespace MilliRhythm.UI.ConfigUI
 
 		private void Select(int index)
 		{
+			currentNavigatable?.Unfocus();
 			var next = Math.Clamp(index, 0, navigatables.Length - 1);
 			currentNavigatable = navigatables[next];
+			currentNavigatable?.Focus();
 		}
 
 		public override void OnSubmit()
@@ -154,7 +156,7 @@ namespace MilliRhythm.UI.ConfigUI
 
 		private void DisplayConfigGamePopup()
 		{
-			if(isPopupOpened) return;
+			if (isPopupOpened) return;
 			UniTask.Action(async () =>
 			{
 				isPopupOpened = true;
@@ -165,7 +167,7 @@ namespace MilliRhythm.UI.ConfigUI
 
 		public void DisplayQuitGamePopup()
 		{
-			if(isPopupOpened) return;
+			if (isPopupOpened) return;
 			UniTask.Action(async () =>
 			{
 				isPopupOpened = true;

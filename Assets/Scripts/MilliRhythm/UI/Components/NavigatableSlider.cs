@@ -5,8 +5,7 @@ namespace MilliRhythm.UI.Components
 {
 	public class NavigatableSlider : Slider, INavigatable
 	{
-		public INavigatable Up;
-		public INavigatable Down;
+		[SerializeField] private GameObject focusIndicator;
 
 		public void Focus()
 		{
@@ -20,6 +19,7 @@ namespace MilliRhythm.UI.Components
 
 		public void ApplyFocusState(bool focused)
 		{
+			focusIndicator.SetActive(focused);
 		}
 
 		public void OnNavigate(UINavigationType uiDirection)
