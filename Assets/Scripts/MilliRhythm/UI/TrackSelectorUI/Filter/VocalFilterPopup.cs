@@ -108,7 +108,6 @@ namespace MilliRhythm.UI.TrackSelectorUI.Filter
 
 		private void FocusTo(int index)
 		{
-			
 			FocusTo(list.listItems.First(item => item.Id == focusedViewItemIndex));
 		}
 

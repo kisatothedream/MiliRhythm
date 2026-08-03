@@ -10,7 +10,7 @@ namespace MilliRhythm.UI.TrackSelectorUI
 	public class TrackSelectorList : UIListBase<TrackSelectorListModel, TrackSelectorListView, int>
 	{
 		public Action<TrackSelectorListModel> OnSelectionChanged;
-		public TrackSelectorListView selectedTrack { get; private set; }
+		public TrackSelectorListView SelectedTrack { get; private set; }
 		private int visibleItemCount;
 
 		public override void Set(List<TrackSelectorListModel> models)
@@ -80,7 +80,7 @@ namespace MilliRhythm.UI.TrackSelectorUI
 
 		private void OnClickViewButtonAction(TrackSelectorListView track)
 		{
-			selectedTrack?.Deselect();
+			SelectedTrack?.Deselect();
 
 			if (track == null)
 			{
@@ -88,14 +88,14 @@ namespace MilliRhythm.UI.TrackSelectorUI
 				return;
 			}
 
-			selectedTrack = track;
-			selectedTrack.Select();
-			OnSelectionChanged?.Invoke(selectedTrack.Model);
+			SelectedTrack = track;
+			SelectedTrack.Select();
+			OnSelectionChanged?.Invoke(SelectedTrack.Model);
 		}
 
 		public void Navigate(UINavigationType navigationType)
 		{
-			var currentNavigationId = selectedTrack.NavigationId;
+			var currentNavigationId = SelectedTrack.NavigationId;
 			switch (navigationType)
 			{
 				case UINavigationType.Up:
