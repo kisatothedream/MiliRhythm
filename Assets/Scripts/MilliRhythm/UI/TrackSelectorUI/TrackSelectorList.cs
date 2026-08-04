@@ -96,6 +96,7 @@ namespace MilliRhythm.UI.TrackSelectorUI
 
 		public void Navigate(UINavigationType navigationType)
 		{
+			if (visibleItemCount <= 1) return;
 			var currentNavigationId = SelectedTrack.NavigationId;
 			switch (navigationType)
 			{

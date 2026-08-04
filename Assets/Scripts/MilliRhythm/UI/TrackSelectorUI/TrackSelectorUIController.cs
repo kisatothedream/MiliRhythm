@@ -91,15 +91,15 @@ namespace MilliRhythm.UI.TrackSelectorUI
 
 		private async UniTask SelectTrackAsync(TrackSelectorListModel model)
 		{
-			// trackLoadingCts?.Cancel();
-			// trackLoadingCts?.Dispose();
-			// trackLoadingCts = new CancellationTokenSource();
+			trackLoadingCts?.Cancel();
+			trackLoadingCts?.Dispose();
+			trackLoadingCts = new CancellationTokenSource();
 
 			// try
 			// {
 			trackInfoPanel.ResetToPlaceholder();
 			audioPlayer.StopTrackPreview();
-			// await UniTask.WaitForSeconds(0.2f, cancellationToken: trackLoadingCts.Token);
+			await UniTask.WaitForSeconds(0.2f, cancellationToken: trackLoadingCts.Token);
 			// var jacketHandle = await LoadJacketAsync(model.JacketSpriteReference, trackLoadingCts.Token);
 			// ReleaseCurrentJacket();
 			// currentJacketHandle = jacketHandle;
