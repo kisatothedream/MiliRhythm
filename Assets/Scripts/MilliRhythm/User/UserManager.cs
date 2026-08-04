@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using MilliRhythm.Data.Domain;
 using MilliRhythm.User.Save;
 using MilliRhythm.User.Score;
 using UnityEngine;
@@ -68,9 +69,9 @@ namespace MilliRhythm.User
 
 	public partial class UserManager
 	{
-		internal static void CommandSetScore(int trackId, int score, int combo, int perfect, int great, int good, int bad, int miss)
+		internal static void CommandSetScore(int musicId, ChartType type, int score, int combo, int perfect, int great, int good, int bad, int miss)
 		{
-			if (Model.ScoreDataModel.ScoreDataMap.TryGetValue(trackId, out var scoreData))
+			if (Model.ScoreDataModel.ScoreDataMap.TryGetValue((musicId, type), out var scoreData))
 			{
 				if (score > scoreData.Score)
 				{
@@ -86,7 +87,8 @@ namespace MilliRhythm.User
 				{
 					scoreData = new ScoreData()
 					{
-						TrackId = trackId,
+						MusicId = musicId,
+						ChartType = type,
 						Score = score,
 						Combo = combo,
 						PerfectCount = perfect,
@@ -97,7 +99,7 @@ namespace MilliRhythm.User
 					};
 				}
 
-				Model.ScoreDataModel.ScoreDataMap[trackId] = scoreData;
+				Model.ScoreDataModel.ScoreDataMap[(musicId, type)] = scoreData;
 			}
 		}
 	}

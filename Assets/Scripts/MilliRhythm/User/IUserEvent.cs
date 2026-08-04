@@ -1,3 +1,5 @@
+using MilliRhythm.Data.Domain;
+
 namespace MilliRhythm.User
 {
 	public struct Request
@@ -27,6 +29,7 @@ namespace MilliRhythm.User
 	public class SetScoreEvent : IUserEvent
 	{
 		public int TrackId;
+		public ChartType ChartType;
 		public int Score;
 		public int Combo;
 		public int PerfectCount;

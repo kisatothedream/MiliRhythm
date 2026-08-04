@@ -11,6 +11,8 @@ using MilliRhythm.UI.Components;
 using MilliRhythm.UI.ConfigUI;
 using MilliRhythm.UI.TrackSelectorUI.Filter;
 using MilliRhythm.UI.TrackSelectorUI.StartPopup;
+using MilliRhythm.User;
+using MilliRhythm.User.Score;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -113,7 +115,10 @@ namespace MilliRhythm.UI.TrackSelectorUI
 			}
 
 			var jacketSprite = model.ThumbnailSprite;
-			trackInfoPanel.SetTrackInfo(jacketSprite, model.TrackNameKey, GameDataService.GetMemberData(model.TrackVocal).NameKey);
+			var mScore = UserManager.Model.ScoreDataModel.TryGetScoreData(model.Id, ChartType.Melody, out var mScoreData) ? mScoreData.Score : 0;
+			var bScore = UserManager.Model.ScoreDataModel.TryGetScoreData(model.Id, ChartType.Beat, out var bScoreData) ? bScoreData.Score : 0;
+
+			trackInfoPanel.SetTrackInfo(jacketSprite, model.TrackNameKey, GameDataService.GetMemberData(model.TrackVocal).NameKey, mScore, bScore);
 			var previewAudioClip = model.PreviewAudioClip;
 			audioPlayer.PlayTrackPreview(previewAudioClip);
 			// }

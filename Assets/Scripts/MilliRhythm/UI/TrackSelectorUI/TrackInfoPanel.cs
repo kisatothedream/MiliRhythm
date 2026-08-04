@@ -11,6 +11,8 @@ namespace MilliRhythm.UI.TrackSelectorUI
 		[SerializeField] private Image jacketImage;
 		[SerializeField] private LocalizedText trackNameLocalizedText;
 		[SerializeField] private LocalizedText trackVocalLocalizedText;
+		[SerializeField] private TextMeshProUGUI melodyScoreText;
+		[SerializeField] private TextMeshProUGUI beatScoreText;
 
 		public void ResetToPlaceholder()
 		{
@@ -19,11 +21,13 @@ namespace MilliRhythm.UI.TrackSelectorUI
 			trackVocalLocalizedText.LocalizationKey = "";
 		}
 
-		public void SetTrackInfo(Sprite jacket, string trackNameKey, string trackVocalKey)
+		public void SetTrackInfo(Sprite jacket, string trackNameKey, string trackVocalKey, int mScore, int bScore)
 		{
 			jacketImage.sprite = jacket;
 			trackNameLocalizedText.LocalizationKey = trackNameKey;
 			trackVocalLocalizedText.LocalizationKey = trackVocalKey;
+			melodyScoreText.text = mScore.ToString();
+			beatScoreText.text = bScore.ToString();
 		}
 	}
 }
