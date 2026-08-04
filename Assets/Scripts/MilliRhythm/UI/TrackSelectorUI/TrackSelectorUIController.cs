@@ -65,7 +65,7 @@ namespace MilliRhythm.UI.TrackSelectorUI
 					JacketSpriteReference = musicData.JacketSprite,
 					PreviewAudioClip = musicData.PreviewAudioClip,
 					AudioClipReference = musicData.AudioClipReference,
-					TrackName = musicData.Name,
+					TrackNameKey = musicData.NameKey,
 					TrackVocal = musicData.Vocals,
 				};
 				models.Add(model);
@@ -113,7 +113,7 @@ namespace MilliRhythm.UI.TrackSelectorUI
 			}
 
 			var jacketSprite = model.ThumbnailSprite;
-			trackInfoPanel.SetTrackInfo(jacketSprite, model.TrackName, GameDataService.GetMemberData(model.TrackVocal).NameKey);
+			trackInfoPanel.SetTrackInfo(jacketSprite, model.TrackNameKey, GameDataService.GetMemberData(model.TrackVocal).NameKey);
 			var previewAudioClip = model.PreviewAudioClip;
 			audioPlayer.PlayTrackPreview(previewAudioClip);
 			// }

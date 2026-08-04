@@ -9,22 +9,21 @@ namespace MilliRhythm.UI.TrackSelectorUI
 	{
 		[SerializeField] private Sprite jacketPlaceHolderSprite;
 		[SerializeField] private Image jacketImage;
-		[SerializeField] private TextMeshProUGUI trackNameText;
-		[SerializeField] private TextMeshProUGUI trackVocalText;
+		[SerializeField] private LocalizedText trackNameLocalizedText;
 		[SerializeField] private LocalizedText trackVocalLocalizedText;
 
 		public void ResetToPlaceholder()
 		{
 			jacketImage.sprite = jacketPlaceHolderSprite;
-			trackNameText.text = "-";
+			trackNameLocalizedText.LocalizationKey = "-";
 			trackVocalLocalizedText.LocalizationKey = "";
 		}
 
-		public void SetTrackInfo(Sprite jacket, string trackName, string trackVocal)
+		public void SetTrackInfo(Sprite jacket, string trackNameKey, string trackVocalKey)
 		{
 			jacketImage.sprite = jacket;
-			trackNameText.text = trackName;
-			trackVocalLocalizedText.LocalizationKey = trackVocal;
+			trackNameLocalizedText.LocalizationKey = trackNameKey;
+			trackVocalLocalizedText.LocalizationKey = trackVocalKey;
 		}
 	}
 }

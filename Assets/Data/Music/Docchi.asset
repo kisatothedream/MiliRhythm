@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Data.Runtime::MilliRhythm.Data.Repository.MusicData
   <Id>k__BackingField: 1
   <Name>k__BackingField: "\u3069\u3063\u3061\uFF1F\uFF01"
-  <NameKey>k__BackingField: 
+  <NameKey>k__BackingField: TRACK_Dochi_KEY
   <Vocals>k__BackingField: 64
   <ThumbnailSprite>k__BackingField: {fileID: 21300000, guid: 3798a3cd07ea34147954d9835d4e02bb, type: 3}
   <JacketSprite>k__BackingField:
