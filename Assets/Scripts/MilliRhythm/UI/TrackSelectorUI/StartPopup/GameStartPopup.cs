@@ -18,6 +18,8 @@ namespace MilliRhythm.UI.TrackSelectorUI.StartPopup
 			{
 				TrackId = parameter.Model.Id,
 			};
+
+			Select(0);
 		}
 
 		public override void OnNavigate(Vector2 value)
@@ -46,13 +48,15 @@ namespace MilliRhythm.UI.TrackSelectorUI.StartPopup
 
 		private void Select(int index)
 		{
+			currentNavigatable?.Unfocus();
 			var next = Math.Clamp(index, 0, navigatables.Length - 1);
 			currentNavigatable = navigatables[next];
+			currentNavigatable.Focus();
 		}
 
 		public override void OnSubmit()
 		{
-			Confirm();
+			currentNavigatable?.OnSubmit();
 		}
 
 		public override void OnCancel()
