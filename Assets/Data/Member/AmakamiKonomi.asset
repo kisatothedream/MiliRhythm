@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Data.Runtime::MemberData
   MemberType: 2
   NameJp: 
-  NameKey: 
+  NameKey: KONOMI_NAME_KEY
   Icon: {fileID: 21300000, guid: 59ddfe5ba83cea34d9135c36c7db581a, type: 3}

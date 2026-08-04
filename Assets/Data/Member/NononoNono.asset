@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Data.Runtime::MemberData
   MemberType: 64
   NameJp: 
-  NameKey: 
+  NameKey: NONO_NAME_KEY
   Icon: {fileID: 21300000, guid: b1ac4dd7d5bc44b47ad076e39f3f6218, type: 3}

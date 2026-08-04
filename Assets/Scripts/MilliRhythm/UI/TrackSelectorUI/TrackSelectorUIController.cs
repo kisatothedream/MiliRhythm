@@ -113,7 +113,7 @@ namespace MilliRhythm.UI.TrackSelectorUI
 			}
 
 			var jacketSprite = model.ThumbnailSprite;
-			trackInfoPanel.SetTrackInfo(jacketSprite, model.TrackName, "");
+			trackInfoPanel.SetTrackInfo(jacketSprite, model.TrackName, GameDataService.GetMemberData(model.TrackVocal).NameKey);
 			var previewAudioClip = model.PreviewAudioClip;
 			audioPlayer.PlayTrackPreview(previewAudioClip);
 			// }

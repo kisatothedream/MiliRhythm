@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Data.Runtime::MemberData
   MemberType: 1
   NameJp: 
-  NameKey: 
+  NameKey: AKUBI_NAME_KEY
   Icon: {fileID: 21300000, guid: b1ec3bd31d69a9c449b3e5afdde03a13, type: 3}

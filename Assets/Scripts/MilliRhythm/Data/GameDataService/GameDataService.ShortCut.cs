@@ -19,6 +19,8 @@ namespace MilliRhythm.Data.GameDataService
 			return GetData<LocalizationDataRepository>().Get(key);
 		}
 
+		public static string ToLocalizedText(this string key) => GetText(key);
+
 		public static bool TryGetLocalization(string key, out LocalizationData data)
 		{
 			return GetData<LocalizationDataRepository>().TryGet(key, out data);

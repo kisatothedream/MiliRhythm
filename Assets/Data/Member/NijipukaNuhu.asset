@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Data.Runtime::MemberData
   MemberType: 32
   NameJp: 
-  NameKey: 
+  NameKey: NUHU_NAME_KEY
   Icon: {fileID: 21300000, guid: 9234e8e2cc2ff1d40971c2351cf2f7bb, type: 3}
