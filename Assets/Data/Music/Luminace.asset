@@ -24,9 +24,9 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
-  <PreviewAudioClip>k__BackingField: {fileID: 8300000, guid: 8f29d94daebc0da49a9fa54d225e2f4a, type: 3}
+  <PreviewAudioClip>k__BackingField: {fileID: 8300000, guid: 784e21e0691725847a1a496b1d127b4a, type: 3}
   <AudioClipReference>k__BackingField:
-    m_AssetGUID: 8f29d94daebc0da49a9fa54d225e2f4a
+    m_AssetGUID: cd1ed8c96496b8745b5f7479a31470c7
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 
