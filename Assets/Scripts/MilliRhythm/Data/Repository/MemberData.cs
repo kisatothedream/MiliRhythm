@@ -9,6 +9,7 @@ namespace MilliRhythm.Data.Repository
 		public Member MemberType;
 		public string NameJp;
 		public string NameKey;
+		public string ShortNameKey;
 		public Sprite Icon;
 	}
 }

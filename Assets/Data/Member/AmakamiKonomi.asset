@@ -15,4 +15,5 @@ MonoBehaviour:
   MemberType: 2
   NameJp: 
   NameKey: KONOMI_NAME_KEY
+  ShortNameKey: KONOMI_NAME_SHORT_KEY
   Icon: {fileID: 21300000, guid: 59ddfe5ba83cea34d9135c36c7db581a, type: 3}

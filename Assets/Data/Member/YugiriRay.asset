@@ -15,4 +15,5 @@ MonoBehaviour:
   MemberType: 256
   NameJp: 
   NameKey: RAY_NAME_KEY
+  ShortNameKey: RACO_NAME_SHORT_KEY
   Icon: {fileID: 21300000, guid: 59f396ee8bde70a4a889f8104ec44a35, type: 3}

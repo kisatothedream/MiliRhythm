@@ -12,7 +12,6 @@ using MilliRhythm.UI.ConfigUI;
 using MilliRhythm.UI.TrackSelectorUI.Filter;
 using MilliRhythm.UI.TrackSelectorUI.StartPopup;
 using MilliRhythm.User;
-using MilliRhythm.User.Score;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -30,6 +29,8 @@ namespace MilliRhythm.UI.TrackSelectorUI
 		[SerializeField] private Button configButton;
 		[SerializeField] private GameStartPopup startPopup;
 		[SerializeField] private Button startButton;
+
+		private Member appliedFilter;
 
 		//Track Detail Info Panel
 		[SerializeField] private Sprite jacketPlaceHolderSprite;
@@ -167,11 +168,12 @@ namespace MilliRhythm.UI.TrackSelectorUI
 				isPopupOpened = true;
 				var result = await filterPopup.Display(new VocalFilterPopupParameter()
 				{
-					LastFilter = Member.AkubiDemonspade,
+					LastFilter = appliedFilter,
 				});
 				if (result.Result == PopupResult.Confirm)
 				{
 					var filter = result.Payload.FilterMember;
+					appliedFilter = filter;
 					UpdateFilterButton(filter == 0);
 					trackSelectorPanel.ApplyFilter(filter);
 				}

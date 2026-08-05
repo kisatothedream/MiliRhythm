@@ -15,4 +15,5 @@ MonoBehaviour:
   MemberType: 512
   NameJp: 
   NameKey: YURA_NAME_KEY
+  ShortNameKey: YURA_NAME_SHORT_KEY
   Icon: {fileID: 21300000, guid: b3a37a90a2fd41046bda212c7eb56396, type: 3}
