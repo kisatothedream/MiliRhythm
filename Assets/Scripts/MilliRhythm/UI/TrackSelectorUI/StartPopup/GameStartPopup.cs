@@ -76,7 +76,7 @@ namespace MilliRhythm.UI.TrackSelectorUI.StartPopup
 					throw new ArgumentOutOfRangeException();
 			}
 
-			response.Payload.ChartType = Array.IndexOf(navigatables, currentNavigatable) == 0 ? ChartType.Melody : ChartType.Beat;
+			response.Payload.ChartType = melodyToggle.isOn ? ChartType.Melody : ChartType.Beat;
 		}
 
 		private void Select(int index)

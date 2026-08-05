@@ -15,4 +15,5 @@ MonoBehaviour:
   MemberType: 8
   NameJp: 
   NameKey: KOMA_NAME_KEY
+  ShortNameKey: KOMA_NAME_SHORT_KEY
   Icon: {fileID: 21300000, guid: d9db43072fe5c2243ab4ad6c065238da, type: 3}

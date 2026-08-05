@@ -22,7 +22,8 @@ namespace MilliRhythm.UI.TrackSelectorUI.Filter
 
 		protected override void ApplyModel(VocalFilterSelectableListModel model)
 		{
-			filterText.SetLocalizationKey(model.Member.GetMemberNameKey());
+			filterText.SetLocalizationKey(model.Member.GetMemberShortNameKey());
+			filterImage.sprite = GameDataService.GetMemberData(model.Member).Icon;
 		}
 
 		protected override void UpdateUI(bool selected)
