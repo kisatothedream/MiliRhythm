@@ -1,8 +1,10 @@
 using System;
 using MilliRhythm.Data.Domain;
-using MilliRhythm.Rhythm;
+using MilliRhythm.Data.GameDataService;
 using MilliRhythm.UI.Components;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace MilliRhythm.UI.TrackSelectorUI.StartPopup
 {
@@ -10,6 +12,31 @@ namespace MilliRhythm.UI.TrackSelectorUI.StartPopup
 	{
 		private INavigatable[] navigatables;
 		private INavigatable currentNavigatable;
+		[SerializeField] private Toggle melodyToggle;
+		[SerializeField] private Toggle beatToggle;
+		[SerializeField] private ChartTypeTogglableUI melodyToggleUI;
+		[SerializeField] private ChartTypeTogglableUI beatToggleUI;
+
+		[SerializeField] private Image jacketImage;
+		[SerializeField] private LocalizedText trackNameText;
+		[SerializeField] private LocalizedText vocalText;
+
+		[SerializeField] private TextMeshProUGUI melodyScoreText;
+		[SerializeField] private TextMeshProUGUI beatScoreText;
+		[SerializeField] private TextMeshProUGUI melodyRankText;
+		[SerializeField] private TextMeshProUGUI beatRankText;
+
+		protected override void OnAwake()
+		{
+			melodyToggle.onValueChanged.AddListener(OnMelodyToggleChanged);
+			beatToggle.onValueChanged.AddListener(OnBeatToggleChanged);
+		}
+
+		protected override void OnDestroyNested()
+		{
+			melodyToggle.onValueChanged.RemoveListener(OnMelodyToggleChanged);
+			beatToggle.onValueChanged.RemoveListener(OnBeatToggleChanged);
+		}
 
 		protected override void Set()
 		{
@@ -19,6 +46,11 @@ namespace MilliRhythm.UI.TrackSelectorUI.StartPopup
 			{
 				TrackId = parameter.Model.Id,
 			};
+			jacketImage.sprite = parameter.Model.ThumbnailSprite;
+			trackNameText.LocalizationKey = parameter.Model.TrackNameKey;
+			vocalText.LocalizationKey = parameter.Model.TrackVocal.GetMemberNameKey();
+			melodyScoreText.text = parameter.MelodyScore.ToString();
+			beatScoreText.text = parameter.BeatScore.ToString();
 
 			Select(0);
 		}
@@ -68,13 +100,27 @@ namespace MilliRhythm.UI.TrackSelectorUI.StartPopup
 		public override void OnView()
 		{
 		}
+
+		private void OnMelodyToggleChanged(bool selected)
+		{
+			melodyToggleUI.SetSelected(selected);
+		}
+
+		private void OnBeatToggleChanged(bool selected)
+		{
+			beatToggleUI.SetSelected(selected);
+		}
 	}
 
 	public class GameStartPopupParameter : PopupParameterBase
 	{
 		public TrackSelectorListModel Model;
+
 		//곡 정보
-		//ex 점수
+		public int MelodyScore;
+		public int BeatScore;
+		public string MelodyRank;
+		public string BeatRank;
 		//마지막 실행한 것
 	}
 

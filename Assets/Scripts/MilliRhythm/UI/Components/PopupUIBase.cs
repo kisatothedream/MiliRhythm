@@ -22,16 +22,26 @@ namespace MilliRhythm.UI.Components
 
 		private void Awake()
 		{
+			OnAwake();
 			confirmButton?.onClick.AddListener(Confirm);
 			cancelButton?.onClick.AddListener(Cancel);
 			dismissArea?.onClick.AddListener(Dismiss);
 		}
 
+		protected virtual void OnAwake()
+		{
+		}
+
 		private void OnDestroy()
 		{
+			OnDestroyNested();
 			confirmButton?.onClick.RemoveListener(Confirm);
 			cancelButton?.onClick.RemoveListener(Cancel);
 			dismissArea?.onClick.RemoveListener(Dismiss);
+		}
+
+		protected virtual void OnDestroyNested()
+		{
 		}
 
 		public async UniTask<TPopupResponse> Display(TPopupParameter param)
@@ -98,6 +108,7 @@ namespace MilliRhythm.UI.Components
 			if (!value) return;
 			OnSubmit();
 		}
+
 		public abstract void OnSubmit();
 
 		public void Cancel(bool value)
@@ -105,13 +116,15 @@ namespace MilliRhythm.UI.Components
 			if (!value) return;
 			OnCancel();
 		}
+
 		public abstract void OnCancel();
 
 		public void View(bool value)
 		{
-			if(!value) return;
+			if (!value) return;
 			OnView();
 		}
+
 		public abstract void OnView();
 	}
 

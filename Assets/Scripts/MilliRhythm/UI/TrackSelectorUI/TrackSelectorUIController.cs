@@ -209,7 +209,11 @@ namespace MilliRhythm.UI.TrackSelectorUI
 			async UniTask DisplayGameStartPopupAsync()
 			{
 				isPopupOpened = true;
-				var result = await startPopup.Display(new GameStartPopupParameter() { Model = trackSelectorPanel.SelectedTrackModel });
+				var model = trackSelectorPanel.SelectedTrackModel;
+				var result = await startPopup.Display(new GameStartPopupParameter()
+				{
+					Model = model,
+				});
 				isPopupOpened = false;
 				if (result.Result == PopupResult.Confirm)
 				{
