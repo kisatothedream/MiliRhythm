@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace MilliRhythm.Data.Editor
 {
-	[CustomEditor(typeof(RhythmChartDataScriptableObject))]
+	[CustomEditor(typeof(RhythmChartDataCollection))]
 	public class RhythmChartDataEditor : UnityEditor.Editor
 	{
 		private const string RhythmChartDataFolderPath = "Assets/Data/Chart";
@@ -14,7 +14,7 @@ namespace MilliRhythm.Data.Editor
 		public override void OnInspectorGUI()
 		{
 			base.OnInspectorGUI();
-			var t = (RhythmChartDataScriptableObject)target;
+			var t = (RhythmChartDataCollection)target;
 			if (GUILayout.Button("ChartData 목록 갱신"))
 			{
 				RefreshChartDataList();

@@ -1,3 +1,4 @@
+using MilliRhythm.UI.Components;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,21 +9,25 @@ namespace MilliRhythm.UI.TrackSelectorUI
 	{
 		[SerializeField] private Sprite jacketPlaceHolderSprite;
 		[SerializeField] private Image jacketImage;
-		[SerializeField] private TextMeshProUGUI trackNameText;
-		[SerializeField] private TextMeshProUGUI trackVocalText;
+		[SerializeField] private LocalizedText trackNameLocalizedText;
+		[SerializeField] private LocalizedText trackVocalLocalizedText;
+		[SerializeField] private TextMeshProUGUI melodyScoreText;
+		[SerializeField] private TextMeshProUGUI beatScoreText;
 
 		public void ResetToPlaceholder()
 		{
 			jacketImage.sprite = jacketPlaceHolderSprite;
-			trackNameText.text = "-";
-			trackVocalText.text = "";
+			trackNameLocalizedText.LocalizationKey = "-";
+			trackVocalLocalizedText.LocalizationKey = "";
 		}
 
-		public void SetTrackInfo(Sprite jacket, string trackName, string trackVocal)
+		public void SetTrackInfo(Sprite jacket, string trackNameKey, string trackVocalKey, int mScore, int bScore)
 		{
 			jacketImage.sprite = jacket;
-			trackNameText.text = trackName;
-			trackVocalText.text = trackVocal;
+			trackNameLocalizedText.LocalizationKey = trackNameKey;
+			trackVocalLocalizedText.LocalizationKey = trackVocalKey;
+			melodyScoreText.text = mScore.ToString();
+			beatScoreText.text = bScore.ToString();
 		}
 	}
 }

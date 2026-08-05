@@ -9,11 +9,19 @@ namespace MilliRhythm.UI.Components
 	[RequireComponent(typeof(TextMeshProUGUI))]
 	public sealed class LocalizedText : MonoBehaviour
 	{
+		public string LocalizationKey
+		{
+			get => localizationKey;
+			set
+			{
+				localizationKey = value;
+				Refresh();
+			}
+		}
+
 		[SerializeField] private string localizationKey;
 
 		private TextMeshProUGUI textComponent;
-
-		public string LocalizationKey => localizationKey;
 
 		private void Awake()
 		{
@@ -40,7 +48,11 @@ namespace MilliRhythm.UI.Components
 		public void Refresh()
 		{
 			if (string.IsNullOrWhiteSpace(localizationKey))
+			{
+				textComponent.text = "";
+				Debug.LogWarning($"Localization key is empty", this);
 				return;
+			}
 
 			textComponent ??= GetComponent<TextMeshProUGUI>();
 

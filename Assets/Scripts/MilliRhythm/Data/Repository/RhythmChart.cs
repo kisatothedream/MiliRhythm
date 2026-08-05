@@ -1,23 +1,10 @@
 using System;
 using System.Collections.Generic;
+using MilliRhythm.Data.Domain;
 using UnityEngine;
 
 namespace MilliRhythm.Rhythm
 {
-	public enum ChartType
-	{
-		Melody,
-		Beat,
-	}
-
-	public enum Difficulty
-	{
-		Easy,
-		Normal,
-		Hard,
-		Expert,
-	}
-
 	[Serializable]
 	[CreateAssetMenu(fileName = "RhythmChart", menuName = "Rhythm Game/Rhythm Chart")]
 	public class RhythmChart : ScriptableObject

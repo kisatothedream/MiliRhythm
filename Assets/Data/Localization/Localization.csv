@@ -1,0 +1,29 @@
+﻿Id,Text_KO,Text_EN,Text_JP
+UI_START_GAME,게임 시작,Start Game,ゲーム開始
+UI_CONTINUE,계속하기,Continue,続ける
+UI_SETTINGS,설정,Settings,設定
+UI_EXIT_GAME,게임 종료,Exit Game,ゲーム終了
+UI_CONFIRM,확인,Confirm,確認
+UI_CANCEL,취소,Cancel,キャンセル
+UI_RETRY,재시도,Retry,リトライ
+UI_BACK,뒤로,Back,戻る
+UI_LOADING,로딩 중...,Loading...,ロード中...
+UI_PAUSE,일시 정지,Paused,一時停止
+CONFIG_SOUND,사운드 설정,temp,temp
+CONFIG_LANGUAGE_SETTINGS,언어 설정,temp,temp
+CONFIG_LANGUAGE,언어,TEMP,TEMP
+CONFIG_SOUND_MASTER_VOLUME,마스터,temp,temp
+CONFIG_SOUND_MUSIC_VOLUME,음악,temp,temp
+CONFIG_SOUND_SFX_VOLUME,효과음,temp,temp
+AKUBI_NAME_KEY,아쿠비 데몬스페이드,Akubi Demonspade,あくび・でもんすぺーど
+KONOMI_NAME_KEY,아마카미 코노미,Amakami Konomi,甘狼このみ
+LIZ_NAME_KEY,아마요 리즈,Amayo Liz,雨夜リズ
+KOMA_NAME_KEY,코마와리 코마,Komawari Koma,小廻こま
+TSUKURI_NAME_KEY,네무쿠모 츠쿠리,Nemukumo Tsukuri,眠雲ツクリ
+NUHU_NAME_KEY,니지푸카 누후,Nijipuka Nuhu,虹深°ぬふ
+NONO_NAME_KEY,노노노 노노,Nonono Nono,音ノ乃のの
+RACO_NAME_KEY,오토노세 라코,Otonose Raco,音ノ瀬らこ
+RAY_NAME_KEY,유기리 레이,Yugiri Ray,夕霧レイ
+YURA_NAME_KEY,유라기 유라,Yuragi Yura,ゆらぎゆら
+TRACK_Luminous_KEY,루미너스,Luminous,ルミナス
+TRACK_Dochi_KEY,어느쪽?!,Dochi?!,どっち？！

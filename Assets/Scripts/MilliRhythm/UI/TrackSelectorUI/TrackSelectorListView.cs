@@ -1,5 +1,5 @@
 using System;
-using TMPro;
+using MilliRhythm.UI.Components;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,7 +7,7 @@ namespace MilliRhythm.UI.TrackSelectorUI
 {
 	public class TrackSelectorListView : UIListItemViewBase<TrackSelectorListModel, int>
 	{
-		public bool IsFiltered { get; private set; }
+		public bool IsVisible { get; private set; }
 		public int NavigationId { get; private set; }
 		[SerializeField] private GameObject selectedMark;
 		[SerializeField] private Button button;
@@ -15,11 +15,12 @@ namespace MilliRhythm.UI.TrackSelectorUI
 		[SerializeField] private Image thumbnailImage;
 
 		//랭크 정보
-		[SerializeField] private TextMeshProUGUI trackName;
-		private Action<TrackSelectorListModel> onClickButtonAction;
+		private Action<TrackSelectorListView> onClickButtonAction;
+		private bool isSelected;
 
 		private void Awake()
 		{
+			selectedMark.SetActive(false);
 			button.onClick.AddListener(OnClickButtonAction);
 		}
 
@@ -28,7 +29,7 @@ namespace MilliRhythm.UI.TrackSelectorUI
 			button.onClick.RemoveListener(OnClickButtonAction);
 		}
 
-		public void SetButtonAction(Action<TrackSelectorListModel> action)
+		public void SetButtonAction(Action<TrackSelectorListView> action)
 		{
 			onClickButtonAction = action;
 		}
@@ -37,12 +38,21 @@ namespace MilliRhythm.UI.TrackSelectorUI
 		{
 			Model = m;
 			thumbnailImage.sprite = Model.ThumbnailSprite;
-			trackName.text = $"{Model.TrackName}";
 		}
 
 		public void SetNavigationId(int navigationId)
 		{
 			NavigationId = navigationId;
+		}
+
+		public void Select()
+		{
+			UpdateUI(true);
+		}
+
+		public void Deselect()
+		{
+			UpdateUI(false);
 		}
 
 		protected override void UpdateUI(bool selected)
@@ -52,13 +62,13 @@ namespace MilliRhythm.UI.TrackSelectorUI
 
 		private void OnClickButtonAction()
 		{
-			onClickButtonAction?.Invoke(Model);
+			onClickButtonAction?.Invoke(this);
 		}
 
-		public void SetFiltered(bool isFiltered)
+		public void SetVisible(bool isVisible)
 		{
-			IsFiltered = isFiltered;
-			gameObject.SetActive(!isFiltered);
+			IsVisible = isVisible;
+			gameObject.SetActive(isVisible);
 		}
 	}
 }

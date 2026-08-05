@@ -270,6 +270,15 @@ public partial class @MilliRhythmInputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""View"",
+                    ""type"": ""Button"",
+                    ""id"": ""609efbaf-ecbc-4360-be03-42df643ffa49"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -558,6 +567,50 @@ public partial class @MilliRhythmInputs: IInputActionCollection2, IDisposable
                     ""action"": ""Cancel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""be230355-05d9-4788-ad8d-63ec891b3634"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse;Touch;Joystick;Gamepad;XR"",
+                    ""action"": ""View"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""93ba8020-57f0-4ca5-b524-bdbcac3e283a"",
+                    ""path"": ""<XInputController>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad;Keyboard&Mouse;Touch;Joystick;XR"",
+                    ""action"": ""View"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9df70d21-97ad-483d-8353-d8114a55e98a"",
+                    ""path"": ""<XboxOneGamepadAndroid>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Touch;Gamepad;Keyboard&Mouse;XR;Joystick"",
+                    ""action"": ""View"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4f465a9d-f9a6-467e-a510-f6767562b900"",
+                    ""path"": ""<XboxOneGampadiOS>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Touch;Gamepad;Keyboard&Mouse;Joystick;XR"",
+                    ""action"": ""View"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -637,6 +690,7 @@ public partial class @MilliRhythmInputs: IInputActionCollection2, IDisposable
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
         m_UI_Submit = m_UI.FindAction("Submit", throwIfNotFound: true);
         m_UI_Cancel = m_UI.FindAction("Cancel", throwIfNotFound: true);
+        m_UI_View = m_UI.FindAction("View", throwIfNotFound: true);
     }
 
     ~@MilliRhythmInputs()
@@ -861,6 +915,7 @@ public partial class @MilliRhythmInputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_Navigate;
     private readonly InputAction m_UI_Submit;
     private readonly InputAction m_UI_Cancel;
+    private readonly InputAction m_UI_View;
     /// <summary>
     /// Provides access to input actions defined in input action map "UI".
     /// </summary>
@@ -884,6 +939,10 @@ public partial class @MilliRhythmInputs: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "UI/Cancel".
         /// </summary>
         public InputAction @Cancel => m_Wrapper.m_UI_Cancel;
+        /// <summary>
+        /// Provides access to the underlying input action "UI/View".
+        /// </summary>
+        public InputAction @View => m_Wrapper.m_UI_View;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -919,6 +978,9 @@ public partial class @MilliRhythmInputs: IInputActionCollection2, IDisposable
             @Cancel.started += instance.OnCancel;
             @Cancel.performed += instance.OnCancel;
             @Cancel.canceled += instance.OnCancel;
+            @View.started += instance.OnView;
+            @View.performed += instance.OnView;
+            @View.canceled += instance.OnView;
         }
 
         /// <summary>
@@ -939,6 +1001,9 @@ public partial class @MilliRhythmInputs: IInputActionCollection2, IDisposable
             @Cancel.started -= instance.OnCancel;
             @Cancel.performed -= instance.OnCancel;
             @Cancel.canceled -= instance.OnCancel;
+            @View.started -= instance.OnView;
+            @View.performed -= instance.OnView;
+            @View.canceled -= instance.OnView;
         }
 
         /// <summary>
@@ -1108,5 +1173,12 @@ public partial class @MilliRhythmInputs: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnCancel(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "View" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnView(InputAction.CallbackContext context);
     }
 }

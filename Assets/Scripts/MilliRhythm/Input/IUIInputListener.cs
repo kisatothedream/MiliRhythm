@@ -4,9 +4,10 @@ namespace MilliRhythm.Input
 {
 	public interface IUIInputListener
 	{
-		public void OnNavigate(Vector2 value);
-		public void OnSubmit(bool value);
-		public void OnCancel(bool value);
+		public void Navigate(Vector2 value);
+		public void Submit(bool value);
+		public void Cancel(bool value);
+		public void View(bool value);
 	}
 
 	public static class IUIInputListenerExtensions

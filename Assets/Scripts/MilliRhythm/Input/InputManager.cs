@@ -1,4 +1,6 @@
 using System;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using MilliRhythm.Input.Sources;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -67,6 +69,39 @@ namespace MilliRhythm.Input
 		{
 			GameControls.RemoveInputSource(inputSource);
 			UIControls.RemoveInputSource(inputSource);
+		}
+
+		public async UniTask BlockInputAsync(CancellationToken token)
+		{
+			BlockControls();
+			await UniTask.WaitUntilCanceled(token);
+			UnblockControls();
+		}
+
+		private void BlockControls()
+		{
+			GameControls.Block();
+			UIControls.Block();
+		}
+
+		private void UnblockControls()
+		{
+			GameControls.Unblock();
+			UIControls.Unblock();
+		}
+	}
+
+	public class InputBlockScope : IDisposable
+	{
+		private CancellationTokenSource cts = new();
+
+		public InputBlockScope() => InputManager.Instance.BlockInputAsync(cts.Token).Forget();
+
+		public void Dispose()
+		{
+			cts.Cancel();
+			cts.Dispose();
+			cts = null;
 		}
 	}
 

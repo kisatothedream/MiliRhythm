@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Data.Runtime::MilliRhythm.Data.Repository.MusicDataScriptableObject
   musicDataList:
   - {fileID: 11400000, guid: fc573e9427c9f634f81c0f5e70725b6e, type: 2}
+  - {fileID: 11400000, guid: 377842617ae17e44e84d31d4eebef9c0, type: 2}

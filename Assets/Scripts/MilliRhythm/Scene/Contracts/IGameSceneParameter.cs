@@ -1,3 +1,4 @@
+using MilliRhythm.Data.Domain;
 using MilliRhythm.Rhythm;
 
 namespace MilliRhythm.Scene.Contracts

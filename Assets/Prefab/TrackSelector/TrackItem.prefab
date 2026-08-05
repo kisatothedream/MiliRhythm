@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7894932801959884581}
   - component: {fileID: 5278891892322955464}
   - component: {fileID: 9159082980785427816}
+  - component: {fileID: 3911695467195746621}
   m_Layer: 5
   m_Name: Selected
   m_TagString: Untagged
@@ -75,6 +76,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3911695467195746621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2042095870101538379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adb30198aa32dd140b5750692dd48104, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Nobi.UiRoundedCorners::Nobi.UiRoundedCorners.ImageWithRoundedCorners
+  radius: 8
+  image: {fileID: 9159082980785427816}
 --- !u!1 &4292335737125907124
 GameObject:
   m_ObjectHideFlags: 0
@@ -137,7 +152,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: TrackSelector.Runtime::MilliRhythm.TrackSelector.TrackSelectorListView
   selectedMark: {fileID: 2042095870101538379}
   button: {fileID: 7881130405102685567}
-  jacketImage: {fileID: 5879356753463728910}
+  thumbnailImage: {fileID: 5879356753463728910}
   trackName: {fileID: 8367365738553422715}
 --- !u!1 &4802118200144010280
 GameObject:
@@ -281,8 +296,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Luminace - OtonoseRaco
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: cd9d5ac363e78d149af08c75a35677a8, type: 2}
+  m_sharedMaterial: {fileID: 3304100286385516870, guid: cd9d5ac363e78d149af08c75a35677a8, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

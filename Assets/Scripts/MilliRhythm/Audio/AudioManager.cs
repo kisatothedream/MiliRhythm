@@ -12,7 +12,7 @@ namespace MilliRhythm.Audio
 		private const string MusicVolumeParameter = "MusicVolume";
 		private const string SfxVolumeParameter = "SfxVolume";
 
-		private void Awake()
+		private void Start()
 		{
 			ApplyConfig();
 			ConfigManager.Instance.OnMasterVolumeChangedAction += OnMasterVolumeChanged;
@@ -27,16 +27,26 @@ namespace MilliRhythm.Audio
 			ConfigManager.Instance.OnSfxVolumeChangedAction -= OnSfxVolumeChanged;
 		}
 
-		public void ApplyConfig()
+		private void ApplyConfig()
 		{
 			var config = ConfigManager.Instance.Config;
-			OnMasterVolumeChanged(config.MasterVolume);
-			OnMusicVolumeChanged(config.MusicVolume);
-			OnSfxVolumeChanged(config.SfxVolume);
+			OnMasterVolumeChanged(ConvertVolumeToDb(config.MasterVolume));
+			OnMusicVolumeChanged(ConvertVolumeToDb(config.MusicVolume));
+			OnSfxVolumeChanged(ConvertVolumeToDb(config.SfxVolume));
 		}
 
 		private void OnMasterVolumeChanged(float volume) => audioMixer.SetFloat(MasterVolumeParameter, volume);
 		private void OnMusicVolumeChanged(float volume) => audioMixer.SetFloat(MusicVolumeParameter, volume);
 		private void OnSfxVolumeChanged(float volume) => audioMixer.SetFloat(SfxVolumeParameter, volume);
+
+		private float ConvertVolumeToDb(float volume)
+		{
+			if (volume <= 0)
+			{
+				return -80f;
+			}
+
+			return 20 * Mathf.Log10(volume);
+		}
 	}
 }

@@ -6,6 +6,7 @@ using MilliRhythm.Rhythm;
 using MilliRhythm.Scene;
 using MilliRhythm.Scene.Contracts;
 using MilliRhythm.TrackSelector;
+using MilliRhythm.User;
 using UnityEngine;
 
 namespace MilliRhythm
@@ -22,6 +23,7 @@ namespace MilliRhythm
 		{
 			ConfigManager.Instance.Load();
 			await GameDataLoader.LoadAsync();
+			await UserManager.Init();
 			SceneController.Instance.Initialize(CreateScene);
 			SceneController.Instance.RequestChangeScene(new MusicSelectorSceneParameter());
 		}

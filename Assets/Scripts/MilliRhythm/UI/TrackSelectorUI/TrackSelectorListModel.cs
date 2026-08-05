@@ -1,4 +1,5 @@
 using MilliRhythm.Data.Domain;
+using MilliRhythm.UI.Components;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -14,7 +15,7 @@ namespace MilliRhythm.UI.TrackSelectorUI
 		public AssetReferenceSprite JacketSpriteReference;
 		public AudioClip PreviewAudioClip;
 		public AssetReferenceT<AudioClip> AudioClipReference;
-		public string TrackName;
+		public string TrackNameKey;
 		public Member TrackVocal;
 		public string Rank;
 	}

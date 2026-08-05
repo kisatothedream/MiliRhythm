@@ -184,6 +184,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "View",
+                    "type": "Button",
+                    "id": "609efbaf-ecbc-4360-be03-42df643ffa49",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -470,6 +479,50 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse;Gamepad;Touch;Joystick;XR",
                     "action": "Cancel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "be230355-05d9-4788-ad8d-63ec891b3634",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse;Touch;Joystick;Gamepad;XR",
+                    "action": "View",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "93ba8020-57f0-4ca5-b524-bdbcac3e283a",
+                    "path": "<XInputController>/select",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad;Keyboard&Mouse;Touch;Joystick;XR",
+                    "action": "View",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9df70d21-97ad-483d-8353-d8114a55e98a",
+                    "path": "<XboxOneGamepadAndroid>/select",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Touch;Gamepad;Keyboard&Mouse;XR;Joystick",
+                    "action": "View",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4f465a9d-f9a6-467e-a510-f6767562b900",
+                    "path": "<XboxOneGampadiOS>/select",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Touch;Gamepad;Keyboard&Mouse;Joystick;XR",
+                    "action": "View",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

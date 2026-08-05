@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bcbaef95602c54da5a8d8c6c2430ad, type: 3}
+  m_Name: MemberDataRepository
+  m_EditorClassIdentifier: Data.Runtime::MilliRhythm.Data.Repository.MemberDataRepository
+  MemberDataList:
+  - {fileID: 11400000, guid: 4615789e1b8d267429c812ecf2227e53, type: 2}
+  - {fileID: 11400000, guid: 782387e283713c5499d6448581e09e6b, type: 2}
+  - {fileID: 11400000, guid: bb69e5c5a3d64c7498d9f88e9831cd01, type: 2}
+  - {fileID: 11400000, guid: e54f19ae4892b3a4982756ccb0235972, type: 2}
+  - {fileID: 11400000, guid: 7050a1b17485908469f69d7152d69b23, type: 2}
+  - {fileID: 11400000, guid: e8a723973afd5814ca691ec8c8f078e3, type: 2}
+  - {fileID: 11400000, guid: 9cd7c213d84ce6241ad763a4541de1c0, type: 2}
+  - {fileID: 11400000, guid: 95b485c32a2f46946b19d8bab4a5658a, type: 2}
+  - {fileID: 11400000, guid: 79dd09a741be29b4f8f77e015ee1bd43, type: 2}
+  - {fileID: 11400000, guid: 53d9bff7e948cd74fa232d7d9921870f, type: 2}
