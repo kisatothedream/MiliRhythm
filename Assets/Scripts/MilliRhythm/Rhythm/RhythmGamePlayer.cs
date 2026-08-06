@@ -59,6 +59,8 @@ namespace MilliRhythm.Rhythm
 
 		[SerializeField] private RhythmGameCharacter character;
 
+		private JudgeManager judgeManager = new();
+
 		public void Finish()
 		{
 			UnregisterInputs();
@@ -88,6 +90,8 @@ namespace MilliRhythm.Rhythm
 
 		public async UniTask InitializeGamePlayer(RhythmChart rhythmChart, MusicData musicData)
 		{
+			judgeManager.Initialize();
+
 			RegisterInputs();
 			RegisterCharacter();
 			context = await BuildContext(rhythmChart, musicData);
@@ -141,6 +145,7 @@ namespace MilliRhythm.Rhythm
 
 				activeNotes.RemoveAt(i);
 				Destroy(note.gameObject);
+				judgeManager.OnMissNote();
 			}
 		}
 
@@ -186,6 +191,7 @@ namespace MilliRhythm.Rhythm
 				if (result != NoteJudgementResult.NotReached)
 				{
 					note.JudgeDown(result);
+					judgeManager.OnHitNote(result);
 					return;
 				}
 			}
@@ -205,6 +211,7 @@ namespace MilliRhythm.Rhythm
 				if (result != NoteJudgementResult.NotReached)
 				{
 					note.JudgeUp(result);
+					judgeManager.OnHitNote(result);
 					return;
 				}
 			}
