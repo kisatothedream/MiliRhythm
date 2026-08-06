@@ -49,12 +49,13 @@ namespace MilliRhythm.Rhythm
 			return (int)Math.Round(beat * ticksPerBeat);
 		}
 
-		public double TickToTime(RhythmNote note)
+		public double TickToTime(int tick)
 		{
-			return TickToTime(note.Head);
+			var beat = TickToBeat(tick);
+			return beat * 60f / bpm;
 		}
 
-		public double TickToTime(int tick)
+		public double TickTimeToTime(int tick)
 		{
 			var beat = TickToBeat(tick);
 			return offsetSeconds + beat * 60f / bpm;

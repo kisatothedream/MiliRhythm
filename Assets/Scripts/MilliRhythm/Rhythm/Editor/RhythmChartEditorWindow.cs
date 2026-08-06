@@ -625,7 +625,7 @@ namespace MilliRhythm.Rhythm.Editor
 
 			for (var tick = firstTick; tick <= endTick; tick += gridTickInterval)
 			{
-				var time = chart.TickToTime(tick);
+				var time = chart.TickTimeToTime(tick);
 				var x = TimeToX(time, timelineRect);
 
 				var ticksPerMeasure = chart.TicksPerBeat * 4;
@@ -720,8 +720,8 @@ namespace MilliRhythm.Rhythm.Editor
 		{
 			var endTick = note.Head + note.LengthTick;
 
-			var startTime = chart.TickToTime(note.Head);
-			var endTime = chart.TickToTime(endTick);
+			var startTime = chart.TickTimeToTime(note.Head);
+			var endTime = chart.TickTimeToTime(endTick);
 			var duration = endTime - startTime;
 
 			var infoX = contentRect.x + 490f;
@@ -779,7 +779,7 @@ namespace MilliRhythm.Rhythm.Editor
 			bool isSelected)
 		{
 			var endTick = note.Head + note.LengthTick;
-			var endTime = chart.TickToTime(endTick);
+			var endTime = chart.TickTimeToTime(endTick);
 			var endX = TimeToX(endTime, timelineRect);
 
 			if (endX < timelineRect.x || startCenter.x > timelineRect.xMax)
@@ -1047,7 +1047,7 @@ namespace MilliRhythm.Rhythm.Editor
 
 		private Vector2 GetNoteCenter(RhythmNote note, Rect timelineRect)
 		{
-			var time = chart.TickToTime(note.Head);
+			var time = chart.TickTimeToTime(note.Head);
 			var x = TimeToX(time, timelineRect);
 			var y = GetLaneY(note.Lane, timelineRect) + LaneHeight * 0.5f;
 

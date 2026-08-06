@@ -67,8 +67,7 @@ namespace MilliRhythm.Rhythm
 
 		private JudgeManager judgeManager = new();
 
-		private double LongNoteJudgingInterval => context.Chart.TickToTime(LongNoteJudgingIntervalTick);
-		private const int LongNoteJudgingIntervalTick = 120;
+		private const double LongNoteJudgingInterval = 0.25;
 
 		public void Finish()
 		{
@@ -189,17 +188,24 @@ namespace MilliRhythm.Rhythm
 		{
 			if (judgingLongNotes[lane] == null) return;
 			var note = judgingLongNotes[lane];
-			if (clock.SongTime > note.NextJudgeTime)
+			while (clock.SongTime > note.NextJudgeTime)
 			{
-				if (isLaneHeld[lane])
+				if (note.NextJudgeTime < note.HeadTime + note.NoteLength)
 				{
-					judgeManager.OnHitNote(NoteJudgementResult.Perfect);
-					note.NextJudgeTime += LongNoteJudgingInterval;
+					if (isLaneHeld[lane])
+					{
+						judgeManager.OnHitNote(NoteJudgementResult.Perfect);
+						note.NextJudgeTime += LongNoteJudgingInterval;
+					}
+					else
+					{
+						judgeManager.OnMissNote();
+					}
 				}
 				else
 				{
-					Debug.Log($"miss note");
-					judgeManager.OnMissNote();
+					judgingLongNotes[lane] = null;
+					break;
 				}
 			}
 		}
@@ -209,7 +215,7 @@ namespace MilliRhythm.Rhythm
 			while (nextNoteIndex < notes.Count)
 			{
 				var note = notes[nextNoteIndex];
-				var judgeTime = context.Chart.TickToTime(note);
+				var judgeTime = context.Chart.TickTimeToTime(note.Head);
 				var spawnTime = judgeTime - ApproachingTime;
 
 				if (spawnTime > clock.SongTime)
@@ -223,18 +229,12 @@ namespace MilliRhythm.Rhythm
 		private void Spawn(RhythmNote note, double judgeTime)
 		{
 			var noteInstance = Instantiate(notePrefabs[note.Lane], lanes[note.Lane].localPosition, Quaternion.identity, lanes[note.Lane]);
-			var noteLength = context.Chart.TickToTime(note);
+			noteInstance.NoteLength = context.Chart.TickToTime(note.LengthTick);
 			noteInstance.Lane = note.Lane;
 			noteInstance.StartTime = judgeTime - ApproachingTime;
 			noteInstance.HeadTime = judgeTime;
 
-			if (note.LengthTick > 0)
-			{
-				noteInstance.NoteLength = noteLength;
-				noteInstance.NextJudgeTime = judgeTime + context.Chart.TickToTime(LongNoteJudgingIntervalTick);
-			}
-
-			noteInstance.EndTime = judgeTime + noteLength + BadWindow;
+			noteInstance.EndTime = judgeTime + noteInstance.NoteLength + 1;
 			noteInstance.LaneLength = laneLength;
 
 			waitingNotes[note.Lane].Enqueue(noteInstance);
@@ -247,7 +247,6 @@ namespace MilliRhythm.Rhythm
 			while (queue.TryPeek(out var note) && clock.SongTime > note.HeadTime + BadWindow)
 			{
 				queue.Dequeue();
-				Debug.Log($"miss note");
 				judgeManager.OnMissNote();
 			}
 			// foreach (var note in activeNotes)
@@ -337,7 +336,7 @@ namespace MilliRhythm.Rhythm
 					HideFlags.HideAndDontSave;
 
 				var judgeTime =
-					previewChart.TickToTime(rhythmNote.Head);
+					previewChart.TickTimeToTime(rhythmNote.Head);
 
 				noteInstance.Lane = rhythmNote.Lane;
 
