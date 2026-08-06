@@ -175,8 +175,9 @@ namespace MilliRhythm.Rhythm
 
 		private void TryRemoveExpiredNotes(int lane)
 		{
-			foreach (var note in activeNotes[lane])
+			for (var i = activeNotes[lane].Count - 1; i >= 0; i--)
 			{
+				var note = activeNotes[lane][i];
 				if (clock.SongTime > note.EndTime)
 				{
 					activeNotes[lane].Remove(note);
@@ -197,6 +198,7 @@ namespace MilliRhythm.Rhythm
 				}
 				else
 				{
+					Debug.Log($"miss note");
 					judgeManager.OnMissNote();
 				}
 			}
@@ -245,6 +247,7 @@ namespace MilliRhythm.Rhythm
 			while (queue.TryPeek(out var note) && clock.SongTime > note.HeadTime + BadWindow)
 			{
 				queue.Dequeue();
+				Debug.Log($"miss note");
 				judgeManager.OnMissNote();
 			}
 			// foreach (var note in activeNotes)
@@ -256,6 +259,7 @@ namespace MilliRhythm.Rhythm
 			while (queue.TryPeek(out var note) && Math.Abs(clock.SongTime - note.HeadTime) < BadWindow)
 			{
 				var result = JudgeTime(clock.SongTime, note.HeadTime);
+				Debug.Log(result);
 				judgeManager.OnHitNote(result);
 				queue.Dequeue();
 				if (note.IsLongNote)
@@ -266,6 +270,7 @@ namespace MilliRhythm.Rhythm
 				else
 				{
 					activeNotes[lane].Remove(note);
+					Destroy(note.gameObject);
 				}
 			}
 		}
