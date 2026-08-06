@@ -4,8 +4,8 @@ namespace MilliRhythm.Data.Domain
 	{
 		NotReached,
 		Bad,
-		Normal,
 		Good,
+		Great,
 		Perfect,
 	}
 }

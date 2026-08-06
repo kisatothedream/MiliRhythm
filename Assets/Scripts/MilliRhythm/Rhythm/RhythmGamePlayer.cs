@@ -214,8 +214,8 @@ namespace MilliRhythm.Rhythm
 		{
 			var delta = Mathf.Abs((float)(judgeTime - currentTime));
 			if (delta < PerfectRangeTime) return NoteJudgementResult.Perfect;
-			if (delta < GoodRangeTime) return NoteJudgementResult.Good;
-			if (delta < NormalRangeTime) return NoteJudgementResult.Normal;
+			if (delta < GoodRangeTime) return NoteJudgementResult.Great;
+			if (delta < NormalRangeTime) return NoteJudgementResult.Good;
 			if (delta < BadRangeTime) return NoteJudgementResult.Bad;
 			return NoteJudgementResult.NotReached;
 		}
