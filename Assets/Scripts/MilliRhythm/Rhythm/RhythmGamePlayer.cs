@@ -169,6 +169,8 @@ namespace MilliRhythm.Rhythm
 		{
 			//Show Result and Retry
 			//Return To Music Select Scene
+			Debug.Log(
+				$"Result Max Combo [{judgeManager.MaxCombo}] - Score [{judgeManager.CurrentScore}] \nPerfect[{judgeManager.PerfectCount}] \nGreat[{judgeManager.GreatCount}] \nGood[{judgeManager.GoodCount}] \nBad[{judgeManager.BadCount}] \nMiss[{judgeManager.MissCount}]");
 			SceneController.Instance.RequestChangeScene(new MusicSelectorSceneParameter(context.CurrentMusicId, context.CurrentChartType,
 				context.CurrentDifficulty));
 		}
