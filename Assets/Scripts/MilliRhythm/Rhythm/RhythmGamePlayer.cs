@@ -134,7 +134,6 @@ namespace MilliRhythm.Rhythm
 			context = await BuildContext(rhythmChart, musicData);
 
 			clock = new RhythmClock();
-			clock.Offset = playerOffset;
 			laneLength = Mathf.Abs(startPoint.position.y - endPoint.position.y);
 
 			clock.StartClock(context.StartTime);
@@ -250,7 +249,7 @@ namespace MilliRhythm.Rhythm
 			while (nextNoteIndex < notes.Count)
 			{
 				var note = notes[nextNoteIndex];
-				var judgeTime = context.Chart.TickTimeToTime(note.Head);
+				var judgeTime = context.Chart.TickTimeToTime(note.Head) + playerOffset;
 				var spawnTime = judgeTime - ApproachingTime;
 
 				if (spawnTime > clock.SongTime)
