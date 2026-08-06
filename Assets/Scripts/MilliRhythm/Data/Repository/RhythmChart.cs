@@ -51,7 +51,7 @@ namespace MilliRhythm.Rhythm
 
 		public double TickToTime(RhythmNote note)
 		{
-			return TickToTime(note.Tick);
+			return TickToTime(note.Head);
 		}
 
 		public double TickToTime(int tick)
@@ -75,13 +75,13 @@ namespace MilliRhythm.Rhythm
 	[Serializable]
 	public class RhythmNote
 	{
-		public int Tick;
+		public int Head;
 		public int Lane;
 		public int LengthTick;
 
 		public override string ToString()
 		{
-			return $"{Tick}:{Lane}";
+			return $"{Head}:{Lane}";
 		}
 	}
 }
