@@ -1316,6 +1316,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd70ff5ae8b62d14cb1a1c5dda679b15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Rhythm.Runtime::MilliRhythm.Rhythm.RhythmGamePlayer
+  playPerfect: 1
+  playerOffset: 0
   audioSource: {fileID: 1323735457}
   notePrefabs:
   - {fileID: 3655260737007784259, guid: 455c9513565f9c04e9660dd6985958fa, type: 3}

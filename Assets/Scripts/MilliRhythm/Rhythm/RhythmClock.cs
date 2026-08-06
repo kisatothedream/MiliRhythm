@@ -10,6 +10,7 @@ namespace MilliRhythm.Rhythm
 		private double songStartDspTime;
 		private bool isRunning;
 		public bool IsPaused { get; private set; }
+		public double Offset;
 
 		public double SongTime
 		{
@@ -20,7 +21,7 @@ namespace MilliRhythm.Rhythm
 					? pauseStartDspTime
 					: AudioSettings.dspTime;
 
-				return currentDspTime - songStartDspTime;
+				return currentDspTime - songStartDspTime + Offset;
 			}
 		}
 

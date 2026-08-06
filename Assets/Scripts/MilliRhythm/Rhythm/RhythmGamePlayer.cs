@@ -37,6 +37,9 @@ namespace MilliRhythm.Rhythm
 		private RhythmClock clock;
 
 		private RhythmGameContext context;
+
+		[SerializeField] private bool playPerfect;
+		[SerializeField, Range(-1, 1)] private double playerOffset;
 		[SerializeField] private AudioSource audioSource;
 		[SerializeField] private Note[] notePrefabs;
 		[SerializeField] private GameObject[] noteGlows;
@@ -131,6 +134,7 @@ namespace MilliRhythm.Rhythm
 			context = await BuildContext(rhythmChart, musicData);
 
 			clock = new RhythmClock();
+			clock.Offset = playerOffset;
 			laneLength = Mathf.Abs(startPoint.position.y - endPoint.position.y);
 
 			clock.StartClock(context.StartTime);
@@ -176,8 +180,22 @@ namespace MilliRhythm.Rhythm
 			{
 				TryRemoveExpiredNotes(lane);
 				UpdateNotesPosition(lane);
+				if (playPerfect)
+				{
+					PlayNotePefect(lane);
+				}
+
 				TryJudgeMissedNotes(lane);
 				UpdateLongNotes(lane);
+			}
+		}
+
+		private void PlayNotePefect(int lane)
+		{
+			var queue = waitingNotes[lane];
+			while (queue.TryPeek(out var note) && clock.SongTime > note.HeadTime)
+			{
+				OnPressKey(lane);
 			}
 		}
 
