@@ -31,7 +31,7 @@ namespace MilliRhythm.Rhythm
 
 			var music = GameDataService.GetMusicData(sceneParameter.MusicId);
 			var chart = GameDataService.GetChartData(sceneParameter.MusicId, sceneParameter.ChartType, sceneParameter.Difficulty);
-			await rhythmGamePlayer.InitializeGamePlayer(chart, music);
+			await rhythmGamePlayer.Init(chart, music);
 		}
 
 		public override void Start()

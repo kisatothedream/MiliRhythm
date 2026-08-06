@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using MilliRhythm.Data.Domain;
 using MilliRhythm.Data.Repository;
 using MilliRhythm.Input;
@@ -38,9 +39,10 @@ namespace MilliRhythm.Rhythm
 		private RhythmGameContext context;
 		[SerializeField] private AudioSource audioSource;
 		[SerializeField] private Note[] notePrefabs;
+		[SerializeField] private GameObject[] noteGlows;
 		private List<RhythmNote> notes;
 		[SerializeField] private Transform[] lanes;
-		private const float ApproachingTime = 2f;
+		private const float ApproachingTime = 1f;
 
 		[SerializeField] private Transform startPoint;
 		[SerializeField] private Transform endPoint;
@@ -69,6 +71,8 @@ namespace MilliRhythm.Rhythm
 
 		private const double LongNoteJudgingInterval = 0.25;
 
+		private readonly Tween[] glowTweens = new Tween[4];
+
 		public void Finish()
 		{
 			rhythmGameCts.Cancel();
@@ -79,6 +83,11 @@ namespace MilliRhythm.Rhythm
 			if (audioClipHandle.IsValid())
 			{
 				Addressables.Release(audioClipHandle);
+			}
+
+			foreach (var tween in glowTweens)
+			{
+				tween?.Kill();
 			}
 		}
 
@@ -99,13 +108,20 @@ namespace MilliRhythm.Rhythm
 			return ctx;
 		}
 
-		public async UniTask InitializeGamePlayer(RhythmChart rhythmChart, MusicData musicData)
+		public async UniTask Init(RhythmChart rhythmChart, MusicData musicData)
 		{
-			for (int i = 0; i < 4; i++)
+			for (var i = 0; i < 4; i++)
 			{
+				var glow = noteGlows[i];
 				waitingNotes[i] = new Queue<Note>();
 				activeNotes[i] = new List<Note>();
+				glowTweens[i] = glow.transform.DOScale(Vector3.one, 0.2f).From(1.4f * Vector3.one)
+					.Pause()
+					.SetEase(Ease.OutQuad)
+					.SetAutoKill(false)
+					.OnComplete(() => glow.SetActive(false));
 			}
+
 
 			rhythmGameCts = new CancellationTokenSource();
 			judgeManager.Initialize();
@@ -150,7 +166,8 @@ namespace MilliRhythm.Rhythm
 		{
 			//Show Result and Retry
 			//Return To Music Select Scene
-			SceneController.Instance.RequestChangeScene(new MusicSelectorSceneParameter(context.CurrentMusicId, context.CurrentChartType, context.CurrentDifficulty));
+			SceneController.Instance.RequestChangeScene(new MusicSelectorSceneParameter(context.CurrentMusicId, context.CurrentChartType,
+				context.CurrentDifficulty));
 		}
 
 		private void UpdateNotes()
@@ -258,6 +275,7 @@ namespace MilliRhythm.Rhythm
 			while (queue.TryPeek(out var note) && Math.Abs(clock.SongTime - note.HeadTime) < BadWindow)
 			{
 				var result = JudgeTime(clock.SongTime, note.HeadTime);
+				PlayGlow(lane);
 				Debug.Log(result);
 				judgeManager.OnHitNote(result);
 				queue.Dequeue();
@@ -282,6 +300,12 @@ namespace MilliRhythm.Rhythm
 			if (delta < GoodWindow) return NoteJudgementResult.Good;
 			if (delta < BadWindow) return NoteJudgementResult.Bad;
 			return NoteJudgementResult.NotReached;
+		}
+
+		private void PlayGlow(int lane)
+		{
+			noteGlows[lane].SetActive(true);
+			glowTweens[lane].Restart();
 		}
 	}
 
