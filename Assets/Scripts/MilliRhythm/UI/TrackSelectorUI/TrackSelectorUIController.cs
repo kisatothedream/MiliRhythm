@@ -78,6 +78,11 @@ namespace MilliRhythm.UI.TrackSelectorUI
 			this.RegisterUIInputListener();
 		}
 
+		public void SelectLastTrack(int trackId)
+		{
+			trackSelectorPanel.SelectLastTrack(trackId);
+		}
+
 		public void Finish()
 		{
 			trackSelectorPanel.Finish();

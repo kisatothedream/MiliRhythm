@@ -1,8 +1,9 @@
+using System;
 using Cysharp.Threading.Tasks;
 using MilliRhythm.CustomException;
 using MilliRhythm.Scene.Contracts;
 using MilliRhythm.UI.TrackSelectorUI;
-using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace MilliRhythm.TrackSelector
 {
@@ -10,6 +11,7 @@ namespace MilliRhythm.TrackSelector
 	{
 		public override int SceneIndex => 1;
 		private TrackSelectorUIController trackSelectorUIController;
+		private MusicSelectorSceneParameter param;
 
 		public override async UniTask Load()
 		{
@@ -23,6 +25,10 @@ namespace MilliRhythm.TrackSelector
 		public override async UniTask Init(IGameSceneParameter parameter)
 		{
 			trackSelectorUIController.Set();
+			if (parameter is not MusicSelectorSceneParameter sceneParameter) throw new ArgumentException($"Parameter must be of type {typeof(MusicSelectorSceneParameter)}", nameof(parameter));
+			if (sceneParameter.LastMusicId == -1) return;
+			param = sceneParameter;
+			trackSelectorUIController.SelectLastTrack(param.LastMusicId);
 		}
 
 		public override void Start()

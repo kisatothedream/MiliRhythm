@@ -75,6 +75,7 @@ namespace MilliRhythm.UI.TrackSelectorUI
 			ResetNavigationId();
 		}
 
+		public void SelectTrackByTrackId(int trackId) => SelectTrack(listItems.FirstOrDefault(x => x.Model.Id == trackId));
 		public void SelectTrack(int navigationId) => SelectTrack(listItems.FirstOrDefault(item => item.IsVisible && item.NavigationId == navigationId));
 		public void SelectTrack(TrackSelectorListView track) => OnClickViewButtonAction(track);
 
