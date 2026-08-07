@@ -1,5 +1,6 @@
 using System;
 using MilliRhythm.Data.Domain;
+using MilliRhythm.User;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -61,6 +62,23 @@ namespace MilliRhythm.Rhythm
 		{
 			var t = Object.Instantiate(text, position, Quaternion.identity);
 			t.PlayComboText(CurrentCombo, result);
+		}
+
+		public void SendScore(int trackId, ChartType chartType)
+		{
+			UserManager.SendRequest(Request.Create(new SetScoreEvent()
+			{
+				TrackId = trackId,
+				ChartType = chartType,
+				PerfectCount = PerfectCount,
+				GreatCount = GreatCount,
+				GoodCount = GoodCount,
+				BadCount = BadCount,
+				MissCount = MissCount,
+				Combo = MaxCombo,
+				Score = CurrentScore,
+			}));
+			UserManager.RequestSave();
 		}
 	}
 }
