@@ -20,26 +20,26 @@ namespace MilliRhythm.Rhythm
 
 		private void OnLeft(bool pressed)
 		{
-			if (pressed) JudgeNotesDown(NoteType.Left.GetLane());
-			else JudgeNotesUp(NoteType.Left.GetLane());
+			if (pressed) OnPressKey(NoteType.Left.ToInt());
+			isLaneHeld[0] = pressed;
 		}
 
 		private void OnUp(bool pressed)
 		{
-			if (pressed) JudgeNotesDown(NoteType.Up.GetLane());
-			else JudgeNotesUp(NoteType.Up.GetLane());
+			if (pressed) OnPressKey(NoteType.Up.ToInt());
+			isLaneHeld[1] = pressed;
 		}
 
 		private void OnDown(bool pressed)
 		{
-			if (pressed) JudgeNotesDown(NoteType.Down.GetLane());
-			else JudgeNotesUp(NoteType.Down.GetLane());
+			if (pressed) OnPressKey(NoteType.Down.ToInt());
+			isLaneHeld[2] = pressed;
 		}
 
 		private void OnRight(bool pressed)
 		{
-			if (pressed) JudgeNotesDown(NoteType.Right.GetLane());
-			else JudgeNotesUp(NoteType.Right.GetLane());
+			if (pressed) OnPressKey(NoteType.Right.ToInt());
+			isLaneHeld[3] = pressed;
 		}
 	}
 }

@@ -7,14 +7,14 @@ namespace MilliRhythm.User.Score
 {
 	public class ScoreDataModel : IUserData
 	{
-		internal Dictionary<(int, ChartType), ScoreData> ScoreDataMap = new();
+		internal Dictionary<string, ScoreData> ScoreDataMap = new();
 
 		public void ApplySave(UserSaveData saveData)
 		{
 			ScoreDataMap.Clear();
 			foreach (var score in saveData.Scores)
 			{
-				ScoreDataMap.Add((score.MusicId, score.ChartType), score);
+				ScoreDataMap.Add($"{score.MusicId}_{score.ChartType}", score);
 			}
 		}
 
@@ -25,7 +25,7 @@ namespace MilliRhythm.User.Score
 
 		public bool TryGetScoreData((int id, ChartType type) tuple, out ScoreData data)
 		{
-			return ScoreDataMap.TryGetValue(tuple, out data);
+			return ScoreDataMap.TryGetValue($"{tuple.id}_{tuple.type}", out data);
 		}
 	}
 

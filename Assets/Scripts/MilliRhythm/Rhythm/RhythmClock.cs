@@ -6,15 +6,22 @@ namespace MilliRhythm.Rhythm
 	[Serializable]
 	public class RhythmClock
 	{
+		private double pauseStartDspTime;
 		private double songStartDspTime;
 		private bool isRunning;
+		public bool IsPaused { get; private set; }
+		public double Offset;
 
 		public double SongTime
 		{
 			get
 			{
 				if (!isRunning) return 0;
-				return AudioSettings.dspTime - songStartDspTime;
+				var currentDspTime = IsPaused
+					? pauseStartDspTime
+					: AudioSettings.dspTime;
+
+				return currentDspTime - songStartDspTime + Offset;
 			}
 		}
 
@@ -27,6 +34,19 @@ namespace MilliRhythm.Rhythm
 		public void StopClock()
 		{
 			isRunning = false;
+		}
+
+		public void PauseClock()
+		{
+			pauseStartDspTime = AudioSettings.dspTime;
+			IsPaused = true;
+		}
+
+		public void ResumeClock()
+		{
+			var pausedDuration = AudioSettings.dspTime - pauseStartDspTime;
+			songStartDspTime += pausedDuration;
+			IsPaused = false;
 		}
 	}
 }

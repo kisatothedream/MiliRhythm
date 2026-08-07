@@ -14,7 +14,7 @@ namespace MilliRhythm.Rhythm
 
 	public static class NoteTypeExtensions
 	{
-		public static int GetLane(this NoteType type)
+		public static int ToInt(this NoteType type)
 		{
 			return type switch
 			{
@@ -26,7 +26,7 @@ namespace MilliRhythm.Rhythm
 			};
 		}
 
-		public static NoteType GetNoteTypeByLane(int lane)
+		public static NoteType ToLane(this int lane)
 		{
 			return lane switch
 			{
@@ -42,13 +42,11 @@ namespace MilliRhythm.Rhythm
 	public class Note : MonoBehaviour
 	{
 		public bool IsLongNote => NoteLength > 0;
-		public bool IsJudgedDown;
-		public bool IsJudgedUp;
 		public int Lane;
 		public double NoteLength;
 		public double StartTime;
 		public double HeadTime;
-		public double TailTime;
+		public double NextJudgeTime;
 		public double EndTime;
 		public float LaneLength;
 
@@ -63,18 +61,6 @@ namespace MilliRhythm.Rhythm
 			var pos = transform.localPosition;
 			pos.y = y;
 			transform.localPosition = pos;
-		}
-
-		public void JudgeDown(NoteJudgementResult result)
-		{
-			Debug.Log($"Head : {result}");
-			IsJudgedDown = true;
-		}
-
-		public void JudgeUp(NoteJudgementResult result)
-		{
-			Debug.Log($"LongNoteTail : {result}");
-			IsJudgedUp = true;
 		}
 	}
 }

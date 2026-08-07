@@ -34,6 +34,8 @@ namespace MilliRhythm.UI.TrackSelectorUI
 			trackSelectorList.OnSelectionChanged -= EnsureItemVisible;
 		}
 
+		public void SelectLastTrack(int trackId) => trackSelectorList.SelectTrackByTrackId(trackId);
+
 		public void ApplyFilter(Member filter)
 		{
 			trackSelectorList.FilterByVocal(filter);

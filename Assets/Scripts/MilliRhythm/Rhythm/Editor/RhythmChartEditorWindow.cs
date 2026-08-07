@@ -625,7 +625,7 @@ namespace MilliRhythm.Rhythm.Editor
 
 			for (var tick = firstTick; tick <= endTick; tick += gridTickInterval)
 			{
-				var time = chart.TickToTime(tick);
+				var time = chart.TickTimeToTime(tick);
 				var x = TimeToX(time, timelineRect);
 
 				var ticksPerMeasure = chart.TicksPerBeat * 4;
@@ -689,7 +689,7 @@ namespace MilliRhythm.Rhythm.Editor
 
 			EditorGUI.BeginChangeCheck();
 
-			var newTick = EditorGUI.IntField(tickRect, new GUIContent("Tick"), note.Tick);
+			var newTick = EditorGUI.IntField(tickRect, new GUIContent("Tick"), note.Head);
 
 			var newLane = EditorGUI.IntField(laneRect, new GUIContent("Lane"), note.Lane);
 
@@ -699,7 +699,7 @@ namespace MilliRhythm.Rhythm.Editor
 			{
 				Undo.RecordObject(chart, "Edit Rhythm Note");
 
-				note.Tick = Mathf.Max(0, newTick);
+				note.Head = Mathf.Max(0, newTick);
 				note.Lane = Mathf.Clamp(newLane, 0, FixedLaneCount - 1);
 
 				note.LengthTick = Mathf.Max(0, newLengthTick);
@@ -718,10 +718,10 @@ namespace MilliRhythm.Rhythm.Editor
 		private void DrawSelectedNoteTimeInfo(RhythmNote note,
 			Rect contentRect)
 		{
-			var endTick = note.Tick + note.LengthTick;
+			var endTick = note.Head + note.LengthTick;
 
-			var startTime = chart.TickToTime(note.Tick);
-			var endTime = chart.TickToTime(endTick);
+			var startTime = chart.TickTimeToTime(note.Head);
+			var endTime = chart.TickTimeToTime(endTick);
 			var duration = endTime - startTime;
 
 			var infoX = contentRect.x + 490f;
@@ -778,8 +778,8 @@ namespace MilliRhythm.Rhythm.Editor
 			Rect timelineRect,
 			bool isSelected)
 		{
-			var endTick = note.Tick + note.LengthTick;
-			var endTime = chart.TickToTime(endTick);
+			var endTick = note.Head + note.LengthTick;
+			var endTime = chart.TickTimeToTime(endTick);
 			var endX = TimeToX(endTime, timelineRect);
 
 			if (endX < timelineRect.x || startCenter.x > timelineRect.xMax)
@@ -983,7 +983,7 @@ namespace MilliRhythm.Rhythm.Editor
 
 			chart.Notes.Add(new RhythmNote
 			{
-				Tick = Mathf.Max(0, snappedTick), Lane = lane,
+				Head = Mathf.Max(0, snappedTick), Lane = lane,
 			});
 
 			SortNotes();
@@ -1006,7 +1006,7 @@ namespace MilliRhythm.Rhythm.Editor
 			var lane = PositionToLane(mousePosition.y, timelineRect);
 
 			var note = chart.Notes[selectedNoteIndex];
-			note.Tick = Mathf.Max(0, tick);
+			note.Head = Mathf.Max(0, tick);
 			note.Lane = lane;
 
 			EditorUtility.SetDirty(chart);
@@ -1047,7 +1047,7 @@ namespace MilliRhythm.Rhythm.Editor
 
 		private Vector2 GetNoteCenter(RhythmNote note, Rect timelineRect)
 		{
-			var time = chart.TickToTime(note.Tick);
+			var time = chart.TickTimeToTime(note.Head);
 			var x = TimeToX(time, timelineRect);
 			var y = GetLaneY(note.Lane, timelineRect) + LaneHeight * 0.5f;
 
@@ -1276,7 +1276,7 @@ namespace MilliRhythm.Rhythm.Editor
 		{
 			chart.Notes.Sort((left, right) =>
 			{
-				var tickComparison = left.Tick.CompareTo(right.Tick);
+				var tickComparison = left.Head.CompareTo(right.Head);
 
 				if (tickComparison != 0)
 				{
@@ -1293,7 +1293,7 @@ namespace MilliRhythm.Rhythm.Editor
 			{
 				var note = chart.Notes[i];
 
-				if (note.Tick == tick && note.Lane == lane)
+				if (note.Head == tick && note.Lane == lane)
 				{
 					return i;
 				}
@@ -1357,7 +1357,7 @@ namespace MilliRhythm.Rhythm.Editor
 
 			chart.Notes.Add(new RhythmNote
 			{
-				Tick = recordedTick, Lane = lane,
+				Head = recordedTick, Lane = lane,
 			});
 
 			SortNotes();
@@ -1385,7 +1385,7 @@ namespace MilliRhythm.Rhythm.Editor
 			{
 				var note = chart.Notes[i];
 
-				if (note.Tick == tick && note.Lane == lane)
+				if (note.Head == tick && note.Lane == lane)
 				{
 					return true;
 				}
@@ -1721,7 +1721,7 @@ namespace MilliRhythm.Rhythm.Editor
 
 			chart.Notes.Add(new RhythmNote
 			{
-				Tick = tick,
+				Head = tick,
 				Lane = lane,
 			});
 

@@ -87,6 +87,13 @@ namespace MilliRhythm.UI.TrackSelectorUI.StartPopup
 			currentNavigatable.Focus();
 		}
 
+
+		protected override void Confirm()
+		{
+			response.Payload.ChartType = melodyToggle.isOn ? ChartType.Melody : ChartType.Beat;
+			base.Confirm();
+		}
+
 		public override void OnSubmit()
 		{
 			currentNavigatable?.OnSubmit();

@@ -7,12 +7,7 @@ namespace MilliRhythm.User
 {
 	public class UserDataModel
 	{
-		public ScoreDataModel ScoreDataModel;
-
-		public UserDataModel()
-		{
-			ScoreDataModel = new ScoreDataModel();
-		}
+		public readonly ScoreDataModel ScoreDataModel = new();
 
 		internal void ApplySave(UserSaveData saveData)
 		{
@@ -21,8 +16,10 @@ namespace MilliRhythm.User
 
 		internal UserSaveData ToSaveData()
 		{
-			var save = new UserSaveData();
-			save.Scores = new List<ScoreData>(ScoreDataModel.ScoreDataMap.Select(item => item.Value));
+			var save = new UserSaveData
+			{
+				Scores = new List<ScoreData>(ScoreDataModel.ScoreDataMap.Select(item => item.Value)),
+			};
 
 			return save;
 		}

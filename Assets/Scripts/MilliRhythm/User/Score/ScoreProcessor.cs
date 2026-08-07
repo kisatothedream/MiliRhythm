@@ -28,7 +28,7 @@ namespace MilliRhythm.User.Score
 
 		private void SetScore(SetScoreEvent evt)
 		{
-			if (!model.ScoreDataMap.TryGetValue((evt.TrackId, evt.ChartType), out var scoreData))
+			if (!model.ScoreDataMap.TryGetValue($"{evt.TrackId}_{evt.ChartType}", out var scoreData))
 			{
 				scoreData = new ScoreData()
 				{
@@ -41,7 +41,7 @@ namespace MilliRhythm.User.Score
 					BadCount = evt.BadCount,
 					MissCount = evt.MissCount,
 				};
-				model.ScoreDataMap.Add((evt.TrackId, evt.ChartType), scoreData);
+				model.ScoreDataMap.Add($"{evt.TrackId}_{evt.ChartType}", scoreData);
 			}
 
 			UserManager.CommandSetScore(evt.TrackId, evt.ChartType, evt.Score, evt.Combo, evt.PerfectCount, evt.GreatCount, evt.GoodCount, evt.BadCount, evt.MissCount);

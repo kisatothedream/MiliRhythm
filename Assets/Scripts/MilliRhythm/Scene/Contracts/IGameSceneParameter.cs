@@ -29,6 +29,7 @@ namespace MilliRhythm.Scene.Contracts
 
 		public MusicSelectorSceneParameter()
 		{
+			LastMusicId = -1;
 		}
 
 		public MusicSelectorSceneParameter(int lastMusicId, ChartType lastChartType, Difficulty lastDifficulty)
