@@ -13,7 +13,7 @@ namespace MilliRhythm.Rhythm
 		[SerializeField] private TextMeshPro comboText;
 
 		[SerializeField] private float moveDistance = 0.5f;
-		[SerializeField] private float moveDuration = 0.3f;
+		[SerializeField] private float moveDuration = 0.4f;
 		[SerializeField] private float fadeDelay = 0.1f;
 		[SerializeField] private float fadeDuration = 0.2f;
 
@@ -26,7 +26,7 @@ namespace MilliRhythm.Rhythm
 			SetAlpha(judgeResultText, 1f);
 			SetAlpha(comboText, 1f);
 
-			var targetPosition = transform.localPosition + Vector3.up * moveDistance;
+			var targetPosition = transform.localPosition + Vector3.up * moveDistance - Vector3.back;
 
 			var sequence = DOTween.Sequence();
 
