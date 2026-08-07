@@ -76,6 +76,9 @@ namespace MilliRhythm.Rhythm
 
 		private readonly Tween[] glowTweens = new Tween[4];
 
+		[SerializeField] private ComboText comboTextPrefab;
+		[SerializeField] private Transform comboTextTransform;
+
 		public void Finish()
 		{
 			rhythmGameCts.Cancel();
@@ -231,11 +234,13 @@ namespace MilliRhythm.Rhythm
 					if (isLaneHeld[lane])
 					{
 						judgeManager.OnHitNote(NoteJudgementResult.Perfect);
+						judgeManager.CreateComboText(comboTextTransform.position, comboTextPrefab, NoteJudgementResult.Perfect);
 						note.NextJudgeTime += LongNoteJudgingInterval;
 					}
 					else
 					{
 						judgeManager.OnMissNote();
+						judgeManager.CreateComboText(comboTextTransform.position, comboTextPrefab, NoteJudgementResult.Miss);
 					}
 				}
 				else
@@ -284,6 +289,7 @@ namespace MilliRhythm.Rhythm
 			{
 				queue.Dequeue();
 				judgeManager.OnMissNote();
+				judgeManager.CreateComboText(comboTextTransform.position, comboTextPrefab, NoteJudgementResult.Miss);
 			}
 			// foreach (var note in activeNotes)
 		}
@@ -297,6 +303,7 @@ namespace MilliRhythm.Rhythm
 				PlayGlow(lane);
 				Debug.Log(result);
 				judgeManager.OnHitNote(result);
+				judgeManager.CreateComboText(comboTextTransform.position, comboTextPrefab, result);
 				queue.Dequeue();
 				if (note.IsLongNote)
 				{

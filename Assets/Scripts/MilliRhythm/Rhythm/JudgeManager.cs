@@ -1,5 +1,7 @@
 using System;
 using MilliRhythm.Data.Domain;
+using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace MilliRhythm.Rhythm
 {
@@ -53,6 +55,12 @@ namespace MilliRhythm.Rhythm
 		{
 			MissCount++;
 			CurrentCombo = 0;
+		}
+
+		public void CreateComboText(Vector3 position, ComboText text, NoteJudgementResult result)
+		{
+			var t = Object.Instantiate(text, position, Quaternion.identity);
+			t.PlayComboText(CurrentCombo, result);
 		}
 	}
 }

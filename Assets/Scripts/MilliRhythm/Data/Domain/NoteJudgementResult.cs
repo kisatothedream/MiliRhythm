@@ -7,5 +7,6 @@ namespace MilliRhythm.Data.Domain
 		Good,
 		Great,
 		Perfect,
+		Miss,
 	}
 }

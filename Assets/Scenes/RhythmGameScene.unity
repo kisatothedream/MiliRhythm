@@ -920,6 +920,37 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &957733743
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 957733744}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &957733744
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 957733743}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.89, y: 0.22, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1111319483
 GameObject:
   m_ObjectHideFlags: 0
@@ -1337,6 +1368,8 @@ MonoBehaviour:
   startPoint: {fileID: 1789318870}
   endPoint: {fileID: 402460690}
   character: {fileID: 1977033682}
+  comboTextPrefab: {fileID: 7584653929959091275, guid: 45e511a58cca235418552e8aa4ad7ee8, type: 3}
+  comboTextTransform: {fileID: 957733744}
 --- !u!4 &1323735456
 Transform:
   m_ObjectHideFlags: 0
@@ -1844,3 +1877,4 @@ SceneRoots:
   - {fileID: 1789318870}
   - {fileID: 402460690}
   - {fileID: 1977033681}
+  - {fileID: 957733744}
