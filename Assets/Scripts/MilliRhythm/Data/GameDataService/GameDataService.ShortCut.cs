@@ -34,7 +34,7 @@ namespace MilliRhythm.Data.GameDataService
 			return GetLocalization(key).Text;
 		}
 
-		public static string GetMemberNameKey(this Member member) => GetLocalizedText(GetMemberData(member).NameKey);
-		public static string GetMemberShortNameKey(this Member member) => GetLocalizedText(GetMemberData(member).ShortNameKey);
+		public static string GetMemberNameKey(this Member member) => GetMemberData(member).NameKey;
+		public static string GetMemberShortNameKey(this Member member) => GetMemberData(member).ShortNameKey;
 	}
 }
