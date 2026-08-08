@@ -298,10 +298,10 @@ namespace MilliRhythm.Rhythm
 		private void OnPressKey(int lane)
 		{
 			var queue = waitingNotes[lane];
+			PlayGlow(lane);
 			if (queue.TryPeek(out var note) && Math.Abs(clock.SongTime - note.HeadTime) < BadWindow)
 			{
 				var result = JudgeTime(clock.SongTime, note.HeadTime);
-				PlayGlow(lane);
 				Debug.Log(result);
 				character.ChangeState(lane);
 				judgeManager.OnHitNote(result);
