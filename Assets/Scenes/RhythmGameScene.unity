@@ -930,7 +930,7 @@ GameObject:
   m_Component:
   - component: {fileID: 957733744}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: ComboTextPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1347,7 +1347,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd70ff5ae8b62d14cb1a1c5dda679b15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Rhythm.Runtime::MilliRhythm.Rhythm.RhythmGamePlayer
-  playPerfect: 1
+  playPerfect: 0
   playerOffset: 0
   audioSource: {fileID: 1323735457}
   notePrefabs:
@@ -1365,11 +1365,17 @@ MonoBehaviour:
   - {fileID: 1416990086}
   - {fileID: 337295063}
   - {fileID: 1215924530}
+  laneEnds:
+  - {fileID: 1254080892}
+  - {fileID: 123371006}
+  - {fileID: 576975820}
+  - {fileID: 1111319485}
   startPoint: {fileID: 1789318870}
   endPoint: {fileID: 402460690}
   character: {fileID: 7284666565141793360}
   comboTextPrefab: {fileID: 7584653929959091275, guid: 45e511a58cca235418552e8aa4ad7ee8, type: 3}
   comboTextTransform: {fileID: 957733744}
+  particlePrefab: {fileID: 7516003108749195644, guid: d26d042577f7b244f89cdbe6b50fb567, type: 3}
 --- !u!4 &1323735456
 Transform:
   m_ObjectHideFlags: 0
@@ -1962,10 +1968,10 @@ SceneRoots:
   - {fileID: 1416990086}
   - {fileID: 337295063}
   - {fileID: 1215924530}
-  - {fileID: 123371006}
-  - {fileID: 1111319485}
   - {fileID: 1254080892}
+  - {fileID: 123371006}
   - {fileID: 576975820}
+  - {fileID: 1111319485}
   - {fileID: 1789318870}
   - {fileID: 402460690}
   - {fileID: 957733744}

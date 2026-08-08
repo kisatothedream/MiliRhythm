@@ -8,7 +8,6 @@ using MilliRhythm.Data.Repository;
 using MilliRhythm.Input;
 using MilliRhythm.Scene;
 using MilliRhythm.Scene.Contracts;
-using MilliRhythm.User;
 using R3;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -46,6 +45,7 @@ namespace MilliRhythm.Rhythm
 		[SerializeField] private GameObject[] noteGlows;
 		private List<RhythmNote> notes;
 		[SerializeField] private Transform[] lanes;
+		[SerializeField] private Transform[] laneEnds;
 		private const float ApproachingTime = 1f;
 
 		[SerializeField] private Transform startPoint;
@@ -78,6 +78,8 @@ namespace MilliRhythm.Rhythm
 
 		[SerializeField] private ComboText comboTextPrefab;
 		[SerializeField] private Transform comboTextTransform;
+
+		[SerializeField] private GameObject particlePrefab;
 
 		public void Finish()
 		{
@@ -171,8 +173,10 @@ namespace MilliRhythm.Rhythm
 			//Show Result and Retry
 			//Return To Music Select Scene
 			judgeManager.SendScore(context.CurrentMusicId, context.CurrentChartType);
-			Debug.Log($"Result Max Combo [{judgeManager.MaxCombo}] - Score [{judgeManager.CurrentScore}] \nPerfect[{judgeManager.PerfectCount}] \nGreat[{judgeManager.GreatCount}] \nGood[{judgeManager.GoodCount}] \nBad[{judgeManager.BadCount}] \nMiss[{judgeManager.MissCount}]");
-			SceneController.Instance.RequestChangeScene(new MusicSelectorSceneParameter(context.CurrentMusicId, context.CurrentChartType, context.CurrentDifficulty));
+			Debug.Log(
+				$"Result Max Combo [{judgeManager.MaxCombo}] - Score [{judgeManager.CurrentScore}] \nPerfect[{judgeManager.PerfectCount}] \nGreat[{judgeManager.GreatCount}] \nGood[{judgeManager.GoodCount}] \nBad[{judgeManager.BadCount}] \nMiss[{judgeManager.MissCount}]");
+			SceneController.Instance.RequestChangeScene(new MusicSelectorSceneParameter(context.CurrentMusicId, context.CurrentChartType,
+				context.CurrentDifficulty));
 		}
 
 		private void UpdateNotes()
@@ -303,6 +307,7 @@ namespace MilliRhythm.Rhythm
 				judgeManager.OnHitNote(result);
 				judgeManager.CreateComboText(comboTextTransform.position, comboTextPrefab, result);
 				queue.Dequeue();
+				CreateNoteHitParticleAsync(lane).Forget();
 				if (note.IsLongNote)
 				{
 					judgingLongNotes[lane] = note;
@@ -314,6 +319,13 @@ namespace MilliRhythm.Rhythm
 					Destroy(note.gameObject);
 				}
 			}
+		}
+
+		private async UniTask CreateNoteHitParticleAsync(int lane)
+		{
+			var go = Instantiate(particlePrefab, laneEnds[lane]);
+			await UniTask.WaitForSeconds(1);
+			Destroy(go);
 		}
 
 		private NoteJudgementResult JudgeTime(double currentTime, double judgeTime)
