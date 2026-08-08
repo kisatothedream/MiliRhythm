@@ -297,7 +297,7 @@ namespace MilliRhythm.Rhythm
 		private void OnPressKey(int lane)
 		{
 			var queue = waitingNotes[lane];
-			while (queue.TryPeek(out var note) && Math.Abs(clock.SongTime - note.HeadTime) < BadWindow)
+			if (queue.TryPeek(out var note) && Math.Abs(clock.SongTime - note.HeadTime) < BadWindow)
 			{
 				var result = JudgeTime(clock.SongTime, note.HeadTime);
 				PlayGlow(lane);
