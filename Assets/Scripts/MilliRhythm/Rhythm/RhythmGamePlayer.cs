@@ -65,7 +65,6 @@ namespace MilliRhythm.Rhythm
 
 		private CancellationTokenSource rhythmGameCts;
 		private CompositeDisposable inputDisposable;
-		private CompositeDisposable characterDisposable;
 
 		private AsyncOperationHandle<AudioClip> audioClipHandle;
 
@@ -86,7 +85,6 @@ namespace MilliRhythm.Rhythm
 			rhythmGameCts.Dispose();
 			rhythmGameCts = null;
 			UnregisterInputs();
-			UnregisterCharacter();
 			if (audioClipHandle.IsValid())
 			{
 				Addressables.Release(audioClipHandle);
@@ -134,7 +132,6 @@ namespace MilliRhythm.Rhythm
 			judgeManager.Initialize();
 
 			RegisterInputs();
-			RegisterCharacter();
 			context = await BuildContext(rhythmChart, musicData);
 
 			clock = new RhythmClock();
@@ -302,6 +299,7 @@ namespace MilliRhythm.Rhythm
 				var result = JudgeTime(clock.SongTime, note.HeadTime);
 				PlayGlow(lane);
 				Debug.Log(result);
+				character.ChangeState(lane);
 				judgeManager.OnHitNote(result);
 				judgeManager.CreateComboText(comboTextTransform.position, comboTextPrefab, result);
 				queue.Dequeue();
