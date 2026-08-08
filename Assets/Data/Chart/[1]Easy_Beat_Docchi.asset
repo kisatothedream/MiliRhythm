@@ -22,13 +22,13 @@ MonoBehaviour:
     Lane: 0
     LengthTick: 0
   - Head: 720
-    Lane: 3
+    Lane: 1
     LengthTick: 0
   - Head: 960
-    Lane: 0
+    Lane: 3
     LengthTick: 0
   - Head: 1200
-    Lane: 3
+    Lane: 2
     LengthTick: 0
   - Head: 1440
     Lane: 0
@@ -37,10 +37,10 @@ MonoBehaviour:
     Lane: 3
     LengthTick: 0
   - Head: 1920
-    Lane: 0
+    Lane: 1
     LengthTick: 0
   - Head: 2160
-    Lane: 3
+    Lane: 2
     LengthTick: 0
   - Head: 2400
     Lane: 0
@@ -49,10 +49,10 @@ MonoBehaviour:
     Lane: 3
     LengthTick: 0
   - Head: 2880
-    Lane: 0
+    Lane: 3
     LengthTick: 0
   - Head: 3120
-    Lane: 3
+    Lane: 2
     LengthTick: 0
   - Head: 3360
     Lane: 0
@@ -61,7 +61,7 @@ MonoBehaviour:
     Lane: 3
     LengthTick: 0
   - Head: 3840
-    Lane: 0
+    Lane: 1
     LengthTick: 0
   - Head: 4080
     Lane: 3
@@ -76,7 +76,7 @@ MonoBehaviour:
     Lane: 2
     LengthTick: 0
   - Head: 4800
-    Lane: 1
+    Lane: 0
     LengthTick: 0
   - Head: 5040
     Lane: 2
@@ -88,13 +88,13 @@ MonoBehaviour:
     Lane: 2
     LengthTick: 0
   - Head: 5760
-    Lane: 1
+    Lane: 3
     LengthTick: 0
   - Head: 6000
-    Lane: 2
+    Lane: 3
     LengthTick: 0
   - Head: 6240
-    Lane: 1
+    Lane: 0
     LengthTick: 0
   - Head: 6360
     Lane: 2
@@ -127,13 +127,13 @@ MonoBehaviour:
     Lane: 0
     LengthTick: 0
   - Head: 8400
-    Lane: 3
+    Lane: 1
     LengthTick: 0
   - Head: 8640
     Lane: 0
     LengthTick: 0
   - Head: 8880
-    Lane: 3
+    Lane: 2
     LengthTick: 0
   - Head: 9120
     Lane: 0
@@ -142,10 +142,10 @@ MonoBehaviour:
     Lane: 3
     LengthTick: 0
   - Head: 9600
-    Lane: 0
+    Lane: 1
     LengthTick: 0
   - Head: 9840
-    Lane: 3
+    Lane: 2
     LengthTick: 0
   - Head: 10080
     Lane: 0
@@ -154,22 +154,22 @@ MonoBehaviour:
     Lane: 3
     LengthTick: 0
   - Head: 10560
-    Lane: 0
+    Lane: 2
     LengthTick: 0
   - Head: 10800
     Lane: 3
     LengthTick: 0
   - Head: 11040
-    Lane: 0
+    Lane: 1
     LengthTick: 0
   - Head: 11280
-    Lane: 3
+    Lane: 2
     LengthTick: 0
   - Head: 11520
     Lane: 0
     LengthTick: 0
   - Head: 11760
-    Lane: 3
+    Lane: 1
     LengthTick: 0
   - Head: 11880
     Lane: 1
@@ -181,7 +181,7 @@ MonoBehaviour:
     Lane: 2
     LengthTick: 0
   - Head: 12480
-    Lane: 1
+    Lane: 2
     LengthTick: 0
   - Head: 12720
     Lane: 2
@@ -205,7 +205,7 @@ MonoBehaviour:
     Lane: 2
     LengthTick: 0
   - Head: 13680
-    Lane: 3
+    Lane: 2
     LengthTick: 0
   - Head: 13800
     Lane: 0
@@ -214,40 +214,40 @@ MonoBehaviour:
     Lane: 1
     LengthTick: 0
   - Head: 14040
-    Lane: 1
+    Lane: 0
     LengthTick: 0
   - Head: 14280
-    Lane: 1
+    Lane: 0
     LengthTick: 0
   - Head: 14400
     Lane: 1
     LengthTick: 0
   - Head: 14640
-    Lane: 1
+    Lane: 2
     LengthTick: 0
   - Head: 14760
-    Lane: 1
+    Lane: 3
     LengthTick: 0
   - Head: 15000
-    Lane: 1
+    Lane: 0
     LengthTick: 0
   - Head: 15120
     Lane: 1
     LengthTick: 0
   - Head: 15240
-    Lane: 1
+    Lane: 2
     LengthTick: 0
   - Head: 15360
     Lane: 1
     LengthTick: 0
   - Head: 15480
-    Lane: 1
+    Lane: 0
     LengthTick: 0
   - Head: 15600
     Lane: 1
     LengthTick: 0
   - Head: 15720
-    Lane: 1
+    Lane: 0
     LengthTick: 0
   - Head: 15960
     Lane: 1
