@@ -1,5 +1,7 @@
 using System;
 using MilliRhythm.Data.Domain;
+using MilliRhythm.Data.GameDataService;
+using MilliRhythm.Scene.Contracts;
 using MilliRhythm.UI.RhythmGameUI;
 using MilliRhythm.User;
 using UnityEngine;
@@ -86,7 +88,7 @@ namespace MilliRhythm.Rhythm
 
 		public void CreateComboText(NoteJudgementResult result)
 		{
-			var t = Object.Instantiate(comboTextPrefab, comboTextPivot.position, Quaternion.identity);
+			var t = Instantiate(comboTextPrefab, comboTextPivot.position, Quaternion.identity);
 			t.PlayComboText(CurrentCombo, result);
 		}
 
@@ -105,6 +107,12 @@ namespace MilliRhythm.Rhythm
 				Score = CurrentScore,
 			}));
 			UserManager.RequestSave();
+		}
+
+		public void RequestShowResultAndEndGame(int trackId, ChartType chartType, MusicSelectorSceneParameter parameter)
+		{
+			SendScore(trackId, chartType);
+			uiController.ShowResultAsync(GameDataService.GetMusicData(trackId).ThumbnailSprite, PerfectCount, GreatCount, GoodCount, BadCount, MissCount, MaxCombo, CurrentScore, parameter);
 		}
 
 		private void UpdateLifeGuage(int currentLife)

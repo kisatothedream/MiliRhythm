@@ -173,11 +173,10 @@ namespace MilliRhythm.Rhythm
 		{
 			//Show Result and Retry
 			//Return To Music Select Scene
-			judgeManager.SendScore(context.CurrentMusicId, context.CurrentChartType);
 			Debug.Log(
 				$"Result Max Combo [{judgeManager.MaxCombo}] - Score [{judgeManager.CurrentScore}] \nPerfect[{judgeManager.PerfectCount}] \nGreat[{judgeManager.GreatCount}] \nGood[{judgeManager.GoodCount}] \nBad[{judgeManager.BadCount}] \nMiss[{judgeManager.MissCount}]");
-			SceneController.Instance.RequestChangeScene(new MusicSelectorSceneParameter(context.CurrentMusicId, context.CurrentChartType,
-				context.CurrentDifficulty));
+			var parameter = new MusicSelectorSceneParameter(context.CurrentMusicId, context.CurrentChartType, context.CurrentDifficulty);
+			judgeManager.RequestShowResultAndEndGame(context.CurrentMusicId, context.CurrentChartType ,parameter);
 		}
 
 		private void UpdateNotes()
