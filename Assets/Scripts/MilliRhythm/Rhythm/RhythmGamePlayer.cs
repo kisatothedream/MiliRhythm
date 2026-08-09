@@ -6,6 +6,7 @@ using DG.Tweening;
 using MilliRhythm.Data.Domain;
 using MilliRhythm.Data.Repository;
 using MilliRhythm.Input;
+using MilliRhythm.Scene;
 using MilliRhythm.Scene.Contracts;
 using MilliRhythm.UI.RhythmGameUI;
 using R3;
@@ -116,6 +117,7 @@ namespace MilliRhythm.Rhythm
 
 		public async UniTask Init(RhythmChart rhythmChart, MusicData musicData)
 		{
+			uiController.InitializeCurrentTrackContext(RestartAction);
 			for (var i = 0; i < 4; i++)
 			{
 				var glow = noteGlows[i];
@@ -175,7 +177,7 @@ namespace MilliRhythm.Rhythm
 			Debug.Log(
 				$"Result Max Combo [{judgeManager.MaxCombo}] - Score [{judgeManager.CurrentScore}] \nPerfect[{judgeManager.PerfectCount}] \nGreat[{judgeManager.GreatCount}] \nGood[{judgeManager.GoodCount}] \nBad[{judgeManager.BadCount}] \nMiss[{judgeManager.MissCount}]");
 			var parameter = new MusicSelectorSceneParameter(context.CurrentMusicId, context.CurrentChartType, context.CurrentDifficulty);
-			judgeManager.RequestShowResultAndEndGame(context.CurrentMusicId, context.CurrentChartType ,parameter);
+			judgeManager.RequestShowResultAndEndGame(context.CurrentMusicId, context.CurrentChartType, parameter);
 		}
 
 		private void UpdateNotes()
@@ -341,6 +343,12 @@ namespace MilliRhythm.Rhythm
 		{
 			noteGlows[lane].SetActive(true);
 			glowTweens[lane].Restart();
+		}
+
+		private void RestartAction()
+		{
+			SceneController.Instance.RequestChangeScene(new RhythmGameSceneParameter(context.CurrentMusicId, context.CurrentChartType,
+				context.CurrentDifficulty));
 		}
 	}
 

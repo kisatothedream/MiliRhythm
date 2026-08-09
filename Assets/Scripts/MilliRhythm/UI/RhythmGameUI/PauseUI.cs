@@ -1,6 +1,5 @@
 using System;
 using Cysharp.Threading.Tasks;
-using MilliRhythm.Data.Domain;
 using MilliRhythm.Input;
 using MilliRhythm.UI.Components;
 using MilliRhythm.UI.ConfigUI;
@@ -8,12 +7,6 @@ using UnityEngine;
 
 namespace MilliRhythm.UI.RhythmGameUI
 {
-	public struct TrackContext
-	{
-		public int TrackId;
-		public ChartType ChartType;
-	}
-
 	public class PauseUI : MonoBehaviour, IUIInputListener
 	{
 		private INavigatable[] navigatables;
@@ -23,8 +16,8 @@ namespace MilliRhythm.UI.RhythmGameUI
 		[SerializeField] private NavigatableButton configButton;
 		[SerializeField] private ConfigPopup configPopup;
 		[SerializeField] private CommonPopup commonPopup;
-		private TrackContext context;
 		private bool isPopupOpened;
+		private Action restartAction;
 
 		private void Awake()
 		{
@@ -32,8 +25,6 @@ namespace MilliRhythm.UI.RhythmGameUI
 			resumeButton.onClick.AddListener(Hide);
 			restartButton.onClick.AddListener(DisplayRestartPopup);
 			configButton.onClick.AddListener(DisplayConfigPopup);
-
-			Select(0);
 		}
 
 		private void OnDestroy()
@@ -53,13 +44,17 @@ namespace MilliRhythm.UI.RhythmGameUI
 			this.UnregisterUIInputListener();
 		}
 
-		public void Display(TrackContext ctx)
+		public void Display(Action restartAction)
 		{
-			context = ctx;
+			this.restartAction = restartAction;
 			gameObject.SetActive(true);
+			Select(0);
 		}
 
-		public void Hide() => gameObject.SetActive(false);
+		public void Hide()
+		{
+			gameObject.SetActive(false);
+		}
 
 
 		public void Navigate(Vector2 value)
@@ -100,7 +95,8 @@ namespace MilliRhythm.UI.RhythmGameUI
 
 		public void Submit(bool value)
 		{
-			currentNavigatable.OnSubmit();
+			if (value)
+				currentNavigatable.OnSubmit();
 		}
 
 		public void Cancel(bool value)
@@ -120,12 +116,16 @@ namespace MilliRhythm.UI.RhythmGameUI
 			async UniTask DisplayRestartPopupAsync()
 			{
 				isPopupOpened = true;
-				await commonPopup.Display(new CommonPopupParameter()
+				var result = await commonPopup.Display(new CommonPopupParameter()
 				{
 					TitleTextKey = "TITLE-TEXT-KEY",
 					ContentTextKey = "CONTENT-TEXT-KEY",
 				});
 				isPopupOpened = false;
+				if (result.Result == PopupResult.Confirm)
+				{
+					restartAction?.Invoke();
+				}
 			}
 		}
 

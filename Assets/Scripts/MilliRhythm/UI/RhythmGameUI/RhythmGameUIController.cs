@@ -1,3 +1,4 @@
+using System;
 using Cysharp.Threading.Tasks;
 using MilliRhythm.Scene.Contracts;
 using UnityEngine;
@@ -10,29 +11,40 @@ namespace MilliRhythm.UI.RhythmGameUI
 		[SerializeField] private LifeGaugeUI lifeGaugeUI;
 		[SerializeField] private ScoreUI scoreUI;
 		[SerializeField] private ResultUI resultUI;
+		[SerializeField] private PauseUI pauseUI;
+
 		[SerializeField] private Image trackProgressFill;
-		[SerializeField] private Button quitButton;
+		[SerializeField] private Button pauseButton;
+
+		private Action restartAction;
 
 		private void Awake()
 		{
-			quitButton.onClick.AddListener(OnQuitButtonAction);
+			pauseButton.onClick.AddListener(onPauseButtonAction);
 			UpdateScore(0, 0);
 		}
 
 		private void OnDestroy()
 		{
-			quitButton.onClick.RemoveListener(OnQuitButtonAction);
+			pauseButton.onClick.RemoveListener(onPauseButtonAction);
+		}
+
+		public void InitializeCurrentTrackContext(Action restartAction)
+		{
+			this.restartAction = restartAction;
 		}
 
 		public void UpdateLifeGauge(int cur, int max) => lifeGaugeUI.UpdateGauge(cur, max);
 		public void UpdateScore(int score, float accuracy) => scoreUI.UpdateScore(score, accuracy);
 		public void UpdateTrackProgress(float progress) => trackProgressFill.fillAmount = progress;
 
-		public void ShowResultAsync(Sprite jacket, int perfect, int great, int good, int bad, int miss, int maxCombo, int score, MusicSelectorSceneParameter param) =>
+		public void ShowResultAsync(Sprite jacket, int perfect, int great, int good, int bad, int miss, int maxCombo, int score,
+			MusicSelectorSceneParameter param) =>
 			resultUI.ShowResultAsync(jacket, perfect, great, good, bad, miss, maxCombo, score, param).Forget();
 
-		private void OnQuitButtonAction()
+		private void onPauseButtonAction()
 		{
+			pauseUI.Display(restartAction);
 		}
 	}
 }
