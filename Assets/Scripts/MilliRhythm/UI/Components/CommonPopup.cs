@@ -9,6 +9,10 @@ namespace MilliRhythm.UI.Components
 
 		protected override void Set()
 		{
+			response = new DefaultPopupResponse()
+			{
+				Payload = new(),
+			};
 			titleText.LocalizationKey = parameter.TitleTextKey;
 			contentText.LocalizationKey = parameter.ContentTextKey;
 		}
