@@ -3,11 +3,11 @@ using UnityEngine;
 
 namespace MilliRhythm.UI.ConfigUI
 {
-	public class CreditPopup : PopupUIBase<CommonPopupParameter, CommonPopupResponse, CommonPopupResultPayload>
+	public class CreditPopup : PopupUIBase<DefaultPopupParameter, DefaultPopupResponse, DefaultPopupResultPayload>
 	{
 		protected override void Set()
 		{
-			response = new CommonPopupResponse();
+			response = new DefaultPopupResponse();
 		}
 
 		public override void OnNavigate(Vector2 value)

@@ -136,7 +136,7 @@ namespace MilliRhythm.UI.Components
 		Dismiss,
 	}
 
-	public class CommonPopupParameter : PopupParameterBase
+	public class DefaultPopupParameter : PopupParameterBase
 	{
 	}
 
@@ -145,7 +145,7 @@ namespace MilliRhythm.UI.Components
 		public bool CanDismiss = false;
 	}
 
-	public class CommonPopupResponse : PopupResponse<CommonPopupResultPayload>
+	public class DefaultPopupResponse : PopupResponse<DefaultPopupResultPayload>
 	{
 	}
 
@@ -155,7 +155,7 @@ namespace MilliRhythm.UI.Components
 		public T Payload;
 	}
 
-	public class CommonPopupResultPayload : PopupResultPayload
+	public class DefaultPopupResultPayload : PopupResultPayload
 	{
 	}
 

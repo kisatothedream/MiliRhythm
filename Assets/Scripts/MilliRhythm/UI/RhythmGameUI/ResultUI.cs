@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using MilliRhythm.Input;
@@ -23,6 +24,16 @@ namespace MilliRhythm.UI.RhythmGameUI
 		{
 			dismissArea.onClick.AddListener(TryChangeScene);
 			gameObject.SetActive(false);
+		}
+
+		private void OnEnable()
+		{
+			this.RegisterUIInputListener();
+		}
+
+		private void OnDisable()
+		{
+			this.UnregisterUIInputListener();
 		}
 
 		private void OnDestroy()

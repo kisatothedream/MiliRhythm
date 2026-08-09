@@ -6,7 +6,6 @@ using DG.Tweening;
 using MilliRhythm.Data.Domain;
 using MilliRhythm.Data.Repository;
 using MilliRhythm.Input;
-using MilliRhythm.Scene;
 using MilliRhythm.Scene.Contracts;
 using MilliRhythm.UI.RhythmGameUI;
 using R3;
