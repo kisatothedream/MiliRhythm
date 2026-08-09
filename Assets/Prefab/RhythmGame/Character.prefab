@@ -46,16 +46,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Rhythm.Runtime::MilliRhythm.Rhythm.RhythmGameCharacter
   spriteRenderer: {fileID: 5867504363111856967}
-  sprites:
-  - {fileID: 21300000, guid: 82701df656f051943b6f53db3b76e9e9, type: 3}
-  - {fileID: 21300000, guid: bff2b28c6249a354e9d432aa51defd8c, type: 3}
-  - {fileID: 21300000, guid: 4b1f25732a1ad284c80069b19c15fa4d, type: 3}
-  - {fileID: 21300000, guid: 264664364294eae4b9df526375bc7d12, type: 3}
-  - {fileID: 21300000, guid: b70040db711faa340ad5e6e482a205cb, type: 3}
-  - {fileID: 21300000, guid: 692ecc0f23d3e3148b1e06f2eb9162a7, type: 3}
-  - {fileID: 21300000, guid: dc807e277debce74abf7b9baf9d9e941, type: 3}
-  - {fileID: 21300000, guid: 2132c8b3eb957e343b4745c643795e1e, type: 3}
-  - {fileID: 21300000, guid: 3379d418f2948e44782de1975136a9f4, type: 3}
+  idleSprites: []
+  leftSprites: []
+  rightSprites: []
+  upSprites: []
+  downSprites: []
+  indexUpdateTime: 0.01
+  returnToIdleTime: 0.01
+  changeSizeTime: 0.01
+  changeSizeRate: 0.001
 --- !u!1 &9005533262880915969
 GameObject:
   m_ObjectHideFlags: 0
