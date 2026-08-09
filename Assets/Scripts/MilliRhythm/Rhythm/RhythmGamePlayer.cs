@@ -8,6 +8,7 @@ using MilliRhythm.Data.Repository;
 using MilliRhythm.Input;
 using MilliRhythm.Scene;
 using MilliRhythm.Scene.Contracts;
+using MilliRhythm.UI.RhythmGameUI;
 using R3;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -33,6 +34,7 @@ namespace MilliRhythm.Rhythm
 
 	public partial class RhythmGamePlayer : MonoBehaviour
 	{
+		[SerializeField] private RhythmGameUIController uiController;
 		[SerializeField] private JudgeManager judgeManager;
 
 		private GameControls controls => InputManager.Instance.GameControls;
@@ -158,6 +160,7 @@ namespace MilliRhythm.Rhythm
 				{
 					TrySpawnNotes();
 					UpdateNotes();
+					uiController.UpdateTrackProgress((float)clock.SongTime / context.AudioClip.length);
 				}
 
 				await UniTask.NextFrame(cancellationToken: rhythmGameCts.Token);

@@ -7,6 +7,7 @@ namespace MilliRhythm.UI.RhythmGameUI
 	{
 		[SerializeField] private LifeGaugeUI lifeGaugeUI;
 		[SerializeField] private ScoreUI scoreUI;
+		[SerializeField] private Image trackProgressFill;
 		[SerializeField] private Button quitButton;
 
 		private void Awake()
@@ -22,6 +23,7 @@ namespace MilliRhythm.UI.RhythmGameUI
 
 		public void UpdateLifeGauge(int cur, int max) => lifeGaugeUI.UpdateGauge(cur, max);
 		public void UpdateScore(int score, float accuracy) => scoreUI.UpdateScore(score, accuracy);
+		public void UpdateTrackProgress(float progress) => trackProgressFill.fillAmount = progress;
 
 		private void OnQuitButtonAction()
 		{
