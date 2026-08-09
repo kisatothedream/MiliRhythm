@@ -14,10 +14,12 @@ namespace MilliRhythm.UI.RhythmGameUI
 		[SerializeField] private NavigatableButton resumeButton;
 		[SerializeField] private NavigatableButton restartButton;
 		[SerializeField] private NavigatableButton configButton;
+		[SerializeField] private NavigatableButton quitButton;
 		[SerializeField] private ConfigPopup configPopup;
 		[SerializeField] private CommonPopup commonPopup;
 		private bool isPopupOpened;
 		private Action restartAction;
+		private Action quitAction;
 
 		private void Awake()
 		{
@@ -25,6 +27,7 @@ namespace MilliRhythm.UI.RhythmGameUI
 			resumeButton.onClick.AddListener(Hide);
 			restartButton.onClick.AddListener(DisplayRestartPopup);
 			configButton.onClick.AddListener(DisplayConfigPopup);
+			quitButton.onClick.AddListener(DisplayQuitPopup);
 		}
 
 		private void OnDestroy()
@@ -32,6 +35,7 @@ namespace MilliRhythm.UI.RhythmGameUI
 			resumeButton.onClick.RemoveListener(Hide);
 			restartButton.onClick.RemoveListener(DisplayRestartPopup);
 			configButton.onClick.RemoveListener(DisplayConfigPopup);
+			quitButton.onClick.RemoveListener(DisplayQuitPopup);
 		}
 
 		private void OnEnable()
@@ -44,9 +48,10 @@ namespace MilliRhythm.UI.RhythmGameUI
 			this.UnregisterUIInputListener();
 		}
 
-		public void Display(Action restartAction)
+		public void Display(Action restartAction, Action quitAction)
 		{
 			this.restartAction = restartAction;
+			this.quitAction = quitAction;
 			gameObject.SetActive(true);
 			Select(0);
 		}
@@ -125,6 +130,28 @@ namespace MilliRhythm.UI.RhythmGameUI
 				if (result.Result == PopupResult.Confirm)
 				{
 					restartAction?.Invoke();
+				}
+			}
+		}
+
+		private void DisplayQuitPopup()
+		{
+			if (isPopupOpened) return;
+			DisplayQuitPopupAsync().Forget();
+			return;
+
+			async UniTask DisplayQuitPopupAsync()
+			{
+				isPopupOpened = true;
+				var result = await commonPopup.Display(new CommonPopupParameter()
+				{
+					TitleTextKey = "TITLE-TEXT-KEY",
+					ContentTextKey = "CONTENT-TEXT-KEY",
+				});
+				isPopupOpened = false;
+				if (result.Result == PopupResult.Confirm)
+				{
+					quitAction?.Invoke();
 				}
 			}
 		}

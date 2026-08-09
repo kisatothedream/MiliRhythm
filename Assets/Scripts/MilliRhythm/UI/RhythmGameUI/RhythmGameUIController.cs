@@ -17,6 +17,7 @@ namespace MilliRhythm.UI.RhythmGameUI
 		[SerializeField] private Button pauseButton;
 
 		private Action restartAction;
+		private Action quitAction;
 
 		private void Awake()
 		{
@@ -29,9 +30,10 @@ namespace MilliRhythm.UI.RhythmGameUI
 			pauseButton.onClick.RemoveListener(onPauseButtonAction);
 		}
 
-		public void InitializeCurrentTrackContext(Action restartAction)
+		public void InitializeCurrentTrackContext(Action restartAction, Action quitAction)
 		{
 			this.restartAction = restartAction;
+			this.quitAction = quitAction;
 		}
 
 		public void UpdateLifeGauge(int cur, int max) => lifeGaugeUI.UpdateGauge(cur, max);
@@ -44,7 +46,7 @@ namespace MilliRhythm.UI.RhythmGameUI
 
 		private void onPauseButtonAction()
 		{
-			pauseUI.Display(restartAction);
+			pauseUI.Display(restartAction, quitAction);
 		}
 	}
 }

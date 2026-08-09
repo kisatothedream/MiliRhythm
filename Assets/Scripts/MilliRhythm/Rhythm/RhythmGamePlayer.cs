@@ -117,7 +117,7 @@ namespace MilliRhythm.Rhythm
 
 		public async UniTask Init(RhythmChart rhythmChart, MusicData musicData)
 		{
-			uiController.InitializeCurrentTrackContext(RestartAction);
+			uiController.InitializeCurrentTrackContext(RestartGame, Quit);
 			for (var i = 0; i < 4; i++)
 			{
 				var glow = noteGlows[i];
@@ -345,10 +345,20 @@ namespace MilliRhythm.Rhythm
 			glowTweens[lane].Restart();
 		}
 
-		private void RestartAction()
+		private void RestartGame()
 		{
 			SceneController.Instance.RequestChangeScene(new RhythmGameSceneParameter(context.CurrentMusicId, context.CurrentChartType,
 				context.CurrentDifficulty));
+		}
+
+		private void Quit()
+		{
+			SceneController.Instance.RequestChangeScene(new MusicSelectorSceneParameter()
+			{
+				LastMusicId = context.CurrentMusicId,
+				LastChartType = context.CurrentChartType,
+				LastDifficulty = context.CurrentDifficulty,
+			});
 		}
 	}
 
