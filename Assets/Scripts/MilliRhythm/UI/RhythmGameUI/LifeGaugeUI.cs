@@ -9,7 +9,6 @@ namespace MilliRhythm.UI.RhythmGameUI
 
 		public void UpdateGauge(int cur, int max)
 		{
-			Debug.Log($"{cur} / {max} = {cur / max}");
 			gaugeFill.fillAmount = (float)cur / (float)max;
 		}
 	}

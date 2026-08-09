@@ -30,6 +30,7 @@ namespace MilliRhythm.Rhythm
 		public int MaxCombo;
 		public int CurrentCombo;
 		public int CurrentScore;
+		private int currentMaxScore;
 		public int PerfectCount;
 		public int GreatCount;
 		public int GoodCount;
@@ -68,7 +69,10 @@ namespace MilliRhythm.Rhythm
 					break;
 			}
 
+			currentMaxScore += 1000;
+
 			MaxCombo = Math.Max(MaxCombo, CurrentCombo);
+			uiController.UpdateScore(CurrentScore, (float)CurrentScore / currentMaxScore);
 		}
 
 		public void OnMissNote()
@@ -76,6 +80,8 @@ namespace MilliRhythm.Rhythm
 			MissCount++;
 			CurrentCombo = 0;
 			RemainLife -= 30;
+			currentMaxScore += 1000;
+			uiController.UpdateScore(CurrentScore, (float)CurrentScore / currentMaxScore);
 		}
 
 		public void CreateComboText(NoteJudgementResult result)
