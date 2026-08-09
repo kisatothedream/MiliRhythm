@@ -33,6 +33,8 @@ namespace MilliRhythm.Rhythm
 
 	public partial class RhythmGamePlayer : MonoBehaviour
 	{
+		[SerializeField] private JudgeManager judgeManager;
+
 		private GameControls controls => InputManager.Instance.GameControls;
 		private RhythmClock clock;
 
@@ -70,14 +72,10 @@ namespace MilliRhythm.Rhythm
 
 		[SerializeField] private RhythmGameCharacter character;
 
-		private JudgeManager judgeManager = new();
 
 		private const double LongNoteJudgingInterval = 0.25;
 
 		private readonly Tween[] glowTweens = new Tween[4];
-
-		[SerializeField] private ComboText comboTextPrefab;
-		[SerializeField] private Transform comboTextTransform;
 
 		[SerializeField] private GameObject particlePrefab;
 
@@ -235,13 +233,13 @@ namespace MilliRhythm.Rhythm
 					if (isLaneHeld[lane])
 					{
 						judgeManager.OnHitNote(NoteJudgementResult.Perfect);
-						judgeManager.CreateComboText(comboTextTransform.position, comboTextPrefab, NoteJudgementResult.Perfect);
+						judgeManager.CreateComboText(NoteJudgementResult.Perfect);
 						note.NextJudgeTime += LongNoteJudgingInterval;
 					}
 					else
 					{
 						judgeManager.OnMissNote();
-						judgeManager.CreateComboText(comboTextTransform.position, comboTextPrefab, NoteJudgementResult.Miss);
+						judgeManager.CreateComboText(NoteJudgementResult.Miss);
 					}
 				}
 				else
@@ -290,7 +288,7 @@ namespace MilliRhythm.Rhythm
 			{
 				queue.Dequeue();
 				judgeManager.OnMissNote();
-				judgeManager.CreateComboText(comboTextTransform.position, comboTextPrefab, NoteJudgementResult.Miss);
+				judgeManager.CreateComboText(NoteJudgementResult.Miss);
 			}
 			// foreach (var note in activeNotes)
 		}
@@ -305,7 +303,7 @@ namespace MilliRhythm.Rhythm
 				Debug.Log(result);
 				character.ChangeState(lane);
 				judgeManager.OnHitNote(result);
-				judgeManager.CreateComboText(comboTextTransform.position, comboTextPrefab, result);
+				judgeManager.CreateComboText(result);
 				queue.Dequeue();
 				CreateNoteHitParticleAsync(lane).Forget();
 				if (note.IsLongNote)

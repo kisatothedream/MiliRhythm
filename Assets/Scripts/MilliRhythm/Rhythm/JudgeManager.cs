@@ -1,15 +1,31 @@
 using System;
 using MilliRhythm.Data.Domain;
+using MilliRhythm.UI.RhythmGameUI;
 using MilliRhythm.User;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
 namespace MilliRhythm.Rhythm
 {
-	public class JudgeManager
+	public class JudgeManager : MonoBehaviour
 	{
-		public int MaxLife = 10;
-		public int RemainLife;
+		[SerializeField] private RhythmGameUIController uiController;
+		[SerializeField] private ComboText comboTextPrefab;
+		[SerializeField] private Transform comboTextPivot;
+
+		public const int MaxLife = 300;
+
+		public int RemainLife
+		{
+			get => remainLife;
+			set
+			{
+				remainLife = Math.Clamp(value, 0, MaxLife);
+				UpdateLifeGuage(remainLife);
+			}
+		}
+
+		private int remainLife;
 
 		public int MaxCombo;
 		public int CurrentCombo;
@@ -23,7 +39,7 @@ namespace MilliRhythm.Rhythm
 		public void Initialize()
 		{
 			//if Modifier, Apply it
-			RemainLife = MaxLife;
+			RemainLife = 200;
 		}
 
 		public void OnHitNote(NoteJudgementResult result)
@@ -38,14 +54,17 @@ namespace MilliRhythm.Rhythm
 				case NoteJudgementResult.Good:
 					GoodCount++;
 					CurrentScore += 600;
+					RemainLife++;
 					break;
 				case NoteJudgementResult.Great:
 					GreatCount++;
 					CurrentScore += 800;
+					RemainLife++;
 					break;
 				case NoteJudgementResult.Perfect:
 					PerfectCount++;
 					CurrentScore += 1000;
+					RemainLife++;
 					break;
 			}
 
@@ -56,11 +75,12 @@ namespace MilliRhythm.Rhythm
 		{
 			MissCount++;
 			CurrentCombo = 0;
+			RemainLife -= 30;
 		}
 
-		public void CreateComboText(Vector3 position, ComboText text, NoteJudgementResult result)
+		public void CreateComboText(NoteJudgementResult result)
 		{
-			var t = Object.Instantiate(text, position, Quaternion.identity);
+			var t = Object.Instantiate(comboTextPrefab, comboTextPivot.position, Quaternion.identity);
 			t.PlayComboText(CurrentCombo, result);
 		}
 
@@ -79,6 +99,11 @@ namespace MilliRhythm.Rhythm
 				Score = CurrentScore,
 			}));
 			UserManager.RequestSave();
+		}
+
+		private void UpdateLifeGuage(int currentLife)
+		{
+			uiController.UpdateLifeGauge(currentLife, MaxLife);
 		}
 	}
 }
