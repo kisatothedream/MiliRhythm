@@ -98,6 +98,9 @@ namespace MilliRhythm.UI.ConfigUI
 			englishToggle.SetIsOnWithoutNotify(language == LanguageType.English);
 
 			judgeOffset.SetInitialValue(ConfigManager.Instance.Config.JudgeOffset);
+
+			wasdToggle.SetIsOnWithoutNotify(ConfigManager.Instance.Config.KeyLayout == KeyLayout.WASD);
+			sdklToggle.SetIsOnWithoutNotify(ConfigManager.Instance.Config.KeyLayout == KeyLayout.SDKL);
 		}
 
 		private void OnMasterVolumeChanged(float volume)

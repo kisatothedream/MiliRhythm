@@ -15,7 +15,7 @@ namespace MilliRhythm.Config
 
 	public enum KeyLayout
 	{
-		WASD,
-		SDKL,
+		WASD = 0,
+		SDKL = 1,
 	}
 }

@@ -2,6 +2,7 @@ using System;
 using Cysharp.Threading.Tasks;
 using MilliRhythm.Config;
 using MilliRhythm.Data.GameDataService;
+using MilliRhythm.Input;
 using MilliRhythm.Rhythm;
 using MilliRhythm.Scene;
 using MilliRhythm.Scene.Contracts;
@@ -21,6 +22,7 @@ namespace MilliRhythm
 
 		private static async UniTask InitializeGameAsync()
 		{
+			InputManager.Instance.Load();
 			ConfigManager.Instance.Load();
 			await GameDataLoader.LoadAsync();
 			await UserManager.Init();

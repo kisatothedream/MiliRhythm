@@ -79,8 +79,8 @@ namespace MilliRhythm.UI.RhythmGameUI
 			await UniTask.WaitForSeconds(0.4f, cancellationToken: showScoreCts.Token);
 			items[5].SetCountAndShow(resultUIParameter.MaxCombo);
 			await UniTask.WaitForSeconds(0.4f, cancellationToken: showScoreCts.Token);
-			accuracyText.text = $"{resultUIParameter.Accuracy * 100:000.00}%";
-			averageErrorText.text = $"{(resultUIParameter.AverageError >= 0 ? "+" : "")}{resultUIParameter.AverageError:D3}ms";
+			accuracyText.text = $"{resultUIParameter.Accuracy * 100:00.00}%";
+			averageErrorText.text = $"{(resultUIParameter.AverageError >= 0 ? "+" : "")}{resultUIParameter.AverageError}ms";
 			await UniTask.WaitForSeconds(1.2f, cancellationToken: showScoreCts.Token);
 			scoreText.text = resultUIParameter.Score.ToString();
 			await UniTask.WaitForSeconds(1.2f, cancellationToken: showScoreCts.Token);
