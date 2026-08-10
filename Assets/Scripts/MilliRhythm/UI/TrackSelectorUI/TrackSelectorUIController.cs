@@ -220,6 +220,8 @@ namespace MilliRhythm.UI.TrackSelectorUI
 				var result = await startPopup.Display(new GameStartPopupParameter()
 				{
 					Model = model,
+					MelodyScore = UserManager.Model.ScoreDataModel.TryGetScoreData(model.Id, ChartType.Melody, out var mScoreData) ? mScoreData.Score : 0,
+					BeatScore = UserManager.Model.ScoreDataModel.TryGetScoreData(model.Id, ChartType.Beat, out var bScoreData) ? bScoreData.Score : 0,
 				});
 				isPopupOpened = false;
 				if (result.Result == PopupResult.Confirm)
