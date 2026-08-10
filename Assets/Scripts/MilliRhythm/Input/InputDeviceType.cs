@@ -2,8 +2,7 @@ namespace MilliRhythm.Input
 {
 	public enum InputDeviceType
 	{
-		KeyboardMouse,
-		Mobile,
+		Keyboard,
 		Gamepad,
 	}
 }

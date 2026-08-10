@@ -16,6 +16,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
+using UnityEngine.XR;
 
 namespace MilliRhythm.UI.TrackSelectorUI
 {
@@ -29,6 +30,7 @@ namespace MilliRhythm.UI.TrackSelectorUI
 		[SerializeField] private Button configButton;
 		[SerializeField] private GameStartPopup startPopup;
 		[SerializeField] private Button startButton;
+		[SerializeField] private ControlDescPanel controlDescPanel;
 
 		private Member appliedFilter;
 
@@ -47,6 +49,7 @@ namespace MilliRhythm.UI.TrackSelectorUI
 			filterButton.onClick.AddListener(DisplayFilterPopup);
 			configButton.onClick.AddListener(DisplayConfigPopup);
 			startButton.onClick.AddListener(DisplayGameStartPopup);
+			InputManager.Instance.OnChangeDeviceEvent += controlDescPanel.OnChangeDevice;
 		}
 
 		private void OnDestroy()
@@ -54,6 +57,7 @@ namespace MilliRhythm.UI.TrackSelectorUI
 			filterButton.onClick.RemoveListener(DisplayFilterPopup);
 			configButton.onClick.RemoveListener(DisplayConfigPopup);
 			startButton.onClick.RemoveListener(DisplayGameStartPopup);
+			InputManager.Instance.OnChangeDeviceEvent -= controlDescPanel.OnChangeDevice;
 		}
 
 		public void Set()
@@ -75,6 +79,7 @@ namespace MilliRhythm.UI.TrackSelectorUI
 			}
 
 			trackSelectorPanel.Set(models, OnTrackSelectionChanged);
+
 			this.RegisterUIInputListener();
 		}
 
