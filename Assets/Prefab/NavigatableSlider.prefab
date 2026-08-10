@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1125326921553417773}
   - component: {fileID: 2430915538512058269}
   - component: {fileID: 706557754451537351}
-  - component: {fileID: 3069906986486086222}
   m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
@@ -76,20 +75,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3069906986486086222
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2755300397349127551}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: adb30198aa32dd140b5750692dd48104, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Nobi.UiRoundedCorners::Nobi.UiRoundedCorners.ImageWithRoundedCorners
-  radius: 8
-  image: {fileID: 706557754451537351}
 --- !u!1 &3117700400346591346
 GameObject:
   m_ObjectHideFlags: 0
@@ -229,7 +214,6 @@ GameObject:
   - component: {fileID: 7545657247320738670}
   - component: {fileID: 547789450337775271}
   - component: {fileID: 1950038619953576255}
-  - component: {fileID: 4188608737487763907}
   m_Layer: 5
   m_Name: Focused
   m_TagString: Untagged
@@ -294,20 +278,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4188608737487763907
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4256579978244272583}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: adb30198aa32dd140b5750692dd48104, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Nobi.UiRoundedCorners::Nobi.UiRoundedCorners.ImageWithRoundedCorners
-  radius: 25
-  image: {fileID: 1950038619953576255}
 --- !u!1 &4357995232682123435
 GameObject:
   m_ObjectHideFlags: 0
@@ -394,7 +364,6 @@ GameObject:
   - component: {fileID: 3624704646345375520}
   - component: {fileID: 5495570734996500183}
   - component: {fileID: 3556013816830890280}
-  - component: {fileID: 8812461424078997661}
   m_Layer: 5
   m_Name: Fill
   m_TagString: Untagged
@@ -459,20 +428,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8812461424078997661
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6511008727506946157}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: adb30198aa32dd140b5750692dd48104, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Nobi.UiRoundedCorners::Nobi.UiRoundedCorners.ImageWithRoundedCorners
-  radius: 8
-  image: {fileID: 3556013816830890280}
 --- !u!1 &7647393563818290670
 GameObject:
   m_ObjectHideFlags: 0

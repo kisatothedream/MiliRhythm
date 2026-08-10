@@ -422,7 +422,6 @@ GameObject:
   - component: {fileID: 7535738741376625199}
   - component: {fileID: 8704044438429295588}
   - component: {fileID: 3965140000542548815}
-  - component: {fileID: 3364313963256832584}
   m_Layer: 5
   m_Name: MelodyScore
   m_TagString: Untagged
@@ -490,20 +489,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3364313963256832584
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7098441591791588274}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: adb30198aa32dd140b5750692dd48104, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Nobi.UiRoundedCorners::Nobi.UiRoundedCorners.ImageWithRoundedCorners
-  radius: 8
-  image: {fileID: 3965140000542548815}
 --- !u!1 &8978757455961827738
 GameObject:
   m_ObjectHideFlags: 0
@@ -604,7 +589,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UI.Runtime::MilliRhythm.UI.TrackSelectorUI.StartPopup.ChartTypeTogglableUI
   frame: {fileID: 3965140000542548815}
-  canvasGroup: {fileID: 0}
   originalColor: {r: 0.81568635, g: 0.627451, b: 0.627451, a: 1}
   fadedColor: {r: 0.603, g: 0.355, b: 0.348, a: 1}
 --- !u!225 &1387462222453205068
