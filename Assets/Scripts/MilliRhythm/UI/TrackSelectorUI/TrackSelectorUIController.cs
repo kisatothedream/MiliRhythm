@@ -126,10 +126,15 @@ namespace MilliRhythm.UI.TrackSelectorUI
 			}
 
 			var jacketSprite = model.ThumbnailSprite;
-			var mScore = UserManager.Model.ScoreDataModel.TryGetScoreData(model.Id, ChartType.Melody, out var mScoreData) ? mScoreData.Score : 0;
-			var bScore = UserManager.Model.ScoreDataModel.TryGetScoreData(model.Id, ChartType.Beat, out var bScoreData) ? bScoreData.Score : 0;
+			var hasMScore = UserManager.Model.ScoreDataModel.TryGetScoreData(model.Id, ChartType.Melody, out var mScoreData);
+			var hasBScore = UserManager.Model.ScoreDataModel.TryGetScoreData(model.Id, ChartType.Beat, out var bScoreData);
+			var mScore = hasMScore ? mScoreData.Score : 0;
+			var bScore = hasBScore ? bScoreData.Score : 0;
+			var mRank = hasMScore ? mScoreData.Rank : Rank.N;
+			var bRank = hasBScore ? bScoreData.Rank : Rank.N;
 
-			trackInfoPanel.SetTrackInfo(jacketSprite, model.TrackNameKey, GameDataService.GetMemberData(model.TrackVocal).NameKey, mScore, bScore);
+			trackInfoPanel.SetTrackInfo(jacketSprite, model.TrackNameKey, GameDataService.GetMemberData(model.TrackVocal).NameKey, mScore, bScore, mRank,
+				bRank);
 			var previewAudioClip = model.PreviewAudioClip;
 			audioPlayer.PlayTrackPreview(previewAudioClip);
 			// }
@@ -222,11 +227,15 @@ namespace MilliRhythm.UI.TrackSelectorUI
 			{
 				isPopupOpened = true;
 				var model = trackSelectorPanel.SelectedTrackModel;
+				var hasMScore = UserManager.Model.ScoreDataModel.TryGetScoreData(model.Id, ChartType.Melody, out var mScoreData);
+				var hasBScore = UserManager.Model.ScoreDataModel.TryGetScoreData(model.Id, ChartType.Beat, out var bScoreData);
 				var result = await startPopup.Display(new GameStartPopupParameter()
 				{
 					Model = model,
-					MelodyScore = UserManager.Model.ScoreDataModel.TryGetScoreData(model.Id, ChartType.Melody, out var mScoreData) ? mScoreData.Score : 0,
-					BeatScore = UserManager.Model.ScoreDataModel.TryGetScoreData(model.Id, ChartType.Beat, out var bScoreData) ? bScoreData.Score : 0,
+					MelodyScore = hasMScore ? mScoreData.Score : 0,
+					BeatScore = hasBScore ? bScoreData.Score : 0,
+					MelodyRank = hasMScore ? mScoreData.Rank : Rank.N,
+					BeatRank = hasBScore ? bScoreData.Rank : Rank.N,
 				});
 				isPopupOpened = false;
 				if (result.Result == PopupResult.Confirm)

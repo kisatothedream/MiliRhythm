@@ -41,6 +41,7 @@ namespace MilliRhythm.User.Score
 		public int GoodCount;
 		public int BadCount;
 		public int MissCount;
+		public Rank Rank;
 
 		public ScoreData()
 		{

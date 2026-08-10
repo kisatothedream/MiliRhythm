@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using MilliRhythm.Data.Domain;
 using MilliRhythm.Input;
 using MilliRhythm.Scene;
 using MilliRhythm.Scene.Contracts;
@@ -16,6 +17,7 @@ namespace MilliRhythm.UI.RhythmGameUI
 		[SerializeField] private JudgeCountItem[] items;
 		[SerializeField] private TextMeshProUGUI scoreText;
 		[SerializeField] private Image jacketImage;
+		[SerializeField] private TextMeshProUGUI rankText;
 		private bool closable;
 		private MusicSelectorSceneParameter sceneParameter;
 		private readonly CancellationTokenSource showScoreCts = new();
@@ -23,7 +25,6 @@ namespace MilliRhythm.UI.RhythmGameUI
 		private void Awake()
 		{
 			dismissArea.onClick.AddListener(TryChangeScene);
-			gameObject.SetActive(false);
 		}
 
 		private void OnEnable()
@@ -41,7 +42,7 @@ namespace MilliRhythm.UI.RhythmGameUI
 			dismissArea.onClick.RemoveListener(TryChangeScene);
 		}
 
-		public async UniTask ShowResultAsync(Sprite jacket, int perfect, int great, int good, int bad, int miss, int maxCombo, int score,
+		public async UniTask ShowResultAsync(Sprite jacket, int perfect, int great, int good, int bad, int miss, int maxCombo, int score, Rank rank,
 			MusicSelectorSceneParameter param)
 		{
 			gameObject.SetActive(true);
@@ -62,6 +63,7 @@ namespace MilliRhythm.UI.RhythmGameUI
 			await UniTask.WaitForSeconds(1.2f, cancellationToken: showScoreCts.Token);
 			scoreText.text = score.ToString();
 			await UniTask.WaitForSeconds(1.2f, cancellationToken: showScoreCts.Token);
+			rankText.text = rank.ToString();
 		}
 
 		public void Navigate(Vector2 value)
@@ -70,26 +72,25 @@ namespace MilliRhythm.UI.RhythmGameUI
 
 		public void Submit(bool value)
 		{
+			if (!value) return;
 			TryChangeScene();
 		}
 
 		public void Cancel(bool value)
 		{
+			if (!value) return;
 			TryChangeScene();
 		}
 
 		public void Config(bool value)
 		{
+			if (!value) return;
 			TryChangeScene();
 		}
 
 		public void Filter(bool value)
 		{
-			TryChangeScene();
-		}
-
-		public void View(bool value)
-		{
+			if (!value) return;
 			TryChangeScene();
 		}
 

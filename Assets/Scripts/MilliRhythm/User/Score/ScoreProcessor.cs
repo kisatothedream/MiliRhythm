@@ -40,11 +40,12 @@ namespace MilliRhythm.User.Score
 					GoodCount = evt.GoodCount,
 					BadCount = evt.BadCount,
 					MissCount = evt.MissCount,
+					Rank = evt.Rank,
 				};
 				model.ScoreDataMap.Add($"{evt.TrackId}_{evt.ChartType}", scoreData);
 			}
 
-			UserManager.CommandSetScore(evt.TrackId, evt.ChartType, evt.Score, evt.Combo, evt.PerfectCount, evt.GreatCount, evt.GoodCount, evt.BadCount, evt.MissCount);
+			UserManager.CommandSetScore(evt.TrackId, evt.ChartType, evt.Score, evt.Combo, evt.PerfectCount, evt.GreatCount, evt.GoodCount, evt.BadCount, evt.MissCount, evt.Rank);
 		}
 	}
 }

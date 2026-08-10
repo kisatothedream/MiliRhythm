@@ -1,5 +1,6 @@
 using System;
 using Cysharp.Threading.Tasks;
+using MilliRhythm.Data.Domain;
 using MilliRhythm.Scene.Contracts;
 using UnityEngine;
 using UnityEngine.UI;
@@ -40,8 +41,8 @@ namespace MilliRhythm.UI.RhythmGameUI
 		public void UpdateScore(int score, float accuracy) => scoreUI.UpdateScore(score, accuracy);
 		public void UpdateTrackProgress(float progress) => trackProgressFill.fillAmount = progress;
 
-		public void ShowResultAsync(Sprite jacket, int perfect, int great, int good, int bad, int miss, int maxCombo, int score, MusicSelectorSceneParameter param) =>
-			resultUI.ShowResultAsync(jacket, perfect, great, good, bad, miss, maxCombo, score, param).Forget();
+		public void ShowResultAsync(Sprite jacket, int perfect, int great, int good, int bad, int miss, int maxCombo, int score, Rank rank, MusicSelectorSceneParameter param) =>
+			resultUI.ShowResultAsync(jacket, perfect, great, good, bad, miss, maxCombo, score, rank, param).Forget();
 
 		public void DisplayPauseUI()
 		{

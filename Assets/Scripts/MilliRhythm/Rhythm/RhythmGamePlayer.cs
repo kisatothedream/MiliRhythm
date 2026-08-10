@@ -84,8 +84,8 @@ namespace MilliRhythm.Rhythm
 
 		public void Finish()
 		{
-			rhythmGameCts.Cancel();
-			rhythmGameCts.Dispose();
+			rhythmGameCts?.Cancel();
+			rhythmGameCts?.Dispose();
 			rhythmGameCts = null;
 			UnregisterInputs();
 			if (audioClipHandle.IsValid())
@@ -303,8 +303,8 @@ namespace MilliRhythm.Rhythm
 			PlayGlow(lane);
 			if (queue.TryPeek(out var note) && Math.Abs(clock.SongTime - note.HeadTime) < BadWindow)
 			{
-				var judgeTime = clock.SongTime + ConfigManager.Instance.Config.JudgeOffset;
-				var result = JudgeTime(judgeTime / 1000.0f, note.HeadTime);
+				var judgeTime = clock.SongTime + ConfigManager.Instance.Config.JudgeOffset / 1000.0f;
+				var result = JudgeTime(judgeTime, note.HeadTime);
 				// Debug.Log(result);
 				CompareNoteTiming(result, judgeTime, note.HeadTime);
 				character.ChangeState(lane);
@@ -327,8 +327,9 @@ namespace MilliRhythm.Rhythm
 
 		private void CompareNoteTiming(NoteJudgementResult result, double judgeTime, double noteTime)
 		{
-			Debug.Log($"[{result}]{(1000 * (judgeTime - noteTime)):000}ms");
+			Debug.Log($"[{result}]{1000 * (judgeTime - noteTime):000}ms");
 		}
+
 
 		private async UniTask CreateNoteHitParticleAsync(int lane)
 		{
@@ -355,7 +356,8 @@ namespace MilliRhythm.Rhythm
 
 		private void RestartGame()
 		{
-			SceneController.Instance.RequestChangeScene(new RhythmGameSceneParameter(context.CurrentMusicId, context.CurrentChartType, context.CurrentDifficulty));
+			SceneController.Instance.RequestChangeScene(new RhythmGameSceneParameter(context.CurrentMusicId, context.CurrentChartType,
+				context.CurrentDifficulty));
 		}
 
 		private void Quit()
