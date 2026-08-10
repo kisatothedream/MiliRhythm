@@ -1,5 +1,7 @@
 using System;
 using MilliRhythm.Data.Domain;
+using MilliRhythm.Input;
+using Unity.Android.Gradle;
 using UnityEngine;
 
 namespace MilliRhythm.Config
@@ -12,6 +14,7 @@ namespace MilliRhythm.Config
 		private const string MusicVolumeKey = "MilliRhythm.Config.MusicVolume";
 		private const string SfxVolumeKey = "MilliRhythm.Config.SfxVolume";
 		private const string LanguageKey = "MilliRhythm.Config.Language";
+		private const string KeyLayoutKey = "MilliRhythm.Config.KeyLayout";
 
 		public GameConfig Config { get; private set; }
 
@@ -19,6 +22,7 @@ namespace MilliRhythm.Config
 		public event Action<float> OnMusicVolumeChangedAction;
 		public event Action<float> OnSfxVolumeChangedAction;
 		public event Action<LanguageType> OnLanguageChangedAction;
+		public event Action<KeyLayout> OnKeyLayoutChangedAction;
 
 		private ConfigManager()
 		{
@@ -59,6 +63,12 @@ namespace MilliRhythm.Config
 		{
 			Config.SfxVolume = volume;
 			OnSfxVolumeChangedAction?.Invoke(ConvertVolumeToDb(Config.SfxVolume));
+		}
+
+		public void ChangeKeyLayout(KeyLayout layout)
+		{
+			Config.KeyLayout = layout;
+			OnKeyLayoutChangedAction?.Invoke(Config.KeyLayout);
 		}
 
 		private float ConvertVolumeToDb(float volume)
