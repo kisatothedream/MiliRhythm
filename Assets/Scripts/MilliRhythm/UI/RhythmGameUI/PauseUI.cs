@@ -106,8 +106,6 @@ namespace MilliRhythm.UI.RhythmGameUI
 
 		public void Cancel(bool value)
 		{
-			if (!value) return;
-			Hide();
 		}
 
 		public void Config(bool value)

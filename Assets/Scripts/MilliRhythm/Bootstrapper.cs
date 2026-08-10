@@ -30,7 +30,6 @@ namespace MilliRhythm
 
 		private static GameSceneBase CreateScene(IGameSceneParameter sceneParameter)
 		{
-			Debug.Log(sceneParameter.GetType().ToString());
 			return sceneParameter switch
 			{
 				RhythmGameSceneParameter => new RhythmGameScene(),
