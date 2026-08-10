@@ -4,6 +4,7 @@ using Cysharp.Threading.Tasks;
 using MilliRhythm.Input.Sources;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.LowLevel;
 
 namespace MilliRhythm.Input
 {
@@ -16,6 +17,7 @@ namespace MilliRhythm.Input
 		private InputSystemInputSource inputSystemInputSource;
 		public GameControls GameControls { get; private set; }
 		private UIControls UIControls { get; set; }
+		public event Action<InputDeviceType> OnChangeDeviceEvent;
 
 		private InputManager()
 		{
@@ -49,6 +51,8 @@ namespace MilliRhythm.Input
 			UIControls = new UIControls();
 			UIInputManager.Instance.Init(UIControls);
 			AddInputSource(inputSystemInputSource);
+
+			InputSystem.onEvent += DetectInputDevice;
 		}
 
 		private void Dispose()
@@ -57,6 +61,7 @@ namespace MilliRhythm.Input
 			UIControls?.Dispose();
 
 			CancelRebind();
+			InputSystem.onEvent -= DetectInputDevice;
 		}
 
 		public void AddInputSource(IInputSource inputSource)
@@ -88,6 +93,22 @@ namespace MilliRhythm.Input
 		{
 			GameControls.Unblock();
 			UIControls.Unblock();
+		}
+
+
+		private void DetectInputDevice(InputEventPtr eventPtr, InputDevice device)
+		{
+			if (device != null && eventPtr.IsA<StateEvent>())
+			{
+				if (device is Keyboard)
+				{
+					OnChangeDeviceEvent?.Invoke(InputDeviceType.Keyboard);
+				}
+				else if (device is Gamepad)
+				{
+					OnChangeDeviceEvent?.Invoke(InputDeviceType.Gamepad);
+				}
+			}
 		}
 	}
 

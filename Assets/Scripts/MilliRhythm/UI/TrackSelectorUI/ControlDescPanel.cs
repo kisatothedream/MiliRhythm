@@ -1,4 +1,3 @@
-using System;
 using MilliRhythm.Input;
 using UnityEngine;
 
@@ -13,20 +12,14 @@ namespace MilliRhythm.UI.TrackSelectorUI
 		{
 			switch (type)
 			{
-				case InputDeviceType.KeyboardMouse:
+				case InputDeviceType.Keyboard:
 					padPanel.SetActive(false);
 					kmPanel.SetActive(true);
-					break;
-				case InputDeviceType.Mobile:
-					padPanel.SetActive(false);
-					kmPanel.SetActive(false);
 					break;
 				case InputDeviceType.Gamepad:
 					padPanel.SetActive(true);
 					kmPanel.SetActive(false);
 					break;
-				default:
-					throw new ArgumentOutOfRangeException(nameof(type), type, null);
 			}
 		}
 	}
