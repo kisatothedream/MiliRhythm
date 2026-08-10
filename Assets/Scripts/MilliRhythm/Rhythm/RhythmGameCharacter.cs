@@ -1,4 +1,6 @@
 using System;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace MilliRhythm.Rhythm
@@ -6,61 +8,125 @@ namespace MilliRhythm.Rhythm
 	public class RhythmGameCharacter : MonoBehaviour
 	{
 		[SerializeField] private SpriteRenderer spriteRenderer;
-		[SerializeField] private Sprite[] sprites;
+		[SerializeField] private Sprite[] idleSprites;
+		[SerializeField] private Sprite[] leftSprites;
+		[SerializeField] private Sprite[] rightSprites;
+		[SerializeField] private Sprite[] upSprites;
+		[SerializeField] private Sprite[] downSprites;
+		private Sprite[] currentSpriteSet;
 
-		private Direction currentDirection;
 		private float elapsedTime;
 		private int indexOfImage;
 
+		[SerializeField, Range(0.01f, 1f)] private float indexUpdateTime;
+		[SerializeField, Range(0.01f, 3f)] private float returnToIdleTime;
+		[SerializeField, Range(0.01f, 1f)] private float changeSizeTime;
+		[SerializeField, Range(0.001f, 0.05f)] private float changeSizeRate;
+
+		private CancellationTokenSource updateIndexCts = new();
+		private CancellationTokenSource sizeModifierCts;
+		private CancellationTokenSource returnToIdleCts = new();
+
 		private void Start()
 		{
-			currentDirection = Direction.Idle;
+			OnIdle();
+			UpdateIndex().Forget();
 		}
 
-		private void Update()
+		private void OnDestroy()
 		{
-			UpdateState();
+			updateIndexCts?.Cancel();
+			updateIndexCts?.Dispose();
+			updateIndexCts = null;
+
+			sizeModifierCts?.Cancel();
+			sizeModifierCts?.Dispose();
+			sizeModifierCts = null;
+
+			returnToIdleCts?.Cancel();
+			returnToIdleCts?.Dispose();
+			returnToIdleCts = null;
 		}
 
-		public void OnLeft(bool pressed)
+		private async UniTask UpdateIndex()
 		{
-			if (pressed) ChangeState(Direction.Left);
-		}
-
-		public void OnUp(bool pressed)
-		{
-			if (pressed)
-				ChangeState(Direction.Up);
-		}
-
-		public void OnDown(bool pressed)
-		{
-			if (pressed)
-				ChangeState(Direction.Down);
-		}
-
-		public void OnRight(bool pressed)
-		{
-			if (pressed)
-				ChangeState(Direction.Right);
-		}
-
-		public void ChangeState(Direction next)
-		{
-			currentDirection = next;
-			elapsedTime = 0;
-		}
-
-		private void UpdateState()
-		{
-			elapsedTime += Time.deltaTime;
-			var imageIndex = currentDirection.GetImageIndex(elapsedTime > 0.3f);
-			spriteRenderer.sprite = sprites[imageIndex];
-
-			if (elapsedTime > 1f)
+			while (updateIndexCts.Token.CanBeCanceled)
 			{
-				ChangeState(Direction.Idle);
+				indexOfImage = (indexOfImage + 1) % 3;
+				spriteRenderer.sprite = currentSpriteSet[indexOfImage];
+				await UniTask.WaitForSeconds(indexUpdateTime, cancellationToken: updateIndexCts.Token);
 			}
+		}
+
+		public void ChangeState(int lane)
+		{
+			returnToIdleCts?.Cancel();
+			returnToIdleCts?.Dispose();
+			returnToIdleCts = new CancellationTokenSource();
+			switch (lane)
+			{
+				case 0:
+					OnLeft().Forget();
+					break;
+				case 1:
+					OnUp().Forget();
+					break;
+				case 2:
+					OnDown().Forget();
+					break;
+				case 3:
+					OnRight().Forget();
+					break;
+			}
+			ChangeSizeAsync().Forget();
+		}
+
+		private void OnIdle()
+		{
+			currentSpriteSet = idleSprites;
+			spriteRenderer.sprite = currentSpriteSet[0];
+		}
+
+		private async UniTask OnLeft()
+		{
+			currentSpriteSet = leftSprites;
+			spriteRenderer.sprite = currentSpriteSet[0];
+			await UniTask.WaitForSeconds(returnToIdleTime, cancellationToken: returnToIdleCts.Token);
+			OnIdle();
+		}
+
+		private async UniTask OnUp()
+		{
+			currentSpriteSet = upSprites;
+			spriteRenderer.sprite = currentSpriteSet[0];
+			await UniTask.WaitForSeconds(returnToIdleTime, cancellationToken: returnToIdleCts.Token);
+			OnIdle();
+		}
+
+		private async UniTask OnDown()
+		{
+			currentSpriteSet = downSprites;
+			spriteRenderer.sprite = currentSpriteSet[0];
+			await UniTask.WaitForSeconds(returnToIdleTime, cancellationToken: returnToIdleCts.Token);
+			OnIdle();
+		}
+
+		private async UniTask OnRight()
+		{
+			currentSpriteSet = rightSprites;
+			spriteRenderer.sprite = currentSpriteSet[0];
+			await UniTask.WaitForSeconds(returnToIdleTime, cancellationToken: returnToIdleCts.Token);
+			OnIdle();
+		}
+
+		private async UniTask ChangeSizeAsync()
+		{
+			sizeModifierCts?.Cancel();
+			sizeModifierCts?.Dispose();
+			sizeModifierCts = new CancellationTokenSource();
+			transform.localScale = new Vector2(1 - changeSizeRate, 1 + changeSizeRate);
+			await UniTask.WaitForSeconds(changeSizeTime, cancellationToken: sizeModifierCts.Token);
+			transform.localScale = Vector2.one;
 		}
 	}
 

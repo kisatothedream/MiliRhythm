@@ -9,5 +9,12 @@ namespace MilliRhythm.Config
 		public float SfxVolume { get; internal set; }
 
 		public LanguageType Language;
+		public KeyLayout KeyLayout;
+	}
+
+	public enum KeyLayout
+	{
+		WASD,
+		SDKL,
 	}
 }

@@ -14,6 +14,8 @@ namespace MilliRhythm.Audio
 
 		private void Start()
 		{
+			DontDestroyOnLoad(gameObject);
+
 			ApplyConfig();
 			ConfigManager.Instance.OnMasterVolumeChangedAction += OnMasterVolumeChanged;
 			ConfigManager.Instance.OnMusicVolumeChangedAction += OnMusicVolumeChanged;

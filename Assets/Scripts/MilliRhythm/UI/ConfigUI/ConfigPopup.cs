@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace MilliRhythm.UI.ConfigUI
 {
-	public class ConfigPopup : PopupUIBase<CommonPopupParameter, CommonPopupResponse, CommonPopupResultPayload>
+	public class ConfigPopup : PopupUIBase<DefaultPopupParameter, DefaultPopupResponse, DefaultPopupResultPayload>
 	{
 		private INavigatable[] navigatables;
 		private INavigatable currentNavigatable;
@@ -32,7 +32,7 @@ namespace MilliRhythm.UI.ConfigUI
 
 		private void Awake()
 		{
-			response = new CommonPopupResponse();
+			response = new DefaultPopupResponse();
 
 			navigatables = GetComponentsInChildren<INavigatable>(true);
 			masterVolumeSlider.onValueChanged.AddListener(OnMasterVolumeChanged);

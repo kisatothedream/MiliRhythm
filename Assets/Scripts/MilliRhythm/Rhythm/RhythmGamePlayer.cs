@@ -8,7 +8,7 @@ using MilliRhythm.Data.Repository;
 using MilliRhythm.Input;
 using MilliRhythm.Scene;
 using MilliRhythm.Scene.Contracts;
-using MilliRhythm.User;
+using MilliRhythm.UI.RhythmGameUI;
 using R3;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -34,6 +34,9 @@ namespace MilliRhythm.Rhythm
 
 	public partial class RhythmGamePlayer : MonoBehaviour
 	{
+		[SerializeField] private RhythmGameUIController uiController;
+		[SerializeField] private JudgeManager judgeManager;
+
 		private GameControls controls => InputManager.Instance.GameControls;
 		private RhythmClock clock;
 
@@ -46,6 +49,7 @@ namespace MilliRhythm.Rhythm
 		[SerializeField] private GameObject[] noteGlows;
 		private List<RhythmNote> notes;
 		[SerializeField] private Transform[] lanes;
+		[SerializeField] private Transform[] laneEnds;
 		private const float ApproachingTime = 1f;
 
 		[SerializeField] private Transform startPoint;
@@ -65,20 +69,17 @@ namespace MilliRhythm.Rhythm
 
 		private CancellationTokenSource rhythmGameCts;
 		private CompositeDisposable inputDisposable;
-		private CompositeDisposable characterDisposable;
 
 		private AsyncOperationHandle<AudioClip> audioClipHandle;
 
 		[SerializeField] private RhythmGameCharacter character;
 
-		private JudgeManager judgeManager = new();
 
 		private const double LongNoteJudgingInterval = 0.25;
 
 		private readonly Tween[] glowTweens = new Tween[4];
 
-		[SerializeField] private ComboText comboTextPrefab;
-		[SerializeField] private Transform comboTextTransform;
+		[SerializeField] private GameObject particlePrefab;
 
 		public void Finish()
 		{
@@ -86,7 +87,6 @@ namespace MilliRhythm.Rhythm
 			rhythmGameCts.Dispose();
 			rhythmGameCts = null;
 			UnregisterInputs();
-			UnregisterCharacter();
 			if (audioClipHandle.IsValid())
 			{
 				Addressables.Release(audioClipHandle);
@@ -117,6 +117,7 @@ namespace MilliRhythm.Rhythm
 
 		public async UniTask Init(RhythmChart rhythmChart, MusicData musicData)
 		{
+			uiController.InitializeCurrentTrackContext(RestartGame, Quit);
 			for (var i = 0; i < 4; i++)
 			{
 				var glow = noteGlows[i];
@@ -134,7 +135,6 @@ namespace MilliRhythm.Rhythm
 			judgeManager.Initialize();
 
 			RegisterInputs();
-			RegisterCharacter();
 			context = await BuildContext(rhythmChart, musicData);
 
 			clock = new RhythmClock();
@@ -161,6 +161,7 @@ namespace MilliRhythm.Rhythm
 				{
 					TrySpawnNotes();
 					UpdateNotes();
+					uiController.UpdateTrackProgress((float)clock.SongTime / context.AudioClip.length);
 				}
 
 				await UniTask.NextFrame(cancellationToken: rhythmGameCts.Token);
@@ -173,9 +174,10 @@ namespace MilliRhythm.Rhythm
 		{
 			//Show Result and Retry
 			//Return To Music Select Scene
-			judgeManager.SendScore(context.CurrentMusicId, context.CurrentChartType);
-			Debug.Log($"Result Max Combo [{judgeManager.MaxCombo}] - Score [{judgeManager.CurrentScore}] \nPerfect[{judgeManager.PerfectCount}] \nGreat[{judgeManager.GreatCount}] \nGood[{judgeManager.GoodCount}] \nBad[{judgeManager.BadCount}] \nMiss[{judgeManager.MissCount}]");
-			SceneController.Instance.RequestChangeScene(new MusicSelectorSceneParameter(context.CurrentMusicId, context.CurrentChartType, context.CurrentDifficulty));
+			Debug.Log(
+				$"Result Max Combo [{judgeManager.MaxCombo}] - Score [{judgeManager.CurrentScore}] \nPerfect[{judgeManager.PerfectCount}] \nGreat[{judgeManager.GreatCount}] \nGood[{judgeManager.GoodCount}] \nBad[{judgeManager.BadCount}] \nMiss[{judgeManager.MissCount}]");
+			var parameter = new MusicSelectorSceneParameter(context.CurrentMusicId, context.CurrentChartType, context.CurrentDifficulty);
+			judgeManager.RequestShowResultAndEndGame(context.CurrentMusicId, context.CurrentChartType, parameter);
 		}
 
 		private void UpdateNotes()
@@ -186,7 +188,7 @@ namespace MilliRhythm.Rhythm
 				UpdateNotesPosition(lane);
 				if (playPerfect)
 				{
-					PlayNotePefect(lane);
+					PlayNotePerfect(lane);
 				}
 
 				TryJudgeMissedNotes(lane);
@@ -194,7 +196,7 @@ namespace MilliRhythm.Rhythm
 			}
 		}
 
-		private void PlayNotePefect(int lane)
+		private void PlayNotePerfect(int lane)
 		{
 			var queue = waitingNotes[lane];
 			while (queue.TryPeek(out var note) && clock.SongTime > note.HeadTime)
@@ -234,13 +236,13 @@ namespace MilliRhythm.Rhythm
 					if (isLaneHeld[lane])
 					{
 						judgeManager.OnHitNote(NoteJudgementResult.Perfect);
-						judgeManager.CreateComboText(comboTextTransform.position, comboTextPrefab, NoteJudgementResult.Perfect);
+						judgeManager.CreateComboText(NoteJudgementResult.Perfect);
 						note.NextJudgeTime += LongNoteJudgingInterval;
 					}
 					else
 					{
 						judgeManager.OnMissNote();
-						judgeManager.CreateComboText(comboTextTransform.position, comboTextPrefab, NoteJudgementResult.Miss);
+						judgeManager.CreateComboText(NoteJudgementResult.Miss);
 					}
 				}
 				else
@@ -289,7 +291,7 @@ namespace MilliRhythm.Rhythm
 			{
 				queue.Dequeue();
 				judgeManager.OnMissNote();
-				judgeManager.CreateComboText(comboTextTransform.position, comboTextPrefab, NoteJudgementResult.Miss);
+				judgeManager.CreateComboText(NoteJudgementResult.Miss);
 			}
 			// foreach (var note in activeNotes)
 		}
@@ -297,14 +299,16 @@ namespace MilliRhythm.Rhythm
 		private void OnPressKey(int lane)
 		{
 			var queue = waitingNotes[lane];
-			while (queue.TryPeek(out var note) && Math.Abs(clock.SongTime - note.HeadTime) < BadWindow)
+			PlayGlow(lane);
+			if (queue.TryPeek(out var note) && Math.Abs(clock.SongTime - note.HeadTime) < BadWindow)
 			{
 				var result = JudgeTime(clock.SongTime, note.HeadTime);
-				PlayGlow(lane);
 				Debug.Log(result);
+				character.ChangeState(lane);
 				judgeManager.OnHitNote(result);
-				judgeManager.CreateComboText(comboTextTransform.position, comboTextPrefab, result);
+				judgeManager.CreateComboText(result);
 				queue.Dequeue();
+				CreateNoteHitParticleAsync(lane).Forget();
 				if (note.IsLongNote)
 				{
 					judgingLongNotes[lane] = note;
@@ -316,6 +320,13 @@ namespace MilliRhythm.Rhythm
 					Destroy(note.gameObject);
 				}
 			}
+		}
+
+		private async UniTask CreateNoteHitParticleAsync(int lane)
+		{
+			var go = Instantiate(particlePrefab, laneEnds[lane]);
+			await UniTask.WaitForSeconds(1);
+			Destroy(go);
 		}
 
 		private NoteJudgementResult JudgeTime(double currentTime, double judgeTime)
@@ -332,6 +343,21 @@ namespace MilliRhythm.Rhythm
 		{
 			noteGlows[lane].SetActive(true);
 			glowTweens[lane].Restart();
+		}
+
+		private void RestartGame()
+		{
+			SceneController.Instance.RequestChangeScene(new RhythmGameSceneParameter(context.CurrentMusicId, context.CurrentChartType, context.CurrentDifficulty));
+		}
+
+		private void Quit()
+		{
+			SceneController.Instance.RequestChangeScene(new MusicSelectorSceneParameter()
+			{
+				LastMusicId = context.CurrentMusicId,
+				LastChartType = context.CurrentChartType,
+				LastDifficulty = context.CurrentDifficulty,
+			});
 		}
 	}
 
@@ -360,8 +386,7 @@ namespace MilliRhythm.Rhythm
 				return;
 			}
 
-			laneLength = Mathf.Abs(
-				startPoint.position.y - endPoint.position.y);
+			laneLength = Mathf.Abs(startPoint.position.y - endPoint.position.y);
 
 			CreateEditorPreviewRoots();
 
@@ -374,33 +399,19 @@ namespace MilliRhythm.Rhythm
 
 				var root = editorPreviewRoots[rhythmNote.Lane];
 
-				var noteInstance = Instantiate(
-					notePrefabs[rhythmNote.Lane],
-					root,
-					false);
+				var noteInstance = Instantiate(notePrefabs[rhythmNote.Lane], root, false);
 
-				noteInstance.name =
-					$"Preview_{rhythmNote.Head}_{rhythmNote.Lane}";
+				noteInstance.name = $"Preview_{rhythmNote.Head}_{rhythmNote.Lane}";
 
-				noteInstance.gameObject.hideFlags =
-					HideFlags.HideAndDontSave;
+				noteInstance.gameObject.hideFlags = HideFlags.HideAndDontSave;
 
-				var judgeTime =
-					previewChart.TickTimeToTime(rhythmNote.Head);
+				var judgeTime = previewChart.TickTimeToTime(rhythmNote.Head);
 
 				noteInstance.Lane = rhythmNote.Lane;
-
-				noteInstance.StartTime =
-					judgeTime - ApproachingTime;
-
-				noteInstance.HeadTime =
-					judgeTime;
-
-				noteInstance.EndTime =
-					judgeTime + 1.0;
-
-				noteInstance.LaneLength =
-					laneLength;
+				noteInstance.StartTime = judgeTime - ApproachingTime;
+				noteInstance.HeadTime = judgeTime;
+				noteInstance.EndTime = judgeTime + 1.0;
+				noteInstance.LaneLength = laneLength;
 
 				noteInstance.gameObject.SetActive(false);
 
@@ -417,9 +428,7 @@ namespace MilliRhythm.Rhythm
 					continue;
 				}
 
-				var isVisible =
-					songTime >= note.StartTime &&
-					songTime <= note.EndTime;
+				var isVisible = songTime >= note.StartTime && songTime <= note.EndTime;
 
 				if (note.gameObject.activeSelf != isVisible)
 				{
@@ -452,15 +461,11 @@ namespace MilliRhythm.Rhythm
 					continue;
 				}
 
-				for (var i = laneTransform.childCount - 1;
-				     i >= 0;
-				     i--)
+				for (var i = laneTransform.childCount - 1; i >= 0; i--)
 				{
 					var child = laneTransform.GetChild(i);
 
-					if (!child.name.StartsWith(
-						    EditorPreviewRootName,
-						    StringComparison.Ordinal))
+					if (!child.name.StartsWith(EditorPreviewRootName, StringComparison.Ordinal))
 					{
 						continue;
 					}

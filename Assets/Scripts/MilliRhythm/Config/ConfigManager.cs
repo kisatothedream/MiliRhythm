@@ -12,6 +12,7 @@ namespace MilliRhythm.Config
 		private const string MusicVolumeKey = "MilliRhythm.Config.MusicVolume";
 		private const string SfxVolumeKey = "MilliRhythm.Config.SfxVolume";
 		private const string LanguageKey = "MilliRhythm.Config.Language";
+		private const string KeyLayoutKey = "MilliRhythm.Config.KeyLayout";
 
 		public GameConfig Config { get; private set; }
 
@@ -19,6 +20,7 @@ namespace MilliRhythm.Config
 		public event Action<float> OnMusicVolumeChangedAction;
 		public event Action<float> OnSfxVolumeChangedAction;
 		public event Action<LanguageType> OnLanguageChangedAction;
+		public event Action<KeyLayout> OnKeyLayoutChangedAction;
 
 		private ConfigManager()
 		{
@@ -32,6 +34,7 @@ namespace MilliRhythm.Config
 				MusicVolume = PlayerPrefs.GetFloat(MusicVolumeKey, 0.5f),
 				SfxVolume = PlayerPrefs.GetFloat(SfxVolumeKey, 0.5f),
 				Language = LanguageTypeExtensions.ToLanguageType(PlayerPrefs.GetInt(LanguageKey, LanguageType.Japanese.ToInt())),
+				KeyLayout = (KeyLayout)PlayerPrefs.GetInt(KeyLayoutKey, 0),
 			};
 			ApplyAllConfigs(Config);
 		}
@@ -41,6 +44,7 @@ namespace MilliRhythm.Config
 			ChangeMasterVolume(config.MasterVolume);
 			ChangeMusicVolume(config.MusicVolume);
 			ChangeSfxVolume(config.SfxVolume);
+			ChangeKeyLayout(config.KeyLayout);
 		}
 
 		public void ChangeMasterVolume(float volume)
@@ -59,6 +63,12 @@ namespace MilliRhythm.Config
 		{
 			Config.SfxVolume = volume;
 			OnSfxVolumeChangedAction?.Invoke(ConvertVolumeToDb(Config.SfxVolume));
+		}
+
+		public void ChangeKeyLayout(KeyLayout layout)
+		{
+			Config.KeyLayout = layout;
+			OnKeyLayoutChangedAction?.Invoke(Config.KeyLayout);
 		}
 
 		private float ConvertVolumeToDb(float volume)
@@ -83,6 +93,7 @@ namespace MilliRhythm.Config
 			PlayerPrefs.SetFloat(MusicVolumeKey, Config.MusicVolume);
 			PlayerPrefs.SetFloat(SfxVolumeKey, Config.SfxVolume);
 			PlayerPrefs.SetInt(LanguageKey, Config.Language.ToInt());
+			PlayerPrefs.SetInt(KeyLayoutKey, (int)Config.KeyLayout);
 			PlayerPrefs.Save();
 		}
 	}

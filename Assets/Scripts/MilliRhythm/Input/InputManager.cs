@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using MilliRhythm.Config;
 using MilliRhythm.Input.Sources;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -12,7 +13,7 @@ namespace MilliRhythm.Input
 	{
 		public static InputManager Instance { get; private set; }
 		private readonly MilliRhythmInputs milliRhythmInputs;
-		private MilliRhythmInputs.GameActions characterActions;
+		private MilliRhythmInputs.GameActions gameActions;
 
 		private InputSystemInputSource inputSystemInputSource;
 		public GameControls GameControls { get; private set; }
@@ -52,6 +53,7 @@ namespace MilliRhythm.Input
 			UIInputManager.Instance.Init(UIControls);
 			AddInputSource(inputSystemInputSource);
 
+			ConfigManager.Instance.OnKeyLayoutChangedAction += ChangeKeyLayout;
 			InputSystem.onEvent += DetectInputDevice;
 		}
 
@@ -60,6 +62,7 @@ namespace MilliRhythm.Input
 			GameControls?.Dispose();
 			UIControls?.Dispose();
 
+			ConfigManager.Instance.OnKeyLayoutChangedAction -= ChangeKeyLayout;
 			CancelRebind();
 			InputSystem.onEvent -= DetectInputDevice;
 		}
@@ -142,6 +145,37 @@ namespace MilliRhythm.Input
 
 			var json = PlayerPrefs.GetString(InputBindingSaveKey);
 			inputAsset.LoadBindingOverridesFromJson(json);
+		}
+
+		private void ChangeKeyLayout(KeyLayout keyLayout)
+		{
+			switch (keyLayout)
+			{
+				case KeyLayout.WASD:
+					ApplyWasdLayout();
+					break;
+				case KeyLayout.SDKL:
+					ApplySdklLayout();
+					break;
+				default:
+					throw new ArgumentOutOfRangeException(nameof(keyLayout), keyLayout, null);
+			}
+		}
+
+		private void ApplySdklLayout()
+		{
+			gameActions.Left.ApplyBindingOverride(0, "<Keyboard>/s");
+			gameActions.Up.ApplyBindingOverride(0, "<Keyboard>/d");
+			gameActions.Down.ApplyBindingOverride(0, "<Keyboard>/k");
+			gameActions.Right.ApplyBindingOverride(0, "<Keyboard>/l");
+		}
+
+		private void ApplyWasdLayout()
+		{
+			gameActions.Left.RemoveBindingOverride(0);
+			gameActions.Up.RemoveBindingOverride(0);
+			gameActions.Down.RemoveBindingOverride(0);
+			gameActions.Right.RemoveBindingOverride(0);
 		}
 
 		public void Rebind(InputAction action, int bindingIndex, Action<string> onComplete = null, Action onCancel = null)
