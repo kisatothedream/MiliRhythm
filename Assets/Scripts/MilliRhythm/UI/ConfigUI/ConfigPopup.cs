@@ -30,6 +30,9 @@ namespace MilliRhythm.UI.ConfigUI
 
 		[SerializeField] private NavigatableIntField judgeOffset;
 
+		[SerializeField] private Toggle wasdToggle;
+		[SerializeField] private Toggle sdklToggle;
+
 		private bool isPopupOpened;
 
 		protected override void OnAwake()
@@ -48,6 +51,9 @@ namespace MilliRhythm.UI.ConfigUI
 			quitGameButton.onClick.AddListener(DisplayQuitGamePopup);
 			creditButton.onClick.AddListener(DisplayConfigGamePopup);
 
+			wasdToggle.onValueChanged.AddListener(OnWasdSelected);
+			sdklToggle.onValueChanged.AddListener(OnSdklSelected);
+
 			judgeOffset.OnValueChanged += OnChangeJudgeOffset;
 
 			Refresh();
@@ -65,6 +71,9 @@ namespace MilliRhythm.UI.ConfigUI
 
 			quitGameButton.onClick.RemoveListener(DisplayQuitGamePopup);
 			creditButton.onClick.RemoveListener(DisplayConfigGamePopup);
+
+			wasdToggle.onValueChanged.RemoveListener(OnWasdSelected);
+			sdklToggle.onValueChanged.RemoveListener(OnSdklSelected);
 
 			judgeOffset.OnValueChanged -= OnChangeJudgeOffset;
 		}
@@ -115,6 +124,16 @@ namespace MilliRhythm.UI.ConfigUI
 			if (!selected) return;
 			ConfigManager.Instance.ChangeLanguage(type);
 		}
+
+		private void OnWasdSelected(bool selected) => OnKeyLayoutChanged(selected, KeyLayout.WASD);
+		private void OnSdklSelected(bool selected) => OnKeyLayoutChanged(selected, KeyLayout.SDKL);
+
+		private void OnKeyLayoutChanged(bool selected, KeyLayout layout)
+		{
+			if (!selected) return;
+			ConfigManager.Instance.ChangeKeyLayout(layout);
+		}
+
 
 		private void OnChangeJudgeOffset(int offset)
 		{

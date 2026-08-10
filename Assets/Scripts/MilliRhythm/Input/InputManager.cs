@@ -51,6 +51,8 @@ namespace MilliRhythm.Input
 			GameControls = new GameControls();
 			UIControls = new UIControls();
 			UIInputManager.Instance.Init(UIControls);
+
+			gameActions = milliRhythmInputs.Game;
 			AddInputSource(inputSystemInputSource);
 
 			ConfigManager.Instance.OnKeyLayoutChangedAction += ChangeKeyLayout;
@@ -164,6 +166,7 @@ namespace MilliRhythm.Input
 
 		private void ApplySdklLayout()
 		{
+			Debug.Log(gameActions.Left);
 			gameActions.Left.ApplyBindingOverride(0, "<Keyboard>/s");
 			gameActions.Up.ApplyBindingOverride(0, "<Keyboard>/d");
 			gameActions.Down.ApplyBindingOverride(0, "<Keyboard>/k");
