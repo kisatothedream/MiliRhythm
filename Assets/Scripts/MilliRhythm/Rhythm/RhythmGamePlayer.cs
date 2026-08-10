@@ -303,8 +303,10 @@ namespace MilliRhythm.Rhythm
 			PlayGlow(lane);
 			if (queue.TryPeek(out var note) && Math.Abs(clock.SongTime - note.HeadTime) < BadWindow)
 			{
-				var result = JudgeTime(clock.SongTime + ConfigManager.Instance.Config.JudgeOffset / 1000.0f, note.HeadTime);
-				Debug.Log(result);
+				var judgeTime = clock.SongTime + ConfigManager.Instance.Config.JudgeOffset;
+				var result = JudgeTime(judgeTime / 1000.0f, note.HeadTime);
+				// Debug.Log(result);
+				CompareNoteTiming(result, judgeTime, note.HeadTime);
 				character.ChangeState(lane);
 				judgeManager.OnHitNote(result);
 				judgeManager.CreateComboText(result);
@@ -321,6 +323,11 @@ namespace MilliRhythm.Rhythm
 					Destroy(note.gameObject);
 				}
 			}
+		}
+
+		private void CompareNoteTiming(NoteJudgementResult result, double judgeTime, double noteTime)
+		{
+			Debug.Log($"[{result}]{(1000 * (judgeTime - noteTime)):000}ms");
 		}
 
 		private async UniTask CreateNoteHitParticleAsync(int lane)
