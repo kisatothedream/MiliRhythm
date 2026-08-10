@@ -21,13 +21,13 @@ namespace MilliRhythm.UI.RhythmGameUI
 
 		private void Awake()
 		{
-			pauseButton.onClick.AddListener(onPauseButtonAction);
+			pauseButton.onClick.AddListener(DisplayPauseUI);
 			UpdateScore(0, 0);
 		}
 
 		private void OnDestroy()
 		{
-			pauseButton.onClick.RemoveListener(onPauseButtonAction);
+			pauseButton.onClick.RemoveListener(DisplayPauseUI);
 		}
 
 		public void InitializeCurrentTrackContext(Action restartAction, Action quitAction)
@@ -40,11 +40,10 @@ namespace MilliRhythm.UI.RhythmGameUI
 		public void UpdateScore(int score, float accuracy) => scoreUI.UpdateScore(score, accuracy);
 		public void UpdateTrackProgress(float progress) => trackProgressFill.fillAmount = progress;
 
-		public void ShowResultAsync(Sprite jacket, int perfect, int great, int good, int bad, int miss, int maxCombo, int score,
-			MusicSelectorSceneParameter param) =>
+		public void ShowResultAsync(Sprite jacket, int perfect, int great, int good, int bad, int miss, int maxCombo, int score, MusicSelectorSceneParameter param) =>
 			resultUI.ShowResultAsync(jacket, perfect, great, good, bad, miss, maxCombo, score, param).Forget();
 
-		private void onPauseButtonAction()
+		public void DisplayPauseUI()
 		{
 			pauseUI.Display(restartAction, quitAction);
 		}
