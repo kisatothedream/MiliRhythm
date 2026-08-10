@@ -10,6 +10,7 @@ namespace MilliRhythm.Config
 
 		public LanguageType Language;
 		public KeyLayout KeyLayout;
+		public int JudgeOffset;
 	}
 
 	public enum KeyLayout

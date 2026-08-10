@@ -28,6 +28,8 @@ namespace MilliRhythm.UI.ConfigUI
 		[SerializeField] private NavigatableButton quitGameButton;
 		[SerializeField] private NavigatableButton creditButton;
 
+		[SerializeField] private NavigatableIntField judgeOffset;
+
 		private bool isPopupOpened;
 
 		private void Awake()
@@ -46,6 +48,8 @@ namespace MilliRhythm.UI.ConfigUI
 			quitGameButton.onClick.AddListener(DisplayQuitGamePopup);
 			creditButton.onClick.AddListener(DisplayConfigGamePopup);
 
+			judgeOffset.OnValueChanged += OnChangeJudgeOffset;
+
 			Refresh();
 		}
 
@@ -61,6 +65,8 @@ namespace MilliRhythm.UI.ConfigUI
 
 			quitGameButton.onClick.RemoveListener(DisplayQuitGamePopup);
 			creditButton.onClick.RemoveListener(DisplayConfigGamePopup);
+
+			judgeOffset.OnValueChanged -= OnChangeJudgeOffset;
 		}
 
 		protected override void Set()
@@ -81,6 +87,8 @@ namespace MilliRhythm.UI.ConfigUI
 			koreanToggle.SetIsOnWithoutNotify(language == LanguageType.Korean);
 			japaneseToggle.SetIsOnWithoutNotify(language == LanguageType.Japanese);
 			englishToggle.SetIsOnWithoutNotify(language == LanguageType.English);
+
+			judgeOffset.SetInitialValue(ConfigManager.Instance.Config.JudgeOffset);
 		}
 
 		private void OnMasterVolumeChanged(float volume)
@@ -106,6 +114,11 @@ namespace MilliRhythm.UI.ConfigUI
 		{
 			if (!selected) return;
 			ConfigManager.Instance.ChangeLanguage(type);
+		}
+
+		private void OnChangeJudgeOffset(int offset)
+		{
+			ConfigManager.Instance.ChangeJudgeOffset(offset);
 		}
 
 		public override void OnNavigate(Vector2 value)
