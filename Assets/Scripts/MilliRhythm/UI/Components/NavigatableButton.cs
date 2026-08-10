@@ -5,6 +5,8 @@ namespace MilliRhythm.UI.Components
 {
 	public class NavigatableButton : Button, INavigatable
 	{
+		public RectTransform RectTransform => transform as RectTransform;
+
 		public void Focus()
 		{
 			ApplyFocusState(true);

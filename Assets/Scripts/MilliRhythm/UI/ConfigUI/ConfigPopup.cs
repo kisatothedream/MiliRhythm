@@ -10,6 +10,8 @@ namespace MilliRhythm.UI.ConfigUI
 {
 	public class ConfigPopup : PopupUIBase<DefaultPopupParameter, DefaultPopupResponse, DefaultPopupResultPayload>
 	{
+		[SerializeField] private ScrollRect scrollRect;
+		[SerializeField] private float scrollPadding;
 		private INavigatable[] navigatables;
 		private INavigatable currentNavigatable;
 
@@ -170,6 +172,8 @@ namespace MilliRhythm.UI.ConfigUI
 			currentNavigatable?.Unfocus();
 			var next = Math.Clamp(index, 0, navigatables.Length - 1);
 			currentNavigatable = navigatables[next];
+
+			EnsureVisible(currentNavigatable);
 			currentNavigatable?.Focus();
 		}
 
@@ -210,6 +214,36 @@ namespace MilliRhythm.UI.ConfigUI
 
 				isPopupOpened = false;
 			})();
+		}
+
+		private void EnsureVisible(INavigatable navigatable)
+		{
+			if (scrollRect == null)
+				return;
+
+			var item = navigatable.RectTransform;
+			var viewport = scrollRect.viewport;
+			var content = scrollRect.content;
+
+			var itemBounds = RectTransformUtility.CalculateRelativeRectTransformBounds(viewport, item);
+
+			var viewportRect = viewport.rect;
+
+			var offset = 0f;
+
+			if (itemBounds.max.y > viewportRect.yMax)
+			{
+				offset = viewportRect.yMax - scrollPadding - itemBounds.max.y;
+			}
+			else if (itemBounds.min.y < viewportRect.yMin)
+			{
+				offset = viewportRect.yMin + scrollPadding - itemBounds.min.y;
+			}
+
+			if (Mathf.Abs(offset) > 0.01f)
+			{
+				content.anchoredPosition += new Vector2(0, offset);
+			}
 		}
 	}
 }

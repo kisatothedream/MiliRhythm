@@ -8,6 +8,8 @@ namespace MilliRhythm.UI.ConfigUI
 {
 	public class NavigatableIntField : MonoBehaviour, INavigatable
 	{
+		public RectTransform RectTransform => transform as RectTransform;
+
 		[SerializeField] private TMP_InputField inputField;
 		[SerializeField] private Button increaseButton;
 		[SerializeField] private Button decreaseButton;

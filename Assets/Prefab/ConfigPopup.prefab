@@ -345,6 +345,8 @@ MonoBehaviour:
   confirmButton: {fileID: 0}
   cancelButton: {fileID: 5064282512340913258}
   dismissArea: {fileID: 0}
+  scrollRect: {fileID: 2140659494735835662}
+  scrollPadding: 50
   masterVolumeSlider: {fileID: 5230515511259710197}
   musicVolumeSlider: {fileID: 5452397742686681929}
   sfxVolumeSlider: {fileID: 6320327831918872472}

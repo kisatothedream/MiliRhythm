@@ -1,10 +1,13 @@
 using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace MilliRhythm.UI.Components
 {
 	public class NavigatableToggleGroup : ToggleGroup, INavigatable
 	{
+		public RectTransform RectTransform => transform as RectTransform;
+
 		private Toggle[] toggles;
 		private Toggle current;
 
@@ -46,6 +49,7 @@ namespace MilliRhythm.UI.Components
 		}
 
 		private int FindCurrentItem() => Array.FindIndex(toggles, toggle => toggle.isOn);
+
 		private void Select(int index)
 		{
 			var next = Math.Clamp(index, 0, toggles.Length - 1);

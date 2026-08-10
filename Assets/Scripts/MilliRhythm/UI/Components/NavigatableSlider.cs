@@ -5,6 +5,8 @@ namespace MilliRhythm.UI.Components
 {
 	public class NavigatableSlider : Slider, INavigatable
 	{
+		public RectTransform RectTransform => transform as RectTransform;
+
 		[SerializeField] private GameObject focusIndicator;
 
 		public void Focus()
