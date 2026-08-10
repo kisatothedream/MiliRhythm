@@ -1,7 +1,5 @@
 using System;
 using MilliRhythm.Data.Domain;
-using MilliRhythm.Input;
-using Unity.Android.Gradle;
 using UnityEngine;
 
 namespace MilliRhythm.Config
@@ -36,6 +34,7 @@ namespace MilliRhythm.Config
 				MusicVolume = PlayerPrefs.GetFloat(MusicVolumeKey, 0.5f),
 				SfxVolume = PlayerPrefs.GetFloat(SfxVolumeKey, 0.5f),
 				Language = LanguageTypeExtensions.ToLanguageType(PlayerPrefs.GetInt(LanguageKey, LanguageType.Japanese.ToInt())),
+				KeyLayout = (KeyLayout)PlayerPrefs.GetInt(KeyLayoutKey, 0),
 			};
 			ApplyAllConfigs(Config);
 		}
@@ -45,6 +44,7 @@ namespace MilliRhythm.Config
 			ChangeMasterVolume(config.MasterVolume);
 			ChangeMusicVolume(config.MusicVolume);
 			ChangeSfxVolume(config.SfxVolume);
+			ChangeKeyLayout(config.KeyLayout);
 		}
 
 		public void ChangeMasterVolume(float volume)
@@ -93,6 +93,7 @@ namespace MilliRhythm.Config
 			PlayerPrefs.SetFloat(MusicVolumeKey, Config.MusicVolume);
 			PlayerPrefs.SetFloat(SfxVolumeKey, Config.SfxVolume);
 			PlayerPrefs.SetInt(LanguageKey, Config.Language.ToInt());
+			PlayerPrefs.SetInt(KeyLayoutKey, (int)Config.KeyLayout);
 			PlayerPrefs.Save();
 		}
 	}
