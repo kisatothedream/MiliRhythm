@@ -17,6 +17,8 @@ namespace MilliRhythm.UI.RhythmGameUI
 		[SerializeField] private Image trackProgressFill;
 		[SerializeField] private Button pauseButton;
 
+		[SerializeField] private TimingCalibrator timingCalibrator;
+
 		private Action restartAction;
 		private Action quitAction;
 
@@ -41,12 +43,25 @@ namespace MilliRhythm.UI.RhythmGameUI
 		public void UpdateScore(int score, float accuracy) => scoreUI.UpdateScore(score, accuracy);
 		public void UpdateTrackProgress(float progress) => trackProgressFill.fillAmount = progress;
 
-		public void ShowResultAsync(Sprite jacket, int perfect, int great, int good, int bad, int miss, int maxCombo, int score, Rank rank, MusicSelectorSceneParameter param) =>
-			resultUI.ShowResultAsync(jacket, perfect, great, good, bad, miss, maxCombo, score, rank, param).Forget();
+		public void ShowResultAsync(Sprite jacket, int perfect, int great, int good, int bad, int miss, int maxCombo, int score, Rank rank, float accuracy, double averageError,
+			MusicSelectorSceneParameter param) =>
+			resultUI.ShowResultAsync(new ResultUIParameter()
+			{
+				Jacket = jacket, Perfect = perfect, Great = great, Good = good,
+				Bad = bad,
+				Miss = miss,
+				MaxCombo = maxCombo,
+				Score = score,
+				Rank = rank,
+				Accuracy = accuracy,
+				AverageError = (int)averageError,
+			}, param).Forget();
 
 		public void DisplayPauseUI()
 		{
 			pauseUI.Display(restartAction, quitAction);
 		}
+
+		public void SetTimingErrorValue(double average) => timingCalibrator.SetPosition(average);
 	}
 }

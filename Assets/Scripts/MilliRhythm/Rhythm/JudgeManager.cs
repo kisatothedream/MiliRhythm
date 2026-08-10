@@ -5,7 +5,6 @@ using MilliRhythm.Scene.Contracts;
 using MilliRhythm.UI.RhythmGameUI;
 using MilliRhythm.User;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace MilliRhythm.Rhythm
 {
@@ -110,11 +109,11 @@ namespace MilliRhythm.Rhythm
 			UserManager.RequestSave();
 		}
 
-		public void RequestShowResultAndEndGame(int trackId, ChartType chartType, MusicSelectorSceneParameter parameter)
+		public void RequestShowResultAndEndGame(int trackId, ChartType chartType, double averageError, MusicSelectorSceneParameter parameter)
 		{
 			SendScore(trackId, chartType);
 			uiController.ShowResultAsync(GameDataService.GetMusicData(trackId).ThumbnailSprite, PerfectCount, GreatCount, GoodCount, BadCount, MissCount,
-				MaxCombo, CurrentScore, CalculateRank(), parameter);
+				MaxCombo, CurrentScore, CalculateRank(), (float)CurrentScore / currentMaxScore, averageError, parameter);
 		}
 
 		private void UpdateLifeGuage(int currentLife)
