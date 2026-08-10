@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using MilliRhythm.Config;
 using MilliRhythm.Data.Domain;
 using MilliRhythm.Data.Repository;
 using MilliRhythm.Input;
@@ -302,7 +303,7 @@ namespace MilliRhythm.Rhythm
 			PlayGlow(lane);
 			if (queue.TryPeek(out var note) && Math.Abs(clock.SongTime - note.HeadTime) < BadWindow)
 			{
-				var result = JudgeTime(clock.SongTime, note.HeadTime);
+				var result = JudgeTime(clock.SongTime + ConfigManager.Instance.Config.JudgeOffset / 1000.0f, note.HeadTime);
 				Debug.Log(result);
 				character.ChangeState(lane);
 				judgeManager.OnHitNote(result);
