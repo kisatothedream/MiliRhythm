@@ -188,7 +188,7 @@ namespace MilliRhythm.Rhythm
 				UpdateNotesPosition(lane);
 				if (playPerfect)
 				{
-					PlayNotePefect(lane);
+					PlayNotePerfect(lane);
 				}
 
 				TryJudgeMissedNotes(lane);
@@ -196,7 +196,7 @@ namespace MilliRhythm.Rhythm
 			}
 		}
 
-		private void PlayNotePefect(int lane)
+		private void PlayNotePerfect(int lane)
 		{
 			var queue = waitingNotes[lane];
 			while (queue.TryPeek(out var note) && clock.SongTime > note.HeadTime)
@@ -347,8 +347,7 @@ namespace MilliRhythm.Rhythm
 
 		private void RestartGame()
 		{
-			SceneController.Instance.RequestChangeScene(new RhythmGameSceneParameter(context.CurrentMusicId, context.CurrentChartType,
-				context.CurrentDifficulty));
+			SceneController.Instance.RequestChangeScene(new RhythmGameSceneParameter(context.CurrentMusicId, context.CurrentChartType, context.CurrentDifficulty));
 		}
 
 		private void Quit()
@@ -387,8 +386,7 @@ namespace MilliRhythm.Rhythm
 				return;
 			}
 
-			laneLength = Mathf.Abs(
-				startPoint.position.y - endPoint.position.y);
+			laneLength = Mathf.Abs(startPoint.position.y - endPoint.position.y);
 
 			CreateEditorPreviewRoots();
 
@@ -401,33 +399,19 @@ namespace MilliRhythm.Rhythm
 
 				var root = editorPreviewRoots[rhythmNote.Lane];
 
-				var noteInstance = Instantiate(
-					notePrefabs[rhythmNote.Lane],
-					root,
-					false);
+				var noteInstance = Instantiate(notePrefabs[rhythmNote.Lane], root, false);
 
-				noteInstance.name =
-					$"Preview_{rhythmNote.Head}_{rhythmNote.Lane}";
+				noteInstance.name = $"Preview_{rhythmNote.Head}_{rhythmNote.Lane}";
 
-				noteInstance.gameObject.hideFlags =
-					HideFlags.HideAndDontSave;
+				noteInstance.gameObject.hideFlags = HideFlags.HideAndDontSave;
 
-				var judgeTime =
-					previewChart.TickTimeToTime(rhythmNote.Head);
+				var judgeTime = previewChart.TickTimeToTime(rhythmNote.Head);
 
 				noteInstance.Lane = rhythmNote.Lane;
-
-				noteInstance.StartTime =
-					judgeTime - ApproachingTime;
-
-				noteInstance.HeadTime =
-					judgeTime;
-
-				noteInstance.EndTime =
-					judgeTime + 1.0;
-
-				noteInstance.LaneLength =
-					laneLength;
+				noteInstance.StartTime = judgeTime - ApproachingTime;
+				noteInstance.HeadTime = judgeTime;
+				noteInstance.EndTime = judgeTime + 1.0;
+				noteInstance.LaneLength = laneLength;
 
 				noteInstance.gameObject.SetActive(false);
 
@@ -444,9 +428,7 @@ namespace MilliRhythm.Rhythm
 					continue;
 				}
 
-				var isVisible =
-					songTime >= note.StartTime &&
-					songTime <= note.EndTime;
+				var isVisible = songTime >= note.StartTime && songTime <= note.EndTime;
 
 				if (note.gameObject.activeSelf != isVisible)
 				{
@@ -479,15 +461,11 @@ namespace MilliRhythm.Rhythm
 					continue;
 				}
 
-				for (var i = laneTransform.childCount - 1;
-				     i >= 0;
-				     i--)
+				for (var i = laneTransform.childCount - 1; i >= 0; i--)
 				{
 					var child = laneTransform.GetChild(i);
 
-					if (!child.name.StartsWith(
-						    EditorPreviewRootName,
-						    StringComparison.Ordinal))
+					if (!child.name.StartsWith(EditorPreviewRootName, StringComparison.Ordinal))
 					{
 						continue;
 					}
