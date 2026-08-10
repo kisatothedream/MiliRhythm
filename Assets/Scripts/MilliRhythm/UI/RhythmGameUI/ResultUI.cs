@@ -78,6 +78,16 @@ namespace MilliRhythm.UI.RhythmGameUI
 			TryChangeScene();
 		}
 
+		public void Config(bool value)
+		{
+			TryChangeScene();
+		}
+
+		public void Filter(bool value)
+		{
+			TryChangeScene();
+		}
+
 		public void View(bool value)
 		{
 			TryChangeScene();

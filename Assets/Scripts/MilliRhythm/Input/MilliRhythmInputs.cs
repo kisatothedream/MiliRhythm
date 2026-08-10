@@ -93,7 +93,7 @@ public partial class @MilliRhythmInputs: IInputActionCollection2, IDisposable
             ""id"": ""df70fa95-8a34-4494-b137-73ab6b9c7d37"",
             ""actions"": [
                 {
-                    ""name"": ""Escape"",
+                    ""name"": ""Menu"",
                     ""type"": ""Button"",
                     ""id"": ""2a0e9d04-6cd9-406e-bae8-55f8959635d7"",
                     ""expectedControlType"": """",
@@ -146,7 +146,18 @@ public partial class @MilliRhythmInputs: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Escape"",
+                    ""action"": ""Menu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2b97e658-1e5e-44a9-b23e-b253d4148b2e"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Menu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -272,9 +283,18 @@ public partial class @MilliRhythmInputs: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""View"",
+                    ""name"": ""Config"",
                     ""type"": ""Button"",
-                    ""id"": ""609efbaf-ecbc-4360-be03-42df643ffa49"",
+                    ""id"": ""5f086a03-9e39-4726-ac02-e8dd7081be3d"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Filter"",
+                    ""type"": ""Button"",
+                    ""id"": ""f22c7724-1670-4a4c-a5ac-16c2efe48b94"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -570,45 +590,45 @@ public partial class @MilliRhythmInputs: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""be230355-05d9-4788-ad8d-63ec891b3634"",
+                    ""id"": ""83c8a733-f6f7-4b28-8f93-4b1c68a936c3"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Config"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""79eba26d-3a29-448d-9e50-7d9e22fcab4f"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Config"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""52dec8e7-f47d-4cd7-ac07-c34834750215"",
                     ""path"": ""<Keyboard>/tab"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse;Touch;Joystick;Gamepad;XR"",
-                    ""action"": ""View"",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Filter"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""93ba8020-57f0-4ca5-b524-bdbcac3e283a"",
-                    ""path"": ""<XInputController>/select"",
+                    ""id"": ""87059a1c-006a-4549-b785-ebaae6074ca1"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": "";Gamepad;Keyboard&Mouse;Touch;Joystick;XR"",
-                    ""action"": ""View"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""9df70d21-97ad-483d-8353-d8114a55e98a"",
-                    ""path"": ""<XboxOneGamepadAndroid>/select"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Touch;Gamepad;Keyboard&Mouse;XR;Joystick"",
-                    ""action"": ""View"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""4f465a9d-f9a6-467e-a510-f6767562b900"",
-                    ""path"": ""<XboxOneGampadiOS>/select"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Touch;Gamepad;Keyboard&Mouse;Joystick;XR"",
-                    ""action"": ""View"",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""Filter"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -680,7 +700,7 @@ public partial class @MilliRhythmInputs: IInputActionCollection2, IDisposable
 }");
         // Game
         m_Game = asset.FindActionMap("Game", throwIfNotFound: true);
-        m_Game_Escape = m_Game.FindAction("Escape", throwIfNotFound: true);
+        m_Game_Menu = m_Game.FindAction("Menu", throwIfNotFound: true);
         m_Game_Up = m_Game.FindAction("Up", throwIfNotFound: true);
         m_Game_Down = m_Game.FindAction("Down", throwIfNotFound: true);
         m_Game_Left = m_Game.FindAction("Left", throwIfNotFound: true);
@@ -690,7 +710,8 @@ public partial class @MilliRhythmInputs: IInputActionCollection2, IDisposable
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
         m_UI_Submit = m_UI.FindAction("Submit", throwIfNotFound: true);
         m_UI_Cancel = m_UI.FindAction("Cancel", throwIfNotFound: true);
-        m_UI_View = m_UI.FindAction("View", throwIfNotFound: true);
+        m_UI_Config = m_UI.FindAction("Config", throwIfNotFound: true);
+        m_UI_Filter = m_UI.FindAction("Filter", throwIfNotFound: true);
     }
 
     ~@MilliRhythmInputs()
@@ -772,7 +793,7 @@ public partial class @MilliRhythmInputs: IInputActionCollection2, IDisposable
     // Game
     private readonly InputActionMap m_Game;
     private List<IGameActions> m_GameActionsCallbackInterfaces = new List<IGameActions>();
-    private readonly InputAction m_Game_Escape;
+    private readonly InputAction m_Game_Menu;
     private readonly InputAction m_Game_Up;
     private readonly InputAction m_Game_Down;
     private readonly InputAction m_Game_Left;
@@ -789,9 +810,9 @@ public partial class @MilliRhythmInputs: IInputActionCollection2, IDisposable
         /// </summary>
         public GameActions(@MilliRhythmInputs wrapper) { m_Wrapper = wrapper; }
         /// <summary>
-        /// Provides access to the underlying input action "Game/Escape".
+        /// Provides access to the underlying input action "Game/Menu".
         /// </summary>
-        public InputAction @Escape => m_Wrapper.m_Game_Escape;
+        public InputAction @Menu => m_Wrapper.m_Game_Menu;
         /// <summary>
         /// Provides access to the underlying input action "Game/Up".
         /// </summary>
@@ -834,9 +855,9 @@ public partial class @MilliRhythmInputs: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_GameActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_GameActionsCallbackInterfaces.Add(instance);
-            @Escape.started += instance.OnEscape;
-            @Escape.performed += instance.OnEscape;
-            @Escape.canceled += instance.OnEscape;
+            @Menu.started += instance.OnMenu;
+            @Menu.performed += instance.OnMenu;
+            @Menu.canceled += instance.OnMenu;
             @Up.started += instance.OnUp;
             @Up.performed += instance.OnUp;
             @Up.canceled += instance.OnUp;
@@ -860,9 +881,9 @@ public partial class @MilliRhythmInputs: IInputActionCollection2, IDisposable
         /// <seealso cref="GameActions" />
         private void UnregisterCallbacks(IGameActions instance)
         {
-            @Escape.started -= instance.OnEscape;
-            @Escape.performed -= instance.OnEscape;
-            @Escape.canceled -= instance.OnEscape;
+            @Menu.started -= instance.OnMenu;
+            @Menu.performed -= instance.OnMenu;
+            @Menu.canceled -= instance.OnMenu;
             @Up.started -= instance.OnUp;
             @Up.performed -= instance.OnUp;
             @Up.canceled -= instance.OnUp;
@@ -915,7 +936,8 @@ public partial class @MilliRhythmInputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_Navigate;
     private readonly InputAction m_UI_Submit;
     private readonly InputAction m_UI_Cancel;
-    private readonly InputAction m_UI_View;
+    private readonly InputAction m_UI_Config;
+    private readonly InputAction m_UI_Filter;
     /// <summary>
     /// Provides access to input actions defined in input action map "UI".
     /// </summary>
@@ -940,9 +962,13 @@ public partial class @MilliRhythmInputs: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Cancel => m_Wrapper.m_UI_Cancel;
         /// <summary>
-        /// Provides access to the underlying input action "UI/View".
+        /// Provides access to the underlying input action "UI/Config".
         /// </summary>
-        public InputAction @View => m_Wrapper.m_UI_View;
+        public InputAction @Config => m_Wrapper.m_UI_Config;
+        /// <summary>
+        /// Provides access to the underlying input action "UI/Filter".
+        /// </summary>
+        public InputAction @Filter => m_Wrapper.m_UI_Filter;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -978,9 +1004,12 @@ public partial class @MilliRhythmInputs: IInputActionCollection2, IDisposable
             @Cancel.started += instance.OnCancel;
             @Cancel.performed += instance.OnCancel;
             @Cancel.canceled += instance.OnCancel;
-            @View.started += instance.OnView;
-            @View.performed += instance.OnView;
-            @View.canceled += instance.OnView;
+            @Config.started += instance.OnConfig;
+            @Config.performed += instance.OnConfig;
+            @Config.canceled += instance.OnConfig;
+            @Filter.started += instance.OnFilter;
+            @Filter.performed += instance.OnFilter;
+            @Filter.canceled += instance.OnFilter;
         }
 
         /// <summary>
@@ -1001,9 +1030,12 @@ public partial class @MilliRhythmInputs: IInputActionCollection2, IDisposable
             @Cancel.started -= instance.OnCancel;
             @Cancel.performed -= instance.OnCancel;
             @Cancel.canceled -= instance.OnCancel;
-            @View.started -= instance.OnView;
-            @View.performed -= instance.OnView;
-            @View.canceled -= instance.OnView;
+            @Config.started -= instance.OnConfig;
+            @Config.performed -= instance.OnConfig;
+            @Config.canceled -= instance.OnConfig;
+            @Filter.started -= instance.OnFilter;
+            @Filter.performed -= instance.OnFilter;
+            @Filter.canceled -= instance.OnFilter;
         }
 
         /// <summary>
@@ -1110,12 +1142,12 @@ public partial class @MilliRhythmInputs: IInputActionCollection2, IDisposable
     public interface IGameActions
     {
         /// <summary>
-        /// Method invoked when associated input action "Escape" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "Menu" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnEscape(InputAction.CallbackContext context);
+        void OnMenu(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Up" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
@@ -1174,11 +1206,18 @@ public partial class @MilliRhythmInputs: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnCancel(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "View" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "Config" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnView(InputAction.CallbackContext context);
+        void OnConfig(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Filter" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnFilter(InputAction.CallbackContext context);
     }
 }

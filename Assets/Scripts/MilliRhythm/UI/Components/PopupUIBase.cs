@@ -117,6 +117,14 @@ namespace MilliRhythm.UI.Components
 			OnCancel();
 		}
 
+		public void Config(bool value)
+		{
+		}
+
+		public void Filter(bool value)
+		{
+		}
+
 		public abstract void OnCancel();
 
 		public void View(bool value)

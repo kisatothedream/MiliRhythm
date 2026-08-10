@@ -56,7 +56,7 @@ namespace MilliRhythm.UI.RhythmGameUI
 			Select(0);
 		}
 
-		public void Hide()
+		private void Hide()
 		{
 			gameObject.SetActive(false);
 		}
@@ -106,9 +106,15 @@ namespace MilliRhythm.UI.RhythmGameUI
 
 		public void Cancel(bool value)
 		{
+			if (!value) return;
+			Hide();
 		}
 
-		public void View(bool value)
+		public void Config(bool value)
+		{
+		}
+
+		public void Filter(bool value)
 		{
 		}
 

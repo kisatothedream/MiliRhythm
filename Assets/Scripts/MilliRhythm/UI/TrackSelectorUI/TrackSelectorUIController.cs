@@ -252,12 +252,16 @@ namespace MilliRhythm.UI.TrackSelectorUI
 
 		public void Cancel(bool value)
 		{
+		}
+
+		public void Config(bool value)
+		{
 			if (isPopupOpened) return;
 			if (!value) return;
 			DisplayConfigPopup();
 		}
 
-		public void View(bool value)
+		public void Filter(bool value)
 		{
 			if (isPopupOpened) return;
 			if (!value) return;

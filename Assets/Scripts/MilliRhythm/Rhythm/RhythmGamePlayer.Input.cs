@@ -11,6 +11,7 @@ namespace MilliRhythm.Rhythm
 			controls.Up.Subscribe(OnUp).AddTo(inputDisposable);
 			controls.Down.Subscribe(OnDown).AddTo(inputDisposable);
 			controls.Right.Subscribe(OnRight).AddTo(inputDisposable);
+			controls.Menu.Subscribe(OnMenu).AddTo(inputDisposable);
 		}
 
 		private void UnregisterInputs()
@@ -40,6 +41,11 @@ namespace MilliRhythm.Rhythm
 		{
 			if (pressed) OnPressKey(NoteType.Right.ToInt());
 			isLaneHeld[3] = pressed;
+		}
+
+		private void OnMenu(bool pressed)
+		{
+			if (pressed) uiController.DisplayPauseUI();
 		}
 	}
 }

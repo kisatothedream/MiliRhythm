@@ -10,12 +10,12 @@ namespace MilliRhythm.Input
 		public ReadOnlyReactiveProperty<bool> Down => down;
 		public ReadOnlyReactiveProperty<bool> Left => left;
 		public ReadOnlyReactiveProperty<bool> Right => right;
-		public ReadOnlyReactiveProperty<bool> Escape => escape;
+		public ReadOnlyReactiveProperty<bool> Menu => menu;
 		private readonly ReactiveProperty<bool> up = new();
 		private readonly ReactiveProperty<bool> down = new();
 		private readonly ReactiveProperty<bool> left = new();
 		private readonly ReactiveProperty<bool> right = new();
-		private readonly ReactiveProperty<bool> escape = new();
+		private readonly ReactiveProperty<bool> menu = new();
 
 		public override void AddInputSource(IInputSource inputSource)
 		{
@@ -36,7 +36,7 @@ namespace MilliRhythm.Input
 			down.Value = false;
 			left.Value = false;
 			right.Value = false;
-			escape.Value = false;
+			menu.Value = false;
 		}
 
 		public void Dispose()
@@ -45,7 +45,7 @@ namespace MilliRhythm.Input
 			down?.Dispose();
 			left?.Dispose();
 			right?.Dispose();
-			escape?.Dispose();
+			menu?.Dispose();
 		}
 	}
 
@@ -66,7 +66,7 @@ namespace MilliRhythm.Input
 			protected void OnDown(bool value) => controls.down.Value = value;
 			protected void OnLeft(bool value) => controls.left.Value = value;
 			protected void OnRight(bool value) => controls.right.Value = value;
-			protected void OnEscape(bool value) => controls.escape.Value = value;
+			protected void OnMenu(bool value) => controls.menu.Value = value;
 		}
 
 		private class InputSystemInputAdapter : GameInputAdapter, MilliRhythmInputs.IGameActions
@@ -92,7 +92,7 @@ namespace MilliRhythm.Input
 			public void OnDown(InputAction.CallbackContext context) => OnDown(context.ReadValueAsButton());
 			public void OnLeft(InputAction.CallbackContext context) => OnLeft(context.ReadValueAsButton());
 			public void OnRight(InputAction.CallbackContext context) => OnRight(context.ReadValueAsButton());
-			public void OnEscape(InputAction.CallbackContext context) => OnEscape(context.ReadValueAsButton());
+			public void OnMenu(InputAction.CallbackContext context) => OnMenu(context.ReadValueAsButton());
 		}
 
 		private class TouchUIInputAdapter : GameInputAdapter
