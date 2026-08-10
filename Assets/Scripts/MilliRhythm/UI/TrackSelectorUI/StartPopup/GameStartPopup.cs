@@ -105,10 +105,6 @@ namespace MilliRhythm.UI.TrackSelectorUI.StartPopup
 			Cancel();
 		}
 
-		public override void OnView()
-		{
-		}
-
 		private void OnMelodyToggleChanged(bool selected)
 		{
 			melodyToggleUI.SetSelected(selected);

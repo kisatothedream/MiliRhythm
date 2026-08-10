@@ -32,7 +32,7 @@ namespace MilliRhythm.UI.ConfigUI
 
 		private bool isPopupOpened;
 
-		private void Awake()
+		protected override void OnAwake()
 		{
 			response = new DefaultPopupResponse();
 
@@ -161,10 +161,6 @@ namespace MilliRhythm.UI.ConfigUI
 		{
 			Confirm();
 			ConfigManager.Instance.Save();
-		}
-
-		public override void OnView()
-		{
 		}
 
 		private void DisplayConfigGamePopup()

@@ -52,6 +52,7 @@ namespace MilliRhythm.UI.ConfigUI
 
 		public void ApplyFocusState(bool focused)
 		{
+			transform.localScale = Vector2.one * (focused ? 1.1f : 1.0f);
 		}
 
 		public void SetInitialValue(int value)

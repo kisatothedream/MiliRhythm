@@ -126,14 +126,6 @@ namespace MilliRhythm.UI.Components
 		}
 
 		public abstract void OnCancel();
-
-		public void View(bool value)
-		{
-			if (!value) return;
-			OnView();
-		}
-
-		public abstract void OnView();
 	}
 
 
