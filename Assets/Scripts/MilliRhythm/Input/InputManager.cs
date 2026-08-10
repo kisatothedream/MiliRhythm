@@ -166,7 +166,6 @@ namespace MilliRhythm.Input
 
 		private void ApplySdklLayout()
 		{
-			Debug.Log(gameActions.Left);
 			gameActions.Left.ApplyBindingOverride(0, "<Keyboard>/s");
 			gameActions.Up.ApplyBindingOverride(0, "<Keyboard>/d");
 			gameActions.Down.ApplyBindingOverride(0, "<Keyboard>/k");
