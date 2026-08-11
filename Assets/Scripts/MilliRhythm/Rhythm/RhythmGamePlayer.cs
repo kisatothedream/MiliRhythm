@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using MilliRhythm.Config;
 using MilliRhythm.Data.Domain;
 using MilliRhythm.Data.Repository;
 using MilliRhythm.Input;
@@ -81,10 +82,13 @@ namespace MilliRhythm.Rhythm
 
 		[SerializeField] private GameObject particlePrefab;
 
+		private int hitNotesCount;
+		private double errorSum;
+
 		public void Finish()
 		{
-			rhythmGameCts.Cancel();
-			rhythmGameCts.Dispose();
+			rhythmGameCts?.Cancel();
+			rhythmGameCts?.Dispose();
 			rhythmGameCts = null;
 			UnregisterInputs();
 			if (audioClipHandle.IsValid())
@@ -118,6 +122,7 @@ namespace MilliRhythm.Rhythm
 		public async UniTask Init(RhythmChart rhythmChart, MusicData musicData)
 		{
 			uiController.InitializeCurrentTrackContext(RestartGame, Quit);
+			uiController.SetTimingErrorValue(0);
 			for (var i = 0; i < 4; i++)
 			{
 				var glow = noteGlows[i];
@@ -177,7 +182,7 @@ namespace MilliRhythm.Rhythm
 			Debug.Log(
 				$"Result Max Combo [{judgeManager.MaxCombo}] - Score [{judgeManager.CurrentScore}] \nPerfect[{judgeManager.PerfectCount}] \nGreat[{judgeManager.GreatCount}] \nGood[{judgeManager.GoodCount}] \nBad[{judgeManager.BadCount}] \nMiss[{judgeManager.MissCount}]");
 			var parameter = new MusicSelectorSceneParameter(context.CurrentMusicId, context.CurrentChartType, context.CurrentDifficulty);
-			judgeManager.RequestShowResultAndEndGame(context.CurrentMusicId, context.CurrentChartType, parameter);
+			judgeManager.RequestShowResultAndEndGame(context.CurrentMusicId, context.CurrentChartType, 1000 * errorSum / hitNotesCount, parameter);
 		}
 
 		private void UpdateNotes()
@@ -302,8 +307,10 @@ namespace MilliRhythm.Rhythm
 			PlayGlow(lane);
 			if (queue.TryPeek(out var note) && Math.Abs(clock.SongTime - note.HeadTime) < BadWindow)
 			{
-				var result = JudgeTime(clock.SongTime, note.HeadTime);
-				Debug.Log(result);
+				var judgeTime = clock.SongTime + ConfigManager.Instance.Config.JudgeOffset / 1000.0f;
+				var result = JudgeTime(judgeTime, note.HeadTime);
+				// Debug.Log(result);
+				CompareNoteTiming(result, judgeTime, note.HeadTime);
 				character.ChangeState(lane);
 				judgeManager.OnHitNote(result);
 				judgeManager.CreateComboText(result);
@@ -321,6 +328,15 @@ namespace MilliRhythm.Rhythm
 				}
 			}
 		}
+
+		private void CompareNoteTiming(NoteJudgementResult result, double judgeTime, double noteTime)
+		{
+			// Debug.Log($"[{result}]{1000 * (judgeTime - noteTime):000}ms");
+			hitNotesCount++;
+			errorSum += noteTime - judgeTime;
+			uiController.SetTimingErrorValue(1000 * errorSum / hitNotesCount);
+		}
+
 
 		private async UniTask CreateNoteHitParticleAsync(int lane)
 		{
@@ -347,7 +363,8 @@ namespace MilliRhythm.Rhythm
 
 		private void RestartGame()
 		{
-			SceneController.Instance.RequestChangeScene(new RhythmGameSceneParameter(context.CurrentMusicId, context.CurrentChartType, context.CurrentDifficulty));
+			SceneController.Instance.RequestChangeScene(new RhythmGameSceneParameter(context.CurrentMusicId, context.CurrentChartType,
+				context.CurrentDifficulty));
 		}
 
 		private void Quit()

@@ -5,7 +5,6 @@ using MilliRhythm.Scene.Contracts;
 using MilliRhythm.UI.RhythmGameUI;
 using MilliRhythm.User;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace MilliRhythm.Rhythm
 {
@@ -105,19 +104,36 @@ namespace MilliRhythm.Rhythm
 				MissCount = MissCount,
 				Combo = MaxCombo,
 				Score = CurrentScore,
+				Rank = CalculateRank(),
 			}));
 			UserManager.RequestSave();
 		}
 
-		public void RequestShowResultAndEndGame(int trackId, ChartType chartType, MusicSelectorSceneParameter parameter)
+		public void RequestShowResultAndEndGame(int trackId, ChartType chartType, double averageError, MusicSelectorSceneParameter parameter)
 		{
 			SendScore(trackId, chartType);
-			uiController.ShowResultAsync(GameDataService.GetMusicData(trackId).ThumbnailSprite, PerfectCount, GreatCount, GoodCount, BadCount, MissCount, MaxCombo, CurrentScore, parameter);
+			uiController.ShowResultAsync(GameDataService.GetMusicData(trackId).ThumbnailSprite, PerfectCount, GreatCount, GoodCount, BadCount, MissCount,
+				MaxCombo, CurrentScore, CalculateRank(), (float)CurrentScore / currentMaxScore, averageError, parameter);
 		}
 
 		private void UpdateLifeGuage(int currentLife)
 		{
 			uiController.UpdateLifeGauge(currentLife, MaxLife);
+		}
+
+		private Rank CalculateRank()
+		{
+			var rate = (float)CurrentScore / currentMaxScore;
+			var rank = rate switch
+			{
+				> 0.95f => Rank.M,
+				> 0.9f => Rank.S,
+				> 0.8f => Rank.A,
+				> 0.7f => Rank.B,
+				_ => Rank.C
+			};
+			Debug.Log(rank.ToString());
+			return rank;
 		}
 	}
 }

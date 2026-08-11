@@ -37,5 +37,6 @@ namespace MilliRhythm.User
 		public int GoodCount;
 		public int BadCount;
 		public int MissCount;
+		public Rank Rank;
 	}
 }

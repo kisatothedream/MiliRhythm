@@ -30,10 +30,6 @@ namespace MilliRhythm.UI.Components
 		{
 			Cancel();
 		}
-
-		public override void OnView()
-		{
-		}
 	}
 
 	public class CommonPopupParameter : PopupParameterBase

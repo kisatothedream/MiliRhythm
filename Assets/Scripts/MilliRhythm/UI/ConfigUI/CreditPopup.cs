@@ -23,9 +23,5 @@ namespace MilliRhythm.UI.ConfigUI
 		{
 			Cancel();
 		}
-
-		public override void OnView()
-		{
-		}
 	}
 }

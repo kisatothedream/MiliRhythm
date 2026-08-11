@@ -8,6 +8,8 @@ namespace MilliRhythm.UI.TrackSelectorUI.Filter
 {
 	public class VocalFilterSelectableListView : SelectableListViewBase<VocalFilterSelectableListModel, int>, INavigatable
 	{
+		public RectTransform RectTransform => transform as RectTransform;
+
 		[SerializeField] private GameObject focusMark;
 		[SerializeField] private GameObject selectedMark;
 		[SerializeField] private Image filterImage;

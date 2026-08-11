@@ -13,6 +13,7 @@ namespace MilliRhythm.Config
 		private const string SfxVolumeKey = "MilliRhythm.Config.SfxVolume";
 		private const string LanguageKey = "MilliRhythm.Config.Language";
 		private const string KeyLayoutKey = "MilliRhythm.Config.KeyLayout";
+		private const string JudgeOffsetKey = "MilliRhythm.Config.JudgeOffset";
 
 		public GameConfig Config { get; private set; }
 
@@ -35,6 +36,7 @@ namespace MilliRhythm.Config
 				SfxVolume = PlayerPrefs.GetFloat(SfxVolumeKey, 0.5f),
 				Language = LanguageTypeExtensions.ToLanguageType(PlayerPrefs.GetInt(LanguageKey, LanguageType.Japanese.ToInt())),
 				KeyLayout = (KeyLayout)PlayerPrefs.GetInt(KeyLayoutKey, 0),
+				JudgeOffset = PlayerPrefs.GetInt(JudgeOffsetKey, 0),
 			};
 			ApplyAllConfigs(Config);
 		}
@@ -45,6 +47,7 @@ namespace MilliRhythm.Config
 			ChangeMusicVolume(config.MusicVolume);
 			ChangeSfxVolume(config.SfxVolume);
 			ChangeKeyLayout(config.KeyLayout);
+			ChangeJudgeOffset(config.JudgeOffset);
 		}
 
 		public void ChangeMasterVolume(float volume)
@@ -87,6 +90,11 @@ namespace MilliRhythm.Config
 			OnLanguageChangedAction?.Invoke(Config.Language);
 		}
 
+		public void ChangeJudgeOffset(int offset)
+		{
+			Config.JudgeOffset = offset;
+		}
+
 		public void Save()
 		{
 			PlayerPrefs.SetFloat(MasterVolumeKey, Config.MasterVolume);
@@ -94,6 +102,7 @@ namespace MilliRhythm.Config
 			PlayerPrefs.SetFloat(SfxVolumeKey, Config.SfxVolume);
 			PlayerPrefs.SetInt(LanguageKey, Config.Language.ToInt());
 			PlayerPrefs.SetInt(KeyLayoutKey, (int)Config.KeyLayout);
+			PlayerPrefs.SetInt(JudgeOffsetKey, Config.JudgeOffset);
 			PlayerPrefs.Save();
 		}
 	}

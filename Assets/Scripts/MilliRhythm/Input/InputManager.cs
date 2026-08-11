@@ -11,7 +11,8 @@ namespace MilliRhythm.Input
 {
 	public partial class InputManager
 	{
-		public static InputManager Instance { get; private set; }
+		public static InputManager Instance => instance ??= new InputManager();
+		private static InputManager instance;
 		private readonly MilliRhythmInputs milliRhythmInputs;
 		private MilliRhythmInputs.GameActions gameActions;
 
@@ -29,15 +30,13 @@ namespace MilliRhythm.Input
 		[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
 		private static void ResetStatic()
 		{
-			Instance?.Dispose();
-			Instance = null;
+			instance?.Dispose();
+			instance = null;
 		}
 
-		[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-		public static void BeforeSceneLoaded()
+		public void Load()
 		{
-			Instance = new InputManager();
-			Instance.Init();
+			instance.Init();
 		}
 
 		private void Init()
@@ -51,6 +50,8 @@ namespace MilliRhythm.Input
 			GameControls = new GameControls();
 			UIControls = new UIControls();
 			UIInputManager.Instance.Init(UIControls);
+
+			gameActions = milliRhythmInputs.Game;
 			AddInputSource(inputSystemInputSource);
 
 			ConfigManager.Instance.OnKeyLayoutChangedAction += ChangeKeyLayout;

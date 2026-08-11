@@ -51,7 +51,8 @@ namespace MilliRhythm.UI.TrackSelectorUI.StartPopup
 			vocalText.LocalizationKey = parameter.Model.TrackVocal.GetMemberNameKey();
 			melodyScoreText.text = parameter.MelodyScore.ToString();
 			beatScoreText.text = parameter.BeatScore.ToString();
-
+			melodyRankText.text = parameter.MelodyRank.ToString();
+			beatRankText.text = parameter.BeatRank.ToString();
 			Select(0);
 		}
 
@@ -104,10 +105,6 @@ namespace MilliRhythm.UI.TrackSelectorUI.StartPopup
 			Cancel();
 		}
 
-		public override void OnView()
-		{
-		}
-
 		private void OnMelodyToggleChanged(bool selected)
 		{
 			melodyToggleUI.SetSelected(selected);
@@ -126,8 +123,8 @@ namespace MilliRhythm.UI.TrackSelectorUI.StartPopup
 		//곡 정보
 		public int MelodyScore;
 		public int BeatScore;
-		public string MelodyRank;
-		public string BeatRank;
+		public Rank MelodyRank;
+		public Rank BeatRank;
 		//마지막 실행한 것
 	}
 

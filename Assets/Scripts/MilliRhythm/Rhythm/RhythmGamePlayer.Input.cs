@@ -16,7 +16,7 @@ namespace MilliRhythm.Rhythm
 
 		private void UnregisterInputs()
 		{
-			inputDisposable.Dispose();
+			inputDisposable?.Dispose();
 		}
 
 		private void OnLeft(bool pressed)

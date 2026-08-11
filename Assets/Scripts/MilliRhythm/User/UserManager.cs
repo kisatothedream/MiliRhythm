@@ -69,7 +69,7 @@ namespace MilliRhythm.User
 
 	public partial class UserManager
 	{
-		internal static void CommandSetScore(int musicId, ChartType type, int score, int combo, int perfect, int great, int good, int bad, int miss)
+		internal static void CommandSetScore(int musicId, ChartType type, int score, int combo, int perfect, int great, int good, int bad, int miss, Rank rank)
 		{
 			if (Model.ScoreDataModel.ScoreDataMap.TryGetValue($"{musicId}_{type}", out var scoreData))
 			{
@@ -82,6 +82,7 @@ namespace MilliRhythm.User
 					scoreData.GoodCount = good;
 					scoreData.BadCount = bad;
 					scoreData.MissCount = miss;
+					scoreData.Rank = rank;
 				}
 				else
 				{
@@ -95,7 +96,8 @@ namespace MilliRhythm.User
 						GreatCount = great,
 						GoodCount = good,
 						BadCount = bad,
-						MissCount = miss
+						MissCount = miss,
+						Rank = rank,
 					};
 				}
 

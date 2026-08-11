@@ -10,6 +10,8 @@ namespace MilliRhythm.UI.ConfigUI
 {
 	public class ConfigPopup : PopupUIBase<DefaultPopupParameter, DefaultPopupResponse, DefaultPopupResultPayload>
 	{
+		[SerializeField] private ScrollRect scrollRect;
+		[SerializeField] private float scrollPadding;
 		private INavigatable[] navigatables;
 		private INavigatable currentNavigatable;
 
@@ -28,9 +30,14 @@ namespace MilliRhythm.UI.ConfigUI
 		[SerializeField] private NavigatableButton quitGameButton;
 		[SerializeField] private NavigatableButton creditButton;
 
+		[SerializeField] private NavigatableIntField judgeOffset;
+
+		[SerializeField] private Toggle wasdToggle;
+		[SerializeField] private Toggle sdklToggle;
+
 		private bool isPopupOpened;
 
-		private void Awake()
+		protected override void OnAwake()
 		{
 			response = new DefaultPopupResponse();
 
@@ -45,6 +52,11 @@ namespace MilliRhythm.UI.ConfigUI
 
 			quitGameButton.onClick.AddListener(DisplayQuitGamePopup);
 			creditButton.onClick.AddListener(DisplayConfigGamePopup);
+
+			wasdToggle.onValueChanged.AddListener(OnWasdSelected);
+			sdklToggle.onValueChanged.AddListener(OnSdklSelected);
+
+			judgeOffset.OnValueChanged += OnChangeJudgeOffset;
 
 			Refresh();
 		}
@@ -61,6 +73,11 @@ namespace MilliRhythm.UI.ConfigUI
 
 			quitGameButton.onClick.RemoveListener(DisplayQuitGamePopup);
 			creditButton.onClick.RemoveListener(DisplayConfigGamePopup);
+
+			wasdToggle.onValueChanged.RemoveListener(OnWasdSelected);
+			sdklToggle.onValueChanged.RemoveListener(OnSdklSelected);
+
+			judgeOffset.OnValueChanged -= OnChangeJudgeOffset;
 		}
 
 		protected override void Set()
@@ -81,6 +98,11 @@ namespace MilliRhythm.UI.ConfigUI
 			koreanToggle.SetIsOnWithoutNotify(language == LanguageType.Korean);
 			japaneseToggle.SetIsOnWithoutNotify(language == LanguageType.Japanese);
 			englishToggle.SetIsOnWithoutNotify(language == LanguageType.English);
+
+			judgeOffset.SetInitialValue(ConfigManager.Instance.Config.JudgeOffset);
+
+			wasdToggle.SetIsOnWithoutNotify(ConfigManager.Instance.Config.KeyLayout == KeyLayout.WASD);
+			sdklToggle.SetIsOnWithoutNotify(ConfigManager.Instance.Config.KeyLayout == KeyLayout.SDKL);
 		}
 
 		private void OnMasterVolumeChanged(float volume)
@@ -106,6 +128,21 @@ namespace MilliRhythm.UI.ConfigUI
 		{
 			if (!selected) return;
 			ConfigManager.Instance.ChangeLanguage(type);
+		}
+
+		private void OnWasdSelected(bool selected) => OnKeyLayoutChanged(selected, KeyLayout.WASD);
+		private void OnSdklSelected(bool selected) => OnKeyLayoutChanged(selected, KeyLayout.SDKL);
+
+		private void OnKeyLayoutChanged(bool selected, KeyLayout layout)
+		{
+			if (!selected) return;
+			ConfigManager.Instance.ChangeKeyLayout(layout);
+		}
+
+
+		private void OnChangeJudgeOffset(int offset)
+		{
+			ConfigManager.Instance.ChangeJudgeOffset(offset);
 		}
 
 		public override void OnNavigate(Vector2 value)
@@ -135,6 +172,8 @@ namespace MilliRhythm.UI.ConfigUI
 			currentNavigatable?.Unfocus();
 			var next = Math.Clamp(index, 0, navigatables.Length - 1);
 			currentNavigatable = navigatables[next];
+
+			EnsureVisible(currentNavigatable);
 			currentNavigatable?.Focus();
 		}
 
@@ -148,10 +187,6 @@ namespace MilliRhythm.UI.ConfigUI
 		{
 			Confirm();
 			ConfigManager.Instance.Save();
-		}
-
-		public override void OnView()
-		{
 		}
 
 		private void DisplayConfigGamePopup()
@@ -179,6 +214,36 @@ namespace MilliRhythm.UI.ConfigUI
 
 				isPopupOpened = false;
 			})();
+		}
+
+		private void EnsureVisible(INavigatable navigatable)
+		{
+			if (scrollRect == null)
+				return;
+
+			var item = navigatable.RectTransform;
+			var viewport = scrollRect.viewport;
+			var content = scrollRect.content;
+
+			var itemBounds = RectTransformUtility.CalculateRelativeRectTransformBounds(viewport, item);
+
+			var viewportRect = viewport.rect;
+
+			var offset = 0f;
+
+			if (itemBounds.max.y > viewportRect.yMax)
+			{
+				offset = viewportRect.yMax - scrollPadding - itemBounds.max.y;
+			}
+			else if (itemBounds.min.y < viewportRect.yMin)
+			{
+				offset = viewportRect.yMin + scrollPadding - itemBounds.min.y;
+			}
+
+			if (Mathf.Abs(offset) > 0.01f)
+			{
+				content.anchoredPosition += new Vector2(0, offset);
+			}
 		}
 	}
 }
