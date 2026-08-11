@@ -80,7 +80,7 @@ namespace MilliRhythm.Rhythm
 
 		private readonly Tween[] glowTweens = new Tween[4];
 
-		[SerializeField] private GameObject particlePrefab;
+		[SerializeField] private GameObject[] particlePrefabs;
 
 		private int hitNotesCount;
 		private double errorSum;
@@ -340,7 +340,7 @@ namespace MilliRhythm.Rhythm
 
 		private async UniTask CreateNoteHitParticleAsync(int lane)
 		{
-			var go = Instantiate(particlePrefab, laneEnds[lane]);
+			var go = Instantiate(particlePrefabs[lane], laneEnds[lane]);
 			await UniTask.WaitForSeconds(1);
 			Destroy(go);
 		}
