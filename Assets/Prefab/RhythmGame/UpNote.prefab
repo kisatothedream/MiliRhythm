@@ -80,9 +80,9 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 4
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: c1816892425b7c844a8744d78521c05c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 83b8b190c5deb3746abd3c30da34f759, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -104,4 +104,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f58036fc6f970a4a9da107a74b35912, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Rhythm.Runtime::MilliRhythm.Rhythm.Note
-  Type: 0
+  Lane: 0
+  NoteLength: 0
+  StartTime: 0
+  HeadTime: 0
+  NextJudgeTime: 0
+  EndTime: 0
+  LaneLength: 0

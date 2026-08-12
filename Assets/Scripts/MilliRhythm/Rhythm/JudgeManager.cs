@@ -56,17 +56,17 @@ namespace MilliRhythm.Rhythm
 				case NoteJudgementResult.Good:
 					GoodCount++;
 					CurrentScore += 600;
-					RemainLife++;
+					RemainLife += 15;
 					break;
 				case NoteJudgementResult.Great:
 					GreatCount++;
 					CurrentScore += 800;
-					RemainLife++;
+					RemainLife += 15;
 					break;
 				case NoteJudgementResult.Perfect:
 					PerfectCount++;
 					CurrentScore += 1000;
-					RemainLife++;
+					RemainLife += 15;
 					break;
 			}
 
@@ -80,7 +80,7 @@ namespace MilliRhythm.Rhythm
 		{
 			MissCount++;
 			CurrentCombo = 0;
-			RemainLife -= 30;
+			RemainLife -= 15;
 			currentMaxScore += 1000;
 			uiController.UpdateScore(CurrentScore, (float)CurrentScore / currentMaxScore);
 		}

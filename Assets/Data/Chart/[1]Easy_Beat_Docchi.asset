@@ -16,7 +16,7 @@ MonoBehaviour:
   ChartType: 1
   Difficulty: 0
   bpm: 74
-  offsetSeconds: 0.54
+  offsetSeconds: 0.515
   notes:
   - Head: 480
     Lane: 0
