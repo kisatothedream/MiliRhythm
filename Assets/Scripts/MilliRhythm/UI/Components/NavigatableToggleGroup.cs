@@ -7,6 +7,7 @@ namespace MilliRhythm.UI.Components
 	public class NavigatableToggleGroup : ToggleGroup, INavigatable
 	{
 		public RectTransform RectTransform => transform as RectTransform;
+		[SerializeField] private GameObject focusedObject;
 
 		private Toggle[] toggles;
 		private Toggle current;
@@ -29,6 +30,7 @@ namespace MilliRhythm.UI.Components
 
 		public void ApplyFocusState(bool focused)
 		{
+			focusedObject.SetActive(focused);
 		}
 
 		public void OnNavigate(UINavigationType direction)

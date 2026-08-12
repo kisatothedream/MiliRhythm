@@ -9,6 +9,7 @@ namespace MilliRhythm.UI.ConfigUI
 	public class NavigatableIntField : MonoBehaviour, INavigatable
 	{
 		public RectTransform RectTransform => transform as RectTransform;
+		[SerializeField] private GameObject focusIndicator;
 
 		[SerializeField] private TMP_InputField inputField;
 		[SerializeField] private Button increaseButton;
@@ -54,7 +55,7 @@ namespace MilliRhythm.UI.ConfigUI
 
 		public void ApplyFocusState(bool focused)
 		{
-			transform.localScale = Vector2.one * (focused ? 1.1f : 1.0f);
+			focusIndicator.SetActive(focused);
 		}
 
 		public void SetInitialValue(int value)
