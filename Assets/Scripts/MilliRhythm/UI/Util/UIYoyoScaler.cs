@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using UnityEngine;
 
@@ -28,6 +29,11 @@ namespace MilliRhythm.UI.Util
 		private void OnDisable()
 		{
 			yoyoTween.Rewind();
+		}
+
+		private void OnDestroy()
+		{
+			yoyoTween?.Kill();
 		}
 	}
 }

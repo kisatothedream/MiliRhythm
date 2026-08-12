@@ -1,7 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
 
-namespace Maze.WorldMap.Util
+namespace MilliRhythm.UI.Util
 {
 	public class UIPositionLooper : MonoBehaviour
 	{
@@ -28,6 +28,11 @@ namespace Maze.WorldMap.Util
 		private void OnDisable()
 		{
 			loopTween.Rewind();
+		}
+
+		private void OnDestroy()
+		{
+			loopTween?.Kill();
 		}
 	}
 }
