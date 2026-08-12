@@ -170,7 +170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bcf4c6d5770fa54b8ef0c30fc6fcd61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UI.Runtime::MilliRhythm.UI.TrackSelectorUI.TrackSelectorListView
-  selectedMark: {fileID: 9130907792256124206}
+  selectedMark: {fileID: 7410670582169743581}
   button: {fileID: 6492292785416215605}
   thumbnailImage: {fileID: 3794879250715788447}
 --- !u!1 &4251012926641849405
@@ -365,8 +365,8 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5215704690744556195, guid: c91437f2758dfaa479ef580f18625143, type: 3}
   m_PrefabInstance: {fileID: 8945647096896929730}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &9130907792256124206 stripped
+--- !u!1 &7410670582169743581 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 185442398800607980, guid: c91437f2758dfaa479ef580f18625143, type: 3}
+  m_CorrespondingSourceObject: {fileID: 1941806816587517727, guid: c91437f2758dfaa479ef580f18625143, type: 3}
   m_PrefabInstance: {fileID: 8945647096896929730}
   m_PrefabAsset: {fileID: 0}
