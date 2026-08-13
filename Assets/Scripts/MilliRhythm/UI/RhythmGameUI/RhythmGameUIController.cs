@@ -19,9 +19,6 @@ namespace MilliRhythm.UI.RhythmGameUI
 
 		[SerializeField] private TimingCalibrator timingCalibrator;
 
-		private Action restartAction;
-		private Action quitAction;
-
 		private void Awake()
 		{
 			pauseButton.onClick.AddListener(DisplayPauseUI);
@@ -33,10 +30,10 @@ namespace MilliRhythm.UI.RhythmGameUI
 			pauseButton.onClick.RemoveListener(DisplayPauseUI);
 		}
 
-		public void InitializeCurrentTrackContext(Action restartAction, Action quitAction)
+
+		public void SetActions(Action restart, Action quit, Action pause, Action resume)
 		{
-			this.restartAction = restartAction;
-			this.quitAction = quitAction;
+			pauseUI.SetActions(restart, quit, pause, resume);
 		}
 
 		public void UpdateLifeGauge(int cur, int max) => lifeGaugeUI.UpdateGauge(cur, max);
@@ -59,7 +56,7 @@ namespace MilliRhythm.UI.RhythmGameUI
 
 		public void DisplayPauseUI()
 		{
-			pauseUI.Display(restartAction, quitAction);
+			pauseUI.Display();
 		}
 
 		public void SetTimingErrorValue(double average) => timingCalibrator.SetPosition(average);

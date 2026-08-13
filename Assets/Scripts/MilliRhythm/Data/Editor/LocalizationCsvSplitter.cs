@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text;
 using CsvHelper;
 using MilliRhythm.Data.Repository;
 using UnityEditor;
@@ -17,6 +18,15 @@ namespace MilliRhythm.Data.Editor
 
 		private const string OutputDirectory =
 			"Assets/StreamingAssets/Localization";
+
+		private const string FontCharacterOutputPath =
+			"Assets/Data/Localization/FontCharacters.txt";
+
+		private const string DefaultFontCharacters =
+			"ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
+			"abcdefghijklmnopqrstuvwxyz" +
+			"0123456789" +
+			" !\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
 
 		[MenuItem("Tools/Localization/Split Localization CSV")]
 		public static void SplitLocalizationCsv()
@@ -43,6 +53,8 @@ namespace MilliRhythm.Data.Editor
 					"Localization_jp.csv",
 					sourceData,
 					data => data.Text_JP);
+
+				WriteFontCharacterFile(sourceData);
 
 				AssetDatabase.Refresh();
 
@@ -145,13 +157,69 @@ namespace MilliRhythm.Data.Editor
 			using var writer = new StreamWriter(
 				outputPath,
 				false,
-				new System.Text.UTF8Encoding(false));
+				new UTF8Encoding(false));
 
 			using var csv = new CsvWriter(
 				writer,
 				CultureInfo.InvariantCulture);
 
 			csv.WriteRecords(outputData);
+		}
+
+		private static void WriteFontCharacterFile(
+			IEnumerable<LocalizationSourceData> sourceData)
+		{
+			var characters = new HashSet<char>();
+
+			foreach (var character in DefaultFontCharacters)
+			{
+				characters.Add(character);
+			}
+
+			foreach (var data in sourceData)
+			{
+				AddCharacters(characters, data.Text_KO);
+				AddCharacters(characters, data.Text_EN);
+				AddCharacters(characters, data.Text_JP);
+			}
+
+			var result = new string(characters
+				.OrderBy(character => character)
+				.ToArray());
+
+			var directory = Path.GetDirectoryName(FontCharacterOutputPath);
+
+			if (!string.IsNullOrEmpty(directory))
+			{
+				Directory.CreateDirectory(directory);
+			}
+
+			File.WriteAllText(
+				FontCharacterOutputPath,
+				result,
+				new UTF8Encoding(false));
+
+			Debug.Log(
+				$"Font character file generated. " +
+				$"Character count: {characters.Count}");
+		}
+
+		private static void AddCharacters(
+			ISet<char> characters,
+			string text)
+		{
+			if (string.IsNullOrEmpty(text))
+			{
+				return;
+			}
+
+			foreach (var character in text)
+			{
+				if (char.IsControl(character))
+					continue;
+
+				characters.Add(character);
+			}
 		}
 
 		private sealed class LocalizationSourceData

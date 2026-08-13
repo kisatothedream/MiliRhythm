@@ -20,6 +20,8 @@ namespace MilliRhythm.UI.RhythmGameUI
 		private bool isPopupOpened;
 		private Action restartAction;
 		private Action quitAction;
+		private Action pauseAction;
+		private Action resumeAction;
 
 		private void Awake()
 		{
@@ -48,17 +50,25 @@ namespace MilliRhythm.UI.RhythmGameUI
 			this.UnregisterUIInputListener();
 		}
 
-		public void Display(Action restartAction, Action quitAction)
+		public void SetActions(Action restart, Action quit, Action pause, Action resume)
 		{
-			this.restartAction = restartAction;
-			this.quitAction = quitAction;
+			restartAction = restart;
+			quitAction = quit;
+			pauseAction = pause;
+			resumeAction = resume;
+		}
+
+		public void Display()
+		{
 			gameObject.SetActive(true);
+			pauseAction?.Invoke();
 			Select(0);
 		}
 
 		private void Hide()
 		{
 			gameObject.SetActive(false);
+			resumeAction?.Invoke();
 		}
 
 
