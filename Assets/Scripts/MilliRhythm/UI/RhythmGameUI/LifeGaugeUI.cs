@@ -9,12 +9,13 @@ namespace MilliRhythm.UI.RhythmGameUI
 		[SerializeField] private Image gaugeFill;
 		[SerializeField] private Image faceIconImage;
 		[SerializeField] private RectTransform faceIconRect;
+		[SerializeField] private Sprite[] faces;
 		private Tween pumpTween;
 
 		private void Awake()
 		{
-			pumpTween = faceIconRect.DOScale(1, 0.2f)
-				.From(1.4f)
+			pumpTween = faceIconRect.DOScale(1, 0.12f)
+				.From(1.3f)
 				.SetEase(Ease.OutQuad)
 				.Pause()
 				.SetAutoKill(false);
@@ -28,6 +29,14 @@ namespace MilliRhythm.UI.RhythmGameUI
 
 			faceIconRect.anchorMin = anchor;
 			faceIconRect.anchorMax = anchor;
+			switch (cur)
+			{
+				case 1: 
+				case 2: faceIconImage.sprite = faces[2]; break;
+				case 3:
+				case 4: faceIconImage.sprite = faces[0]; break;
+				case 5: faceIconImage.sprite = faces[1]; break;
+			}
 		}
 
 		public void PlayFacePump()
