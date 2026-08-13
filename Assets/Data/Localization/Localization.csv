@@ -1,4 +1,16 @@
 ﻿Id,Text_KO,Text_EN,Text_JP
+GAME_START,게임 시작,START,ゲームスタート
+GAME_PRESS_ENTER_TO_START,엔터를 눌러 시작하세요,Press Enter to Start,Enterキーを押してスタート
+GAME_RESULT,결과,RESULT,リザルト
+GAME_PRESS_ENTER_TWICE_TO_RETRY,엔터 두 번으로 다시하기,Press Enter Twice to Retry,Enterキーを2回押してリトライ
+GAME_CONTINUE,계속하기,CONTINUE,つづける
+GAME_CONFIG,설정,SETTINGS,設定
+GAME_RETRY,다시하기,RETRY,リトライ
+GAME_QUIT,게임 종료,QUIT GAME,ゲーム終了
+GAME_CONFIRM_RETRY,게임을 다시 시작하겠습니까?,Restart the game?,ゲームをやり直しますか？
+COMMON_YES,예,YES,はい
+COMMON_NO,아니오,NO,いいえ
+GAME_CONFIRM_QUIT,게임을 종료하시겠습니까?,Quit the game?,ゲームを終了しますか？
 UI_START_GAME,게임 시작,Start Game,ゲーム開始
 UI_CONTINUE,계속하기,Continue,続ける
 UI_SETTINGS,설정,Settings,設定
@@ -12,42 +24,7 @@ UI_PAUSE,일시 정지,Paused,一時停止
 CONFIG_SOUND,사운드 설정,Sound Settings,サウンド設定
 CONFIG_LANGUAGE_SETTINGS,언어 설정,Language Settings,言語設定
 CONFIG_LANGUAGE,언어,Language,言語
-AKUBI_NAME_KEY,아쿠비 데몬스페이드,Akubi Demonspade,あくび・でもんすぺーど
-KONOMI_NAME_KEY,아마카미 코노미,Amakami Konomi,甘狼このみ
-LIZ_NAME_KEY,아마요 리즈,Amayo Liz,雨夜リズ
-KOMA_NAME_KEY,코마와리 코마,Komawari Koma,小廻こま
-TSUKURI_NAME_KEY,네무쿠모 츠쿠리,Nemukumo Tsukuri,眠雲ツクリ
-NUHU_NAME_KEY,니지푸카 누후,Nijipuka Nuhu,虹深°ぬふ
-NONO_NAME_KEY,노노노 노노,Nonono Nono,音ノ乃のの
-RACO_NAME_KEY,오토노세 라코,Otonose Raco,音ノ瀬らこ
-RAY_NAME_KEY,유기리 레이,Yugiri Ray,夕霧レイ
-YURA_NAME_KEY,유라기 유라,Yuragi Yura,ゆらぎゆら
-TRACK_Luminous_KEY,루미너스,Luminous,ルミナス
-TRACK_Dochi_KEY,어느쪽?!,Dochi?!,どっち？！
-AKUBI_NAME_SHORT_KEY,아쿠비,Akubi,あくび
-KONOMI_NAME_SHORT_KEY,코노미,Konomi,このみ
-LIZ_NAME_SHORT_KEY,리즈,Liz,リズ
-KOMA_NAME_SHORT_KEY,코마,Koma,こま
-TSUKURI_NAME_SHORT_KEY,츠쿠리,Tsukuri,ツクリ
-NUHU_NAME_SHORT_KEY,누후,Nuhu,ぬふ
-NONO_NAME_SHORT_KEY,노노,Nono,のの
-RACO_NAME_SHORT_KEY,라코,Raco,らこ
-RAY_NAME_SHORT_KEY,레이,Ray,レイ
-YURA_NAME_SHORT_KEY,유라,Yura,ゆら
-
-UI_PAUSED,일시 정지됨,Paused,一時停止中
-UI_RESUME,계속 하기,Resume,再開
-UI_RETURN_TO_TITLE,타이틀로,Return to Title,タイトルへ
-UI_RETURN_TO_TITLE_CONFIRM,타이틀로 돌아가시겠습니까?,Return to the title screen?,タイトル画面に戻りますか？
-UI_RESTART_CONFIRM,게임을 다시 시작하시겠습니까?,Restart the game?,ゲームを再開しますか？
-UI_NAVIGATE,이동,Navigate,移動
-UI_SELECT,선택,Select,選択
-UI_FILTER,필터,Filter,フィルター
-UI_TRACK_SELECT,트랙 선택,Track Select,楽曲選択
-UI_CONFIRM_ACTION,결정,Confirm,決定
-UI_DOUBLE_TAP_TO_BACK,두 번 탭하여 돌아가기,Double Tap to Go Back,2回タップで戻る
-
-CONFIG_KEYBOARD_LAYOUT,키보드 레이아웃 (키보드 전용),Keyboard Layout (Keyboard Only),キーボードレイアウト（キーボードのみ）
+CONFIG_KEYBOARD_LAYOUT,키보드 레이아웃,Keyboard Layout,キーボードレイアウト
 CONFIG_VOLUME_SETTINGS,볼륨 설정,Volume Settings,音量設定
 CONFIG_SOUND_MASTER_VOLUME,마스터 볼륨,Master Volume,マスター音量
 CONFIG_SOUND_MUSIC_VOLUME,음악 볼륨,Music Volume,音楽音量
@@ -56,13 +33,11 @@ CONFIG_GAME_SETTINGS,게임 설정,Game Settings,ゲーム設定
 CONFIG_JUDGE_TIMING,노트 판정 타이밍 조정,Note Timing Adjustment,ノート判定タイミング調整
 UI_CREDITS,크레딧,Credits,クレジット
 UI_EXIT_GAME_CONFIRM,게임을 종료하시겠습니까?,Exit the game?,ゲームを終了しますか？
-
 CREDIT_DESIGN_DEVELOPMENT,디자인 및 개발,Design & Development,デザイン・開発
 CREDIT_CHARACTER_ART,캐릭터 아트,Character Art,キャラクターアート
 CREDIT_INSPIRED_BY,영감 및 참고한 게임들,Inspired By,参考作品
 CREDIT_INSPIRED_TRIBUTE,해당 작품에 애정과 경의를 표합니다.,With love and respect for these works.,これらの作品への愛と敬意を込めて。
 CREDIT_ORIGINAL_IP_RIGHTS,원작 및 IP 권리,Original IP & Rights,原作・IP権利
-
 CREDIT_GAME_RIFT_OF_THE_NECRODANCER,Rift of the NecroDancer,Rift of the NecroDancer,Rift of the NecroDancer
 CREDIT_GAME_DJMAX_RESPECT,DJMAX RESPECT,DJMAX RESPECT,DJMAX RESPECT
 CREDIT_GAME_FRIDAY_NIGHT_FUNKIN,Friday Night Funkin',Friday Night Funkin',Friday Night Funkin'
