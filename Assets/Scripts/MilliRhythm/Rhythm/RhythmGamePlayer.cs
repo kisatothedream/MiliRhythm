@@ -85,6 +85,8 @@ namespace MilliRhythm.Rhythm
 		private int hitNotesCount;
 		private double errorSum;
 
+		private bool isPaused;
+
 		public void Finish()
 		{
 			rhythmGameCts?.Cancel();
@@ -121,7 +123,7 @@ namespace MilliRhythm.Rhythm
 
 		public async UniTask Init(RhythmChart rhythmChart, MusicData musicData)
 		{
-			uiController.InitializeCurrentTrackContext(RestartGame, Quit);
+			uiController.SetActions(RestartGame, Quit, PauseGame, ResumeGame);
 			uiController.SetTimingErrorValue(0);
 			for (var i = 0; i < 4; i++)
 			{
@@ -303,6 +305,7 @@ namespace MilliRhythm.Rhythm
 
 		private void OnPressKey(int lane)
 		{
+			if (isPaused) return;
 			var queue = waitingNotes[lane];
 			PlayGlow(lane);
 			if (queue.TryPeek(out var note) && Math.Abs(clock.SongTime - note.HeadTime) < BadWindow)
@@ -375,6 +378,22 @@ namespace MilliRhythm.Rhythm
 				LastChartType = context.CurrentChartType,
 				LastDifficulty = context.CurrentDifficulty,
 			});
+		}
+
+		private void PauseGame()
+		{
+			isPaused = true;
+			audioSource.Pause();
+			clock.PauseClock();
+			character.IsPaused = true;
+		}
+
+		private void ResumeGame()
+		{
+			isPaused = false;
+			audioSource.Play();
+			clock.ResumeClock();
+			character.IsPaused = false;
 		}
 	}
 

@@ -1,4 +1,3 @@
-using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -7,6 +6,7 @@ namespace MilliRhythm.Rhythm
 {
 	public class RhythmGameCharacter : MonoBehaviour
 	{
+		public bool IsPaused;
 		[SerializeField] private SpriteRenderer spriteRenderer;
 		[SerializeField] private Sprite[] idleSprites;
 		[SerializeField] private Sprite[] leftSprites;
@@ -52,8 +52,12 @@ namespace MilliRhythm.Rhythm
 		{
 			while (updateIndexCts.Token.CanBeCanceled)
 			{
-				indexOfImage = (indexOfImage + 1) % 3;
-				spriteRenderer.sprite = currentSpriteSet[indexOfImage];
+				if (!IsPaused)
+				{
+					indexOfImage = (indexOfImage + 1) % 3;
+					spriteRenderer.sprite = currentSpriteSet[indexOfImage];
+				}
+
 				await UniTask.WaitForSeconds(indexUpdateTime, cancellationToken: updateIndexCts.Token);
 			}
 		}
@@ -78,6 +82,7 @@ namespace MilliRhythm.Rhythm
 					OnRight().Forget();
 					break;
 			}
+
 			ChangeSizeAsync().Forget();
 		}
 
