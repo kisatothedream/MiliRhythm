@@ -95,6 +95,7 @@ namespace MilliRhythm.Rhythm
 
 		public void Finish()
 		{
+			Time.timeScale = 1;
 			rhythmGameCts?.Cancel();
 			rhythmGameCts?.Dispose();
 			rhythmGameCts = null;
@@ -127,7 +128,6 @@ namespace MilliRhythm.Rhythm
 					.OnComplete(() => glow.SetActive(false));
 			}
 
-
 			rhythmGameCts = new CancellationTokenSource();
 
 			uiController.SetGameStartAction(StartGame);
@@ -137,6 +137,7 @@ namespace MilliRhythm.Rhythm
 		public void OnStart()
 		{
 			uiController.ShowGameStartPopup();
+			SfxAudioPlayer.Instance.Play(SfxType.Ready);
 		}
 
 		private void StartGame()
@@ -363,18 +364,7 @@ namespace MilliRhythm.Rhythm
 
 			if (CurrentScore >= 1000000)
 			{
-				isPaused = true;
-				isGameOver = true;
-				uiController.ShowResultAsync(new ResultUIParameter()
-				{
-					Score = CurrentScore,
-					Perfect = PerfectCount,
-					Great = GreatCount,
-					Good = GoodCount,
-					Bad = BadCount,
-					Miss = MissCount,
-				});
-				SfxAudioPlayer.Instance.Play(SfxType.GameOver);
+				PlayGameOver();
 			}
 		}
 
@@ -384,6 +374,7 @@ namespace MilliRhythm.Rhythm
 			CurrentCombo = 0;
 			RemainLife -= 1;
 			uiController.UpdateScore(CurrentScore);
+			SfxAudioPlayer.Instance.Play(SfxType.Bonk);
 		}
 
 		public void CreateComboText(NoteJudgementResult result)
@@ -403,18 +394,24 @@ namespace MilliRhythm.Rhythm
 			uiController.UpdateLifeGauge(currentLife, MaxLife);
 			if (remainLife == 0)
 			{
-				isPaused = true;
-				isGameOver = true;
-				uiController.ShowResultAsync(new ResultUIParameter()
-				{
-					Score = CurrentScore,
-					Perfect = PerfectCount,
-					Great = GreatCount,
-					Good = GoodCount,
-					Bad = BadCount,
-					Miss = MissCount,
-				});
+				PlayGameOver();
 			}
+		}
+
+		private void PlayGameOver()
+		{
+			isPaused = true;
+			isGameOver = true;
+			uiController.ShowResultAsync(new ResultUIParameter()
+			{
+				Score = CurrentScore,
+				Perfect = PerfectCount,
+				Great = GreatCount,
+				Good = GoodCount,
+				Bad = BadCount,
+				Miss = MissCount,
+			});
+			audioSource.Stop();
 		}
 	}
 }

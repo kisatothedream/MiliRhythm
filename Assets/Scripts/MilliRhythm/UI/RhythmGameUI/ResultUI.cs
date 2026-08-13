@@ -1,5 +1,6 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using MilliRhythm.Audio;
 using MilliRhythm.Input;
 using MilliRhythm.Scene;
 using MilliRhythm.Scene.Contracts;
@@ -54,18 +55,25 @@ namespace MilliRhythm.UI.RhythmGameUI
 		{
 			gameObject.SetActive(true);
 			items[0].SetCountAndShow(resultUIParameter.Perfect);
+			SfxAudioPlayer.Instance.Play(SfxType.Scoring);
 			await UniTask.WaitForSeconds(0.2f, cancellationToken: showScoreCts.Token).SuppressCancellationThrow();
 			items[1].SetCountAndShow(resultUIParameter.Great);
+			SfxAudioPlayer.Instance.Play(SfxType.Scoring);
 			await UniTask.WaitForSeconds(0.2f, cancellationToken: showScoreCts.Token).SuppressCancellationThrow();
 			items[2].SetCountAndShow(resultUIParameter.Good);
+			SfxAudioPlayer.Instance.Play(SfxType.Scoring);
 			await UniTask.WaitForSeconds(0.2f, cancellationToken: showScoreCts.Token).SuppressCancellationThrow();
 			items[3].SetCountAndShow(resultUIParameter.Bad);
+			SfxAudioPlayer.Instance.Play(SfxType.Scoring);
 			await UniTask.WaitForSeconds(0.2f, cancellationToken: showScoreCts.Token).SuppressCancellationThrow();
 			items[4].SetCountAndShow(resultUIParameter.Miss);
+			SfxAudioPlayer.Instance.Play(SfxType.Scoring);
 			await UniTask.WaitForSeconds(0.2f, cancellationToken: showScoreCts.Token).SuppressCancellationThrow();
 			items[5].SetCountAndShow(resultUIParameter.MaxCombo);
+			SfxAudioPlayer.Instance.Play(SfxType.Scoring);
 			await UniTask.WaitForSeconds(0.2f, cancellationToken: showScoreCts.Token).SuppressCancellationThrow();
 			items[6].SetCountAndShow(resultUIParameter.Score);
+			SfxAudioPlayer.Instance.Play(SfxType.ScoreEnd);
 
 			showScoreCts?.Cancel();
 			showScoreCts?.Dispose();

@@ -26,5 +26,9 @@ namespace MilliRhythm.Audio
 		NoteReaction,
 		GameStart,
 		GameOver,
+		Scoring,
+		ScoreEnd,
+		Ready,
+		Bonk,
 	}
 }

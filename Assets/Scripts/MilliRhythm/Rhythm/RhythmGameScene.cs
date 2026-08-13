@@ -8,7 +8,7 @@ namespace MilliRhythm.Rhythm
 {
 	public sealed class RhythmGameScene : GameSceneBase
 	{
-		public override int SceneIndex => 2;
+		public override int SceneIndex => 0;
 
 		private RhythmGamePlayer rhythmGamePlayer;
 
