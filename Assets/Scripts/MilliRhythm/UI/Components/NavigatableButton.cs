@@ -1,3 +1,4 @@
+using MilliRhythm.Audio;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -28,6 +29,7 @@ namespace MilliRhythm.UI.Components
 
 		public void OnSubmit()
 		{
+			SfxAudioPlayer.Instance.Play(SfxType.Confirm);
 			onClick?.Invoke();
 		}
 	}

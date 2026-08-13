@@ -1,3 +1,4 @@
+using MilliRhythm.Audio;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,6 +27,7 @@ namespace MilliRhythm.UI.Components
 
 		public void OnNavigate(UINavigationType uiDirection)
 		{
+			SfxAudioPlayer.Instance.Play(SfxType.Navigate);
 			switch (uiDirection)
 			{
 				case UINavigationType.Left:

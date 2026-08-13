@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using MilliRhythm.Audio;
 using MilliRhythm.Data.Domain;
 using MilliRhythm.Input;
 using MilliRhythm.Scene;
@@ -143,6 +144,7 @@ namespace MilliRhythm.Rhythm
 			isGameStarted = true;
 			PlaySong().Forget();
 			uiController.HideGameStartPopup();
+			SfxAudioPlayer.Instance.Play(SfxType.GameStart);
 		}
 
 		private async UniTaskVoid PlaySong()
@@ -178,6 +180,11 @@ namespace MilliRhythm.Rhythm
 
 		private void PlayNotePerfect(int lane)
 		{
+			var queue = waitingNotes[lane];
+			if (queue.TryPeek(out var note) && Vector3.Distance(note.Position, laneEnds[lane].position) <= PerfectWindow)
+			{
+				OnPressKey(lane);
+			}
 		}
 
 		private void UpdateNotesPosition(int lane)
@@ -323,6 +330,7 @@ namespace MilliRhythm.Rhythm
 		{
 			CurrentCombo++;
 			AccumNotes++;
+			SfxAudioPlayer.Instance.Play(SfxType.NoteReaction);
 			uiController.PlayFacePump();
 			switch (result)
 			{
@@ -366,6 +374,7 @@ namespace MilliRhythm.Rhythm
 					Bad = BadCount,
 					Miss = MissCount,
 				});
+				SfxAudioPlayer.Instance.Play(SfxType.GameOver);
 			}
 		}
 

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ec29a0a956c47d4da40f6675289af23, type: 3}
+  m_Name: SfxRepository
+  m_EditorClassIdentifier: Audio.Runtime::MilliRhythm.Audio.SfxRepository
+  sfxLists:
+  - SfxType: 0
+    Clip: {fileID: 8300000, guid: 811022b5c1149e54abf092a73a9b67be, type: 3}
+  - SfxType: 1
+    Clip: {fileID: 8300000, guid: a455d09b384b96f4799c358c3b2f77ae, type: 3}
+  - SfxType: 2
+    Clip: {fileID: 8300000, guid: 11c81b4b7f9a7274f99b0693a961ad3f, type: 3}
+  - SfxType: 3
+    Clip: {fileID: 8300000, guid: c941c63a2b0cee940901d1a8610bf2df, type: 3}
+  - SfxType: 4
+    Clip: {fileID: 8300000, guid: 786ab818ba73bd8498d5f3cb829d14bb, type: 3}
+  - SfxType: 5
+    Clip: {fileID: 8300000, guid: 4f0c19ab7320ac643a49a3b7e5e6312a, type: 3}

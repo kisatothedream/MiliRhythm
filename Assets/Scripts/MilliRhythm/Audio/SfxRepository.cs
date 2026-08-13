@@ -24,9 +24,7 @@ namespace MilliRhythm.Audio
 		Cancel,
 		Navigate,
 		NoteReaction,
-		Accept,
-		Fanfare,
-		Applause,
-		
+		GameStart,
+		GameOver,
 	}
 }
