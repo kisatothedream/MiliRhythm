@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: 98M1
-  productName: MiliRhythm
+  productName: NuhuAndBeat
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -42,8 +42,8 @@ PlayerSettings:
   m_SplashScreenLogos: []
   m_VirtualRealitySplashScreen: {fileID: 0}
   m_HolographicTrackingLossScreen: {fileID: 0}
-  defaultScreenWidth: 960
-  defaultScreenHeight: 960
+  defaultScreenWidth: 800
+  defaultScreenHeight: 800
   defaultScreenWidthWeb: 960
   defaultScreenHeightWeb: 600
   m_StereoRenderingPath: 0
@@ -301,7 +301,7 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: 3e7703e3b16490444b19cf1042e56f4e, type: 3}
+      m_Icon: {fileID: 2800000, guid: bf05424cde340234380be89f0c3bba8b, type: 3}
       m_Width: 128
       m_Height: 128
       m_Kind: 0
