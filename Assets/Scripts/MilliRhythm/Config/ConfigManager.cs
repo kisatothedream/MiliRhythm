@@ -48,6 +48,7 @@ namespace MilliRhythm.Config
 			ChangeSfxVolume(config.SfxVolume);
 			ChangeKeyLayout(config.KeyLayout);
 			ChangeJudgeOffset(config.JudgeOffset);
+			ChangeLanguage(config.Language);
 		}
 
 		public void ChangeMasterVolume(float volume)
