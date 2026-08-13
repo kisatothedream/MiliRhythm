@@ -11,7 +11,7 @@ namespace MilliRhythm.Rhythm
 		[SerializeField] private ComboText comboTextPrefab;
 		[SerializeField] private Transform comboTextPivot;
 
-		public const int MaxLife = 300;
+		public const int MaxLife = 5;
 
 		public int RemainLife
 		{
@@ -19,7 +19,7 @@ namespace MilliRhythm.Rhythm
 			set
 			{
 				remainLife = Math.Clamp(value, 0, MaxLife);
-				UpdateLifeGuage(remainLife);
+				UpdateLifeGauge(remainLife);
 			}
 		}
 
@@ -28,7 +28,6 @@ namespace MilliRhythm.Rhythm
 		public int MaxCombo;
 		public int CurrentCombo;
 		public int CurrentScore;
-		private int currentMaxScore;
 		public int PerfectCount;
 		public int GreatCount;
 		public int GoodCount;
@@ -37,8 +36,7 @@ namespace MilliRhythm.Rhythm
 
 		public void Initialize()
 		{
-			//if Modifier, Apply it
-			RemainLife = 200;
+			RemainLife = 5;
 		}
 
 		public void OnHitNote(NoteJudgementResult result)
@@ -67,19 +65,16 @@ namespace MilliRhythm.Rhythm
 					break;
 			}
 
-			currentMaxScore += 1000;
-
 			MaxCombo = Math.Max(MaxCombo, CurrentCombo);
-			uiController.UpdateScore(CurrentScore, (float)CurrentScore / currentMaxScore);
+			uiController.UpdateScore(CurrentScore, 0);
 		}
 
 		public void OnMissNote()
 		{
 			MissCount++;
 			CurrentCombo = 0;
-			RemainLife -= 15;
-			currentMaxScore += 1000;
-			uiController.UpdateScore(CurrentScore, (float)CurrentScore / currentMaxScore);
+			RemainLife -= 1;
+			uiController.UpdateScore(CurrentScore, 0);
 		}
 
 		public void CreateComboText(NoteJudgementResult result)
@@ -94,24 +89,9 @@ namespace MilliRhythm.Rhythm
 				// MaxCombo, CurrentScore, CalculateRank(), (float)CurrentScore / currentMaxScore, averageError,);
 		}
 
-		private void UpdateLifeGuage(int currentLife)
+		private void UpdateLifeGauge(int currentLife)
 		{
 			uiController.UpdateLifeGauge(currentLife, MaxLife);
-		}
-
-		private Rank CalculateRank()
-		{
-			var rate = (float)CurrentScore / currentMaxScore;
-			var rank = rate switch
-			{
-				> 0.95f => Rank.M,
-				> 0.9f => Rank.S,
-				> 0.8f => Rank.A,
-				> 0.7f => Rank.B,
-				_ => Rank.C
-			};
-			Debug.Log(rank.ToString());
-			return rank;
 		}
 	}
 }

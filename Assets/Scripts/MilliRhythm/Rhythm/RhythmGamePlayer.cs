@@ -1,4 +1,3 @@
-
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
@@ -35,10 +34,10 @@ namespace MilliRhythm.Rhythm
 		private Queue<Note>[] waitingNotes = new Queue<Note>[4];
 		private List<Note>[] activeNotes = new List<Note>[4];
 
-		private const float PerfectWindow = 0.045f;
-		private const float GreatWindow = 0.09f;
-		private const float GoodWindow = 0.135f;
-		private const float BadWindow = 0.160f;
+		private const float PerfectWindow = 1f;
+		private const float GreatWindow = 1.25f;
+		private const float GoodWindow = 1.5f;
+		private const float BadWindow = 2f;
 
 		private CancellationTokenSource rhythmGameCts;
 		private CompositeDisposable inputDisposable;
@@ -56,7 +55,8 @@ namespace MilliRhythm.Rhythm
 
 		private bool isPaused;
 
-		private float baseSpeed;
+		private float currentSpeed;
+		private float timer;
 
 		public void Finish()
 		{
@@ -77,7 +77,7 @@ namespace MilliRhythm.Rhythm
 
 		public async UniTask Init()
 		{
-			baseSpeed = 1;
+			currentSpeed = 1;
 			for (var i = 0; i < 4; i++)
 			{
 				var glow = noteGlows[i];
@@ -95,8 +95,6 @@ namespace MilliRhythm.Rhythm
 			judgeManager.Initialize();
 
 			RegisterInputs();
-
-			// audioSource.clip = context.AudioClip;
 		}
 
 		public void StartGame()
@@ -106,11 +104,12 @@ namespace MilliRhythm.Rhythm
 
 		private async UniTask PlaySong()
 		{
-			while (rhythmGameCts.Token.CanBeCanceled)
+			while (!rhythmGameCts.Token.IsCancellationRequested)
 			{
 				//Paused
 				if (!isPaused)
 				{
+					timer -= currentSpeed * Time.deltaTime;
 					TrySpawnNotes();
 					UpdateNotes();
 				}
@@ -152,14 +151,17 @@ namespace MilliRhythm.Rhythm
 		{
 			foreach (var note in activeNotes[lane])
 			{
-				note.Position += (laneEnds[lane].position - lanes[lane].position) * (baseSpeed * Time.deltaTime);
+				note.Position += (laneEnds[lane].position - lanes[lane].position) * (currentSpeed * Time.deltaTime);
 			}
 		}
 
 		private void TrySpawnNotes()
 		{
-			//SpawnTimer
-			// Spawn(note, judgeTime);
+			if (timer < 0)
+			{
+				Spawn(Random.Range(0, 4));
+				timer = 1;
+			}
 		}
 
 		private void Spawn(int lane)
@@ -174,18 +176,19 @@ namespace MilliRhythm.Rhythm
 			var queue = waitingNotes[lane];
 			while (queue.TryPeek(out var note))
 			{
+				var direction = (laneEnds[lane].position - lanes[lane].position).normalized;
+
 				var signedDistance = Vector3.Dot(
 					note.transform.position - laneEnds[lane].position,
-					(laneEnds[lane].position - note.transform.position).normalized
+					direction
 				);
-				if (signedDistance > BadWindow)
-				{
-					queue.Dequeue();
-					judgeManager.OnMissNote();
-					judgeManager.CreateComboText(NoteJudgementResult.Miss);
+				if (!(signedDistance > BadWindow)) break;
 
-					activeNotes[lane].Remove(note);
-				}
+				queue.Dequeue();
+				judgeManager.OnMissNote();
+				judgeManager.CreateComboText(NoteJudgementResult.Miss);
+
+				activeNotes[lane].Remove(note);
 			}
 		}
 
@@ -224,6 +227,12 @@ namespace MilliRhythm.Rhythm
 			if (delta < GoodWindow) return NoteJudgementResult.Good;
 			if (delta < BadWindow) return NoteJudgementResult.Bad;
 			return NoteJudgementResult.NotReached;
+		}
+
+		private void UpdateSpeed(float speed)
+		{
+			audioSource.pitch = speed;
+			currentSpeed = speed;
 		}
 
 		private void PlayGlow(int lane)

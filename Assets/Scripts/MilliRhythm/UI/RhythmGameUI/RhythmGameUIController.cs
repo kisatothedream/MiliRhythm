@@ -32,7 +32,6 @@ namespace MilliRhythm.UI.RhythmGameUI
 
 		public void UpdateLifeGauge(int cur, int max) => lifeGaugeUI.UpdateGauge(cur, max);
 		public void UpdateScore(int score, float accuracy) => scoreUI.UpdateScore(score, accuracy);
-		public void UpdateTrackProgress(float progress) => trackProgressFill.fillAmount = progress;
 
 		public void ShowResultAsync() => resultUI.ShowResultAsync(new ResultUIParameter()).Forget();
 
