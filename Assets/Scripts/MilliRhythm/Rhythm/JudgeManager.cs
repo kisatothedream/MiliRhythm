@@ -1,9 +1,6 @@
 using System;
 using MilliRhythm.Data.Domain;
-using MilliRhythm.Data.GameDataService;
-using MilliRhythm.Scene.Contracts;
 using MilliRhythm.UI.RhythmGameUI;
-using MilliRhythm.User;
 using UnityEngine;
 
 namespace MilliRhythm.Rhythm
@@ -91,29 +88,10 @@ namespace MilliRhythm.Rhythm
 			t.PlayComboText(CurrentCombo, result);
 		}
 
-		public void SendScore(int trackId, ChartType chartType)
+		public void RequestShowResultAndEndGame(int trackId, ChartType chartType, double averageError)
 		{
-			UserManager.SendRequest(Request.Create(new SetScoreEvent()
-			{
-				TrackId = trackId,
-				ChartType = chartType,
-				PerfectCount = PerfectCount,
-				GreatCount = GreatCount,
-				GoodCount = GoodCount,
-				BadCount = BadCount,
-				MissCount = MissCount,
-				Combo = MaxCombo,
-				Score = CurrentScore,
-				Rank = CalculateRank(),
-			}));
-			UserManager.RequestSave();
-		}
-
-		public void RequestShowResultAndEndGame(int trackId, ChartType chartType, double averageError, MusicSelectorSceneParameter parameter)
-		{
-			SendScore(trackId, chartType);
-			uiController.ShowResultAsync(GameDataService.GetMusicData(trackId).ThumbnailSprite, PerfectCount, GreatCount, GoodCount, BadCount, MissCount,
-				MaxCombo, CurrentScore, CalculateRank(), (float)CurrentScore / currentMaxScore, averageError, parameter);
+			// uiController.ShowResultAsync(GameDataService.GetMusicData(trackId).ThumbnailSprite, PerfectCount, GreatCount, GoodCount, BadCount, MissCount,
+				// MaxCombo, CurrentScore, CalculateRank(), (float)CurrentScore / currentMaxScore, averageError,);
 		}
 
 		private void UpdateLifeGuage(int currentLife)

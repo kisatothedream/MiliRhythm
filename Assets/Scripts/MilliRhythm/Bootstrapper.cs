@@ -6,8 +6,6 @@ using MilliRhythm.Input;
 using MilliRhythm.Rhythm;
 using MilliRhythm.Scene;
 using MilliRhythm.Scene.Contracts;
-using MilliRhythm.TrackSelector;
-using MilliRhythm.User;
 using UnityEngine;
 
 namespace MilliRhythm
@@ -25,9 +23,8 @@ namespace MilliRhythm
 			InputManager.Instance.Load();
 			ConfigManager.Instance.Load();
 			await GameDataLoader.LoadAsync();
-			await UserManager.Init();
 			SceneController.Instance.Initialize(CreateScene);
-			SceneController.Instance.RequestChangeScene(new MusicSelectorSceneParameter());
+			SceneController.Instance.RequestChangeScene(new RhythmGameSceneParameter());
 		}
 
 		private static GameSceneBase CreateScene(IGameSceneParameter sceneParameter)
@@ -35,7 +32,6 @@ namespace MilliRhythm
 			return sceneParameter switch
 			{
 				RhythmGameSceneParameter => new RhythmGameScene(),
-				MusicSelectorSceneParameter => new MusicSelectorScene(),
 				_ => throw new ArgumentOutOfRangeException(nameof(sceneParameter), sceneParameter, null)
 			};
 		}

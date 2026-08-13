@@ -30,35 +30,15 @@ namespace MilliRhythm.UI.RhythmGameUI
 			pauseButton.onClick.RemoveListener(DisplayPauseUI);
 		}
 
-
-		public void SetActions(Action restart, Action quit, Action pause, Action resume)
-		{
-			pauseUI.SetActions(restart, quit, pause, resume);
-		}
-
 		public void UpdateLifeGauge(int cur, int max) => lifeGaugeUI.UpdateGauge(cur, max);
 		public void UpdateScore(int score, float accuracy) => scoreUI.UpdateScore(score, accuracy);
 		public void UpdateTrackProgress(float progress) => trackProgressFill.fillAmount = progress;
 
-		public void ShowResultAsync(Sprite jacket, int perfect, int great, int good, int bad, int miss, int maxCombo, int score, Rank rank, float accuracy, double averageError,
-			MusicSelectorSceneParameter param) =>
-			resultUI.ShowResultAsync(new ResultUIParameter()
-			{
-				Jacket = jacket, Perfect = perfect, Great = great, Good = good,
-				Bad = bad,
-				Miss = miss,
-				MaxCombo = maxCombo,
-				Score = score,
-				Rank = rank,
-				Accuracy = accuracy,
-				AverageError = (int)averageError,
-			}, param).Forget();
+		public void ShowResultAsync() => resultUI.ShowResultAsync(new ResultUIParameter()).Forget();
 
 		public void DisplayPauseUI()
 		{
 			pauseUI.Display();
 		}
-
-		public void SetTimingErrorValue(double average) => timingCalibrator.SetPosition(average);
 	}
 }

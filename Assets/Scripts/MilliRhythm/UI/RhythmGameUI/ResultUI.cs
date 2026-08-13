@@ -21,7 +21,6 @@ namespace MilliRhythm.UI.RhythmGameUI
 		public int Miss;
 		public int MaxCombo;
 		public int Score;
-		public Rank Rank;
 		public float Accuracy;
 		public int AverageError;
 	}
@@ -36,7 +35,6 @@ namespace MilliRhythm.UI.RhythmGameUI
 		[SerializeField] private Image jacketImage;
 		[SerializeField] private TextMeshProUGUI rankText;
 		private bool closable;
-		private MusicSelectorSceneParameter sceneParameter;
 		private readonly CancellationTokenSource showScoreCts = new();
 
 		private void Awake()
@@ -61,11 +59,10 @@ namespace MilliRhythm.UI.RhythmGameUI
 			dismissArea.onClick.RemoveListener(TryChangeScene);
 		}
 
-		public async UniTask ShowResultAsync(ResultUIParameter resultUIParameter, MusicSelectorSceneParameter sp)
+		public async UniTask ShowResultAsync(ResultUIParameter resultUIParameter)
 		{
 			gameObject.SetActive(true);
 			jacketImage.sprite = resultUIParameter.Jacket;
-			sceneParameter = sp;
 			await UniTask.WaitForSeconds(0.4f, cancellationToken: showScoreCts.Token);
 			items[0].SetCountAndShow(resultUIParameter.Perfect);
 			await UniTask.WaitForSeconds(0.4f, cancellationToken: showScoreCts.Token);
@@ -84,7 +81,6 @@ namespace MilliRhythm.UI.RhythmGameUI
 			await UniTask.WaitForSeconds(1.2f, cancellationToken: showScoreCts.Token);
 			scoreText.text = resultUIParameter.Score.ToString();
 			await UniTask.WaitForSeconds(1.2f, cancellationToken: showScoreCts.Token);
-			rankText.text = resultUIParameter.Rank.ToString();
 		}
 
 		public void Navigate(Vector2 value)
@@ -117,16 +113,6 @@ namespace MilliRhythm.UI.RhythmGameUI
 
 		private void TryChangeScene()
 		{
-			if (!closable)
-			{
-				closable = true;
-				return;
-			}
-
-			if (closable)
-			{
-				SceneController.Instance.RequestChangeScene(sceneParameter);
-			}
 		}
 	}
 }

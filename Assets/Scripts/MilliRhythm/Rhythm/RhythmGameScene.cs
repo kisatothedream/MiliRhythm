@@ -1,7 +1,6 @@
 using System;
 using Cysharp.Threading.Tasks;
 using MilliRhythm.CustomException;
-using MilliRhythm.Data.GameDataService;
 using MilliRhythm.Scene.Contracts;
 using Object = UnityEngine.Object;
 
@@ -29,9 +28,7 @@ namespace MilliRhythm.Rhythm
 				throw new ArgumentException($"Scene parameter is not {typeof(RhythmGameSceneParameter)}");
 			}
 
-			var music = GameDataService.GetMusicData(sceneParameter.MusicId);
-			var chart = GameDataService.GetChartData(sceneParameter.MusicId, sceneParameter.ChartType, sceneParameter.Difficulty);
-			await rhythmGamePlayer.Init(chart, music);
+			await rhythmGamePlayer.Init();
 		}
 
 		public override void Start()

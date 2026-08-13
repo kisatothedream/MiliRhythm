@@ -1,5 +1,4 @@
 using System;
-using MilliRhythm.Data.Domain;
 using UnityEngine;
 
 namespace MilliRhythm.Rhythm
@@ -41,26 +40,10 @@ namespace MilliRhythm.Rhythm
 
 	public class Note : MonoBehaviour
 	{
-		public bool IsLongNote => NoteLength > 0;
-		public int Lane;
-		public double NoteLength;
-		public double StartTime;
-		public double HeadTime;
-		public double NextJudgeTime;
-		public double EndTime;
-		public float LaneLength;
-
-		public void UpdateNote(double time)
+		public Vector3 Position
 		{
-			var rate = (time - StartTime) / (HeadTime - StartTime);
-			UpdatePosition((float)rate * LaneLength);
-		}
-
-		private void UpdatePosition(float y)
-		{
-			var pos = transform.localPosition;
-			pos.y = y;
-			transform.localPosition = pos;
+			get => transform.position;
+			set => transform.position = value;
 		}
 	}
 }

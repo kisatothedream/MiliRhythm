@@ -255,7 +255,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &31052635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -917,7 +917,7 @@ Transform:
   m_GameObject: {fileID: 123371004}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.75, y: 7.55, z: 0}
+  m_LocalPosition: {x: 0, y: 2.62, z: 0}
   m_LocalScale: {x: 1.2, y: 1.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1169,7 +1169,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 6.62
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1194,7 +1194,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalPosition: {x: 0.04, y: 0.02, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1255,7 +1255,7 @@ GameObject:
   - component: {fileID: 337295063}
   - component: {fileID: 337295064}
   m_Layer: 0
-  m_Name: Lane2
+  m_Name: LaneStart2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1270,7 +1270,7 @@ Transform:
   m_GameObject: {fileID: 337295062}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.75, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -7.88, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1497,7 +1497,7 @@ Transform:
   m_GameObject: {fileID: 378037125}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.09, y: 2.32, z: 0}
+  m_LocalPosition: {x: -0.09, y: 1.56, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2112,7 +2112,7 @@ Transform:
   m_GameObject: {fileID: 576975818}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.75, y: 7.55, z: 0}
+  m_LocalPosition: {x: 0, y: -2.74, z: 0}
   m_LocalScale: {x: 1.2, y: 1.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3557,7 +3557,7 @@ Transform:
   m_GameObject: {fileID: 1111319483}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.3, y: 7.55, z: 0}
+  m_LocalPosition: {x: 3.11, y: 0, z: 0}
   m_LocalScale: {x: 1.2, y: 1.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3650,7 +3650,7 @@ GameObject:
   - component: {fileID: 1122319279}
   - component: {fileID: 1122319280}
   m_Layer: 0
-  m_Name: Lane0
+  m_Name: LaneStart0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3665,7 +3665,7 @@ Transform:
   m_GameObject: {fileID: 1122319278}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.3, y: 0, z: 0}
+  m_LocalPosition: {x: -13.25, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4057,7 +4057,7 @@ GameObject:
   - component: {fileID: 1215924530}
   - component: {fileID: 1215924531}
   m_Layer: 0
-  m_Name: Lane3
+  m_Name: LaneStart3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4072,7 +4072,7 @@ Transform:
   m_GameObject: {fileID: 1215924529}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.3, y: 0, z: 0}
+  m_LocalPosition: {x: 12.74, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4222,7 +4222,7 @@ Transform:
   m_GameObject: {fileID: 1254080890}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.3, y: 7.55, z: 0}
+  m_LocalPosition: {x: -2.75, y: 0, z: 0}
   m_LocalScale: {x: 1.2, y: 1.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4659,7 +4659,7 @@ GameObject:
   - component: {fileID: 1416990086}
   - component: {fileID: 1416990087}
   m_Layer: 0
-  m_Name: Lane1
+  m_Name: LaneStart1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4674,7 +4674,7 @@ Transform:
   m_GameObject: {fileID: 1416990085}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.75, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 7.67, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5321,7 +5321,7 @@ Transform:
   m_GameObject: {fileID: 1558510323}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -3, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6203,7 +6203,7 @@ Transform:
   m_GameObject: {fileID: 1789318869}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.92, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8212,15 +8212,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1944354696548157196, guid: 7b8bc5bd76629854a8f5e20b6815a999, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.24
+      value: 0.18
       objectReference: {fileID: 0}
     - target: {fileID: 1944354696548157196, guid: 7b8bc5bd76629854a8f5e20b6815a999, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.24
+      value: 0.18
       objectReference: {fileID: 0}
     - target: {fileID: 1944354696548157196, guid: 7b8bc5bd76629854a8f5e20b6815a999, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.4
+      value: 0.41
       objectReference: {fileID: 0}
     - target: {fileID: 5578763096853881137, guid: 7b8bc5bd76629854a8f5e20b6815a999, type: 3}
       propertyPath: changeSizeRate
@@ -8328,7 +8328,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5981261581760130794, guid: 7b8bc5bd76629854a8f5e20b6815a999, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.42
+      value: -2.85
       objectReference: {fileID: 0}
     - target: {fileID: 5981261581760130794, guid: 7b8bc5bd76629854a8f5e20b6815a999, type: 3}
       propertyPath: m_LocalPosition.z
