@@ -125,6 +125,10 @@ namespace MilliRhythm.UI.Components
 		{
 		}
 
+		public void AnyKey(bool value)
+		{
+		}
+
 		public abstract void OnCancel();
 	}
 

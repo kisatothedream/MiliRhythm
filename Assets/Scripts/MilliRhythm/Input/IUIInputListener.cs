@@ -9,6 +9,7 @@ namespace MilliRhythm.Input
 		public void Cancel(bool value);
 		public void Config(bool value);
 		public void Filter(bool value);
+		public void AnyKey(bool value);
 	}
 
 	public static class IUIInputListenerExtensions

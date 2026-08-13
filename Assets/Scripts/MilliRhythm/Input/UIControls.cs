@@ -12,11 +12,13 @@ namespace MilliRhythm.Input
 		public ReadOnlyReactiveProperty<bool> Cancel => cancel;
 		public ReadOnlyReactiveProperty<bool> Config => config;
 		public ReadOnlyReactiveProperty<bool> Filter => filter;
+		public ReadOnlyReactiveProperty<bool> AnyKey => anyKey;
 		private readonly ReactiveProperty<Vector2> navigate = new();
 		private readonly ReactiveProperty<bool> submit = new();
 		private readonly ReactiveProperty<bool> cancel = new();
 		private readonly ReactiveProperty<bool> config = new();
 		private readonly ReactiveProperty<bool> filter = new();
+		private readonly ReactiveProperty<bool> anyKey = new();
 
 		public override void AddInputSource(IInputSource inputSource)
 		{
@@ -35,6 +37,7 @@ namespace MilliRhythm.Input
 			cancel.Value = false;
 			config.Value = false;
 			filter.Value = false;
+			anyKey.Value = false;
 		}
 
 		public void Dispose()
@@ -44,6 +47,7 @@ namespace MilliRhythm.Input
 			cancel?.Dispose();
 			config?.Dispose();
 			filter?.Dispose();
+			anyKey?.Dispose();
 		}
 	}
 
@@ -66,6 +70,7 @@ namespace MilliRhythm.Input
 			protected void OnCancel(bool value) => controls.cancel.Value = value;
 			protected void OnConfig(bool value) => controls.config.Value = value;
 			protected void OnFilter(bool value) => controls.filter.Value = value;
+			protected void OnAnyKey(bool value) => controls.anyKey.Value = value;
 		}
 
 		private class InputSystemInputAdapter : UIInputAdapter, MilliRhythmInputs.IUIActions
@@ -82,6 +87,7 @@ namespace MilliRhythm.Input
 			public void OnCancel(InputAction.CallbackContext context) => OnCancel(context.ReadValueAsButton());
 			public void OnConfig(InputAction.CallbackContext context) => OnConfig(context.ReadValueAsButton());
 			public void OnFilter(InputAction.CallbackContext context) => OnFilter(context.ReadValueAsButton());
+			public void OnAnyKey(InputAction.CallbackContext context) => OnAnyKey(context.ReadValueAsButton());
 
 			public override void Register()
 			{

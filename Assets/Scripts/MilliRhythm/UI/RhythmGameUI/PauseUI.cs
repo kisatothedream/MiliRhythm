@@ -126,6 +126,10 @@ namespace MilliRhythm.UI.RhythmGameUI
 		{
 		}
 
+		public void AnyKey(bool value)
+		{
+		}
+
 		private void DisplayRestartPopup()
 		{
 			if (isPopupOpened) return;
@@ -137,8 +141,8 @@ namespace MilliRhythm.UI.RhythmGameUI
 				isPopupOpened = true;
 				var result = await commonPopup.Display(new CommonPopupParameter()
 				{
-					TitleTextKey = "TITLE-TEXT-KEY",
-					ContentTextKey = "CONTENT-TEXT-KEY",
+					TitleTextKey = "GAME_RETRY",
+					ContentTextKey = "GAME_CONFIRM_RETRY",
 				});
 				isPopupOpened = false;
 				if (result.Result == PopupResult.Confirm)
@@ -159,8 +163,8 @@ namespace MilliRhythm.UI.RhythmGameUI
 				isPopupOpened = true;
 				var result = await commonPopup.Display(new CommonPopupParameter()
 				{
-					TitleTextKey = "TITLE-TEXT-KEY",
-					ContentTextKey = "CONTENT-TEXT-KEY",
+					TitleTextKey = "GAME_QUIT",
+					ContentTextKey = "GAME_CONFIRM_QUIT",
 				});
 				isPopupOpened = false;
 				if (result.Result == PopupResult.Confirm)

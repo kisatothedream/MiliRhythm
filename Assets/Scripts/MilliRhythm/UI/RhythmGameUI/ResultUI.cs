@@ -1,7 +1,5 @@
-using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using MilliRhythm.Data.Domain;
 using MilliRhythm.Input;
 using MilliRhythm.Scene;
 using MilliRhythm.Scene.Contracts;
@@ -13,7 +11,6 @@ namespace MilliRhythm.UI.RhythmGameUI
 {
 	public struct ResultUIParameter
 	{
-		public Sprite Jacket;
 		public int Perfect;
 		public int Great;
 		public int Good;
@@ -21,21 +18,14 @@ namespace MilliRhythm.UI.RhythmGameUI
 		public int Miss;
 		public int MaxCombo;
 		public int Score;
-		public float Accuracy;
-		public int AverageError;
 	}
 
 	public class ResultUI : MonoBehaviour, IUIInputListener
 	{
 		[SerializeField] private Button dismissArea;
 		[SerializeField] private JudgeCountItem[] items;
-		[SerializeField] private TextMeshProUGUI scoreText;
-		[SerializeField] private TextMeshProUGUI accuracyText;
-		[SerializeField] private TextMeshProUGUI averageErrorText;
-		[SerializeField] private Image jacketImage;
-		[SerializeField] private TextMeshProUGUI rankText;
 		private bool closable;
-		private readonly CancellationTokenSource showScoreCts = new();
+		private CancellationTokenSource showScoreCts = new();
 
 		private void Awake()
 		{
@@ -56,31 +46,30 @@ namespace MilliRhythm.UI.RhythmGameUI
 		{
 			showScoreCts?.Cancel();
 			showScoreCts?.Dispose();
+			showScoreCts = null;
 			dismissArea.onClick.RemoveListener(TryChangeScene);
 		}
 
 		public async UniTask ShowResultAsync(ResultUIParameter resultUIParameter)
 		{
 			gameObject.SetActive(true);
-			jacketImage.sprite = resultUIParameter.Jacket;
-			await UniTask.WaitForSeconds(0.4f, cancellationToken: showScoreCts.Token);
 			items[0].SetCountAndShow(resultUIParameter.Perfect);
-			await UniTask.WaitForSeconds(0.4f, cancellationToken: showScoreCts.Token);
+			await UniTask.WaitForSeconds(0.2f, cancellationToken: showScoreCts.Token).SuppressCancellationThrow();
 			items[1].SetCountAndShow(resultUIParameter.Great);
-			await UniTask.WaitForSeconds(0.4f, cancellationToken: showScoreCts.Token);
+			await UniTask.WaitForSeconds(0.2f, cancellationToken: showScoreCts.Token).SuppressCancellationThrow();
 			items[2].SetCountAndShow(resultUIParameter.Good);
-			await UniTask.WaitForSeconds(0.4f, cancellationToken: showScoreCts.Token);
+			await UniTask.WaitForSeconds(0.2f, cancellationToken: showScoreCts.Token).SuppressCancellationThrow();
 			items[3].SetCountAndShow(resultUIParameter.Bad);
-			await UniTask.WaitForSeconds(0.4f, cancellationToken: showScoreCts.Token);
+			await UniTask.WaitForSeconds(0.2f, cancellationToken: showScoreCts.Token).SuppressCancellationThrow();
 			items[4].SetCountAndShow(resultUIParameter.Miss);
-			await UniTask.WaitForSeconds(0.4f, cancellationToken: showScoreCts.Token);
+			await UniTask.WaitForSeconds(0.2f, cancellationToken: showScoreCts.Token).SuppressCancellationThrow();
 			items[5].SetCountAndShow(resultUIParameter.MaxCombo);
-			await UniTask.WaitForSeconds(0.4f, cancellationToken: showScoreCts.Token);
-			accuracyText.text = $"{resultUIParameter.Accuracy * 100:00.00}%";
-			averageErrorText.text = $"{(resultUIParameter.AverageError >= 0 ? "+" : "")}{resultUIParameter.AverageError}ms";
-			await UniTask.WaitForSeconds(1.2f, cancellationToken: showScoreCts.Token);
-			scoreText.text = resultUIParameter.Score.ToString();
-			await UniTask.WaitForSeconds(1.2f, cancellationToken: showScoreCts.Token);
+			await UniTask.WaitForSeconds(0.2f, cancellationToken: showScoreCts.Token).SuppressCancellationThrow();
+			items[6].SetCountAndShow(resultUIParameter.Score);
+
+			showScoreCts?.Cancel();
+			showScoreCts?.Dispose();
+			showScoreCts = null;
 		}
 
 		public void Navigate(Vector2 value)
@@ -95,24 +84,30 @@ namespace MilliRhythm.UI.RhythmGameUI
 
 		public void Cancel(bool value)
 		{
-			if (!value) return;
-			TryChangeScene();
 		}
 
 		public void Config(bool value)
 		{
-			if (!value) return;
-			TryChangeScene();
 		}
 
 		public void Filter(bool value)
 		{
-			if (!value) return;
-			TryChangeScene();
+		}
+
+		public void AnyKey(bool value)
+		{
 		}
 
 		private void TryChangeScene()
 		{
+			if (!closable)
+			{
+				closable = true;
+			}
+			else
+			{
+				SceneController.Instance.RequestChangeScene(new RhythmGameSceneParameter());
+			}
 		}
 	}
 }

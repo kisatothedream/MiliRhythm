@@ -299,6 +299,15 @@ public partial class @MilliRhythmInputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""AnyKey"",
+                    ""type"": ""Button"",
+                    ""id"": ""f49cc8bf-d54f-49cb-821c-123f6b4318a5"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -631,6 +640,17 @@ public partial class @MilliRhythmInputs: IInputActionCollection2, IDisposable
                     ""action"": ""Filter"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""daf60cd2-d3cd-48a2-a425-3e5a4c4eeba3"",
+                    ""path"": ""<Keyboard>/anyKey"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse;Gamepad;Touch;Joystick;XR"",
+                    ""action"": ""AnyKey"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -712,6 +732,7 @@ public partial class @MilliRhythmInputs: IInputActionCollection2, IDisposable
         m_UI_Cancel = m_UI.FindAction("Cancel", throwIfNotFound: true);
         m_UI_Config = m_UI.FindAction("Config", throwIfNotFound: true);
         m_UI_Filter = m_UI.FindAction("Filter", throwIfNotFound: true);
+        m_UI_AnyKey = m_UI.FindAction("AnyKey", throwIfNotFound: true);
     }
 
     ~@MilliRhythmInputs()
@@ -938,6 +959,7 @@ public partial class @MilliRhythmInputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_Cancel;
     private readonly InputAction m_UI_Config;
     private readonly InputAction m_UI_Filter;
+    private readonly InputAction m_UI_AnyKey;
     /// <summary>
     /// Provides access to input actions defined in input action map "UI".
     /// </summary>
@@ -969,6 +991,10 @@ public partial class @MilliRhythmInputs: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "UI/Filter".
         /// </summary>
         public InputAction @Filter => m_Wrapper.m_UI_Filter;
+        /// <summary>
+        /// Provides access to the underlying input action "UI/AnyKey".
+        /// </summary>
+        public InputAction @AnyKey => m_Wrapper.m_UI_AnyKey;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1010,6 +1036,9 @@ public partial class @MilliRhythmInputs: IInputActionCollection2, IDisposable
             @Filter.started += instance.OnFilter;
             @Filter.performed += instance.OnFilter;
             @Filter.canceled += instance.OnFilter;
+            @AnyKey.started += instance.OnAnyKey;
+            @AnyKey.performed += instance.OnAnyKey;
+            @AnyKey.canceled += instance.OnAnyKey;
         }
 
         /// <summary>
@@ -1036,6 +1065,9 @@ public partial class @MilliRhythmInputs: IInputActionCollection2, IDisposable
             @Filter.started -= instance.OnFilter;
             @Filter.performed -= instance.OnFilter;
             @Filter.canceled -= instance.OnFilter;
+            @AnyKey.started -= instance.OnAnyKey;
+            @AnyKey.performed -= instance.OnAnyKey;
+            @AnyKey.canceled -= instance.OnAnyKey;
         }
 
         /// <summary>
@@ -1219,5 +1251,12 @@ public partial class @MilliRhythmInputs: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnFilter(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "AnyKey" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnAnyKey(InputAction.CallbackContext context);
     }
 }

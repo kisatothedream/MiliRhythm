@@ -33,7 +33,7 @@ namespace MilliRhythm.Rhythm
 
 		public override void Start()
 		{
-			rhythmGamePlayer.StartGame();
+			rhythmGamePlayer.OnStart();
 		}
 
 		public override void Finish()

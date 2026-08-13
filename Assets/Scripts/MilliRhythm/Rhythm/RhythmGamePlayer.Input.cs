@@ -41,7 +41,10 @@ namespace MilliRhythm.Rhythm
 
 		private void OnMenu(bool pressed)
 		{
-			if (pressed) uiController.DisplayPauseUI();
+			if (pressed)
+			{
+				DisplayPauseUI();
+			}
 		}
 	}
 }
