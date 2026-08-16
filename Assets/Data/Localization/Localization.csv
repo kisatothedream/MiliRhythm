@@ -3,6 +3,8 @@ UI_START_GAME,게임 시작,Start Game,ゲーム開始
 UI_CONTINUE,계속하기,Continue,続ける
 UI_SETTINGS,설정,Settings,設定
 UI_EXIT_GAME,게임 종료,Exit Game,ゲーム終了
+UI_RETURN_TO_TITLE,타이틀로 돌아가기,Return to Title,タイトルに戻る
+UI_RETURN_TO_TITLE_CONFIRM,타이틀로 돌아가시겠습니까?,Return to the title screen?,タイトル画面に戻りますか？
 UI_CONFIRM,확인,Confirm,確認
 UI_CANCEL,취소,Cancel,キャンセル
 UI_RETRY,재시도,Retry,リトライ
