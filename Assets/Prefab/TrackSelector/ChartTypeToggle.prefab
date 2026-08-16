@@ -448,7 +448,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 450, y: -50}
+  m_AnchoredPosition: {x: 150, y: -50}
   m_SizeDelta: {x: 300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8704044438429295588
@@ -472,7 +472,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.08235294, g: 0.8862746, b: 0.8196079, a: 0.7607843}
+  m_Color: {r: 0.08235294, g: 0.8862745, b: 0.81960785, a: 0.7607843}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -589,8 +589,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UI.Runtime::MilliRhythm.UI.TrackSelectorUI.StartPopup.ChartTypeTogglableUI
   frame: {fileID: 3965140000542548815}
-  originalColor: {r: 0.81568635, g: 0.627451, b: 0.627451, a: 1}
-  fadedColor: {r: 0.603, g: 0.355, b: 0.348, a: 1}
+  originalColor: {r: 0.08235294, g: 0.8862745, b: 0.81960785, a: 1}
+  fadedColor: {r: 0.3019608, g: 0.3019608, b: 0.3019608, a: 1}
 --- !u!225 &1387462222453205068
 CanvasGroup:
   m_ObjectHideFlags: 0
