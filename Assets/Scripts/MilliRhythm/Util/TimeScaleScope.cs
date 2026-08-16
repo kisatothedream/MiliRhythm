@@ -8,7 +8,6 @@ namespace MilliRhythm.Util
 	public class TimeScaleScope : IDisposable
 	{
 		private CancellationTokenSource cts = new();
-		private float originalTimeScale;
 
 		public TimeScaleScope()
 		{
@@ -22,10 +21,9 @@ namespace MilliRhythm.Util
 
 		private async UniTaskVoid ChangeTimeScale(float timeScale = 0)
 		{
-			originalTimeScale = Time.timeScale;
 			Time.timeScale = timeScale;
 			await UniTask.WaitUntilCanceled(cts.Token);
-			Time.timeScale = originalTimeScale;
+			Time.timeScale = 1;
 		}
 
 		public void Dispose()

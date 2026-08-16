@@ -10,6 +10,7 @@ using MilliRhythm.Input;
 using MilliRhythm.Scene;
 using MilliRhythm.Scene.Contracts;
 using MilliRhythm.UI.RhythmGameUI;
+using MilliRhythm.Util;
 using R3;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -86,6 +87,7 @@ namespace MilliRhythm.Rhythm
 		private double errorSum;
 
 		private bool isPaused;
+		private CancellationTokenSource pauseCts;
 
 		public void Finish()
 		{
@@ -382,18 +384,31 @@ namespace MilliRhythm.Rhythm
 
 		private void PauseGame()
 		{
-			isPaused = true;
-			audioSource.Pause();
-			clock.PauseClock();
-			character.IsPaused = true;
+			PauseAsync().Forget();
+			return;
+
+			async UniTask PauseAsync()
+			{
+				pauseCts = new();
+				isPaused = true;
+				audioSource.Pause();
+				clock.PauseClock();
+				character.IsPaused = true;
+				var linkedTokenSource = CancellationTokenSource.CreateLinkedTokenSource(rhythmGameCts.Token, pauseCts.Token);
+				using var scope = new TimeScaleScope();
+				await UniTask.WaitUntilCanceled(linkedTokenSource.Token);
+				isPaused = false;
+				audioSource.Play();
+				clock.ResumeClock();
+				character.IsPaused = false;
+			}
 		}
 
 		private void ResumeGame()
 		{
-			isPaused = false;
-			audioSource.Play();
-			clock.ResumeClock();
-			character.IsPaused = false;
+			pauseCts.Cancel();
+			pauseCts.Dispose();
+			pauseCts = null;
 		}
 	}
 
