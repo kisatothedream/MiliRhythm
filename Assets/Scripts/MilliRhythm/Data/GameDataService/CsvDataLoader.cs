@@ -5,6 +5,7 @@ using System.Linq;
 using CsvHelper;
 using CsvHelper.Configuration;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace MilliRhythm.Data.GameDataService
 {
@@ -35,7 +36,17 @@ namespace MilliRhythm.Data.GameDataService
 
 		private static async Awaitable<string> ReadStreamingAssetsTextAsync(string path)
 		{
-			return await File.ReadAllTextAsync(path);
+			using var request = UnityWebRequest.Get(path);
+
+			await request.SendWebRequest();
+
+			if (request.result != UnityWebRequest.Result.Success)
+			{
+				throw new IOException(
+					$"Failed to load StreamingAssets file: {path}\n{request.error}");
+			}
+
+			return request.downloadHandler.text;
 		}
 	}
 }
