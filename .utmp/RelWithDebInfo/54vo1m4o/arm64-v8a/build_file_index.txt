@@ -1,0 +1,2 @@
+C:\Workspace\Unity\MiliRhythm\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\CMakeLists.txt
+C:\Workspace\Unity\MiliRhythm\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\src\main\cpp\GameActivity\CMakeLists.txt
