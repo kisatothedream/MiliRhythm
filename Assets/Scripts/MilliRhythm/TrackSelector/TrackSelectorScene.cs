@@ -3,6 +3,7 @@ using Cysharp.Threading.Tasks;
 using MilliRhythm.CustomException;
 using MilliRhythm.Scene.Contracts;
 using MilliRhythm.UI.TrackSelectorUI;
+using MilliRhythm.UI.Util;
 using Object = UnityEngine.Object;
 
 namespace MilliRhythm.TrackSelector
@@ -42,10 +43,12 @@ namespace MilliRhythm.TrackSelector
 
 		public override async UniTask PlayEnterTransition()
 		{
+			await FadeTransition.Instance.FadeInAsync();
 		}
 
 		public override async UniTask PlayExitTransition()
 		{
+			await FadeTransition.Instance.FadeOutAsync();
 		}
 	}
 }

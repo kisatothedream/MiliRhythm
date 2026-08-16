@@ -7,6 +7,7 @@ using MilliRhythm.Rhythm;
 using MilliRhythm.Scene;
 using MilliRhythm.Scene.Contracts;
 using MilliRhythm.TrackSelector;
+using MilliRhythm.UI.Util;
 using MilliRhythm.User;
 using UnityEngine;
 
@@ -28,6 +29,8 @@ namespace MilliRhythm
 			await UserManager.Init();
 			SceneController.Instance.Initialize(CreateScene);
 			SceneController.Instance.RequestChangeScene(new MusicSelectorSceneParameter());
+
+			await UniTask.WaitUntil(() => FadeTransition.Instance != null && FadeTransition.Instance.Initialized);
 		}
 
 		private static GameSceneBase CreateScene(IGameSceneParameter sceneParameter)
