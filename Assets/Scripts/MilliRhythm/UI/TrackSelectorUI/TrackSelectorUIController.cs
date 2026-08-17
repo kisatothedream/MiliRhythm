@@ -16,7 +16,6 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
-using UnityEngine.XR;
 
 namespace MilliRhythm.UI.TrackSelectorUI
 {
@@ -206,6 +205,7 @@ namespace MilliRhythm.UI.TrackSelectorUI
 		{
 			if (isPopupOpened) return;
 			DisplayConfigPopupAsync().Forget();
+			SfxAudioPlayer.Instance.Play(SfxType.Cancel);
 			return;
 
 			async UniTask DisplayConfigPopupAsync()
@@ -220,6 +220,7 @@ namespace MilliRhythm.UI.TrackSelectorUI
 		{
 			if (isPopupOpened) return;
 			if (trackSelectorPanel.SelectedTrackModel == null) return;
+			SfxAudioPlayer.Instance.Play(SfxType.Cancel);
 			DisplayGameStartPopupAsync().Forget();
 			return;
 
@@ -250,6 +251,7 @@ namespace MilliRhythm.UI.TrackSelectorUI
 		{
 			if (isPopupOpened) return;
 			trackSelectorPanel.OnNavigate(value);
+			SfxAudioPlayer.Instance.Play(SfxType.Navigate);
 		}
 
 		public void Submit(bool value)
@@ -257,6 +259,7 @@ namespace MilliRhythm.UI.TrackSelectorUI
 			if (isPopupOpened) return;
 			if (!value) return;
 			DisplayGameStartPopup();
+			SfxAudioPlayer.Instance.Play(SfxType.Confirm);
 		}
 
 		public void Cancel(bool value)

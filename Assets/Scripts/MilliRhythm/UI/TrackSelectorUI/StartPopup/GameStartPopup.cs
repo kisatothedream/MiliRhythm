@@ -1,4 +1,5 @@
 using System;
+using MilliRhythm.Audio;
 using MilliRhythm.Data.Domain;
 using MilliRhythm.Data.GameDataService;
 using MilliRhythm.UI.Components;
@@ -77,6 +78,7 @@ namespace MilliRhythm.UI.TrackSelectorUI.StartPopup
 					throw new ArgumentOutOfRangeException();
 			}
 
+			SfxAudioPlayer.Instance.Play(SfxType.Navigate);
 			response.Payload.ChartType = melodyToggle.isOn ? ChartType.Melody : ChartType.Beat;
 		}
 
@@ -93,6 +95,7 @@ namespace MilliRhythm.UI.TrackSelectorUI.StartPopup
 		{
 			response.Payload.ChartType = melodyToggle.isOn ? ChartType.Melody : ChartType.Beat;
 			base.Confirm();
+			SfxAudioPlayer.Instance.Play(SfxType.Confirm);
 		}
 
 		public override void OnSubmit()
@@ -103,6 +106,7 @@ namespace MilliRhythm.UI.TrackSelectorUI.StartPopup
 		public override void OnCancel()
 		{
 			Cancel();
+			SfxAudioPlayer.Instance.Play(SfxType.Cancel);
 		}
 
 		private void OnMelodyToggleChanged(bool selected)
@@ -124,6 +128,7 @@ namespace MilliRhythm.UI.TrackSelectorUI.StartPopup
 		public int MelodyScore;
 		public int BeatScore;
 		public Rank MelodyRank;
+
 		public Rank BeatRank;
 		//마지막 실행한 것
 	}

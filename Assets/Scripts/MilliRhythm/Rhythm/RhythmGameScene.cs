@@ -3,6 +3,7 @@ using Cysharp.Threading.Tasks;
 using MilliRhythm.CustomException;
 using MilliRhythm.Data.GameDataService;
 using MilliRhythm.Scene.Contracts;
+using MilliRhythm.UI.Util;
 using Object = UnityEngine.Object;
 
 namespace MilliRhythm.Rhythm
@@ -46,10 +47,14 @@ namespace MilliRhythm.Rhythm
 
 		public override async UniTask PlayEnterTransition()
 		{
+			if (FadeTransition.Instance)
+				await FadeTransition.Instance.FadeInAsync();
 		}
 
 		public override async UniTask PlayExitTransition()
 		{
+			if (FadeTransition.Instance)
+				await FadeTransition.Instance.FadeOutAsync();
 		}
 	}
 }

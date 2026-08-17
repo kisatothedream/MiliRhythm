@@ -10,6 +10,7 @@ using MilliRhythm.Input;
 using MilliRhythm.Scene;
 using MilliRhythm.Scene.Contracts;
 using MilliRhythm.UI.RhythmGameUI;
+using MilliRhythm.Util;
 using R3;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -36,7 +37,6 @@ namespace MilliRhythm.Rhythm
 	public partial class RhythmGamePlayer : MonoBehaviour
 	{
 		[SerializeField] private RhythmGameUIController uiController;
-		[SerializeField] private JudgeManager judgeManager;
 
 		private GameControls controls => InputManager.Instance.GameControls;
 		private RhythmClock clock;
@@ -86,6 +86,7 @@ namespace MilliRhythm.Rhythm
 		private double errorSum;
 
 		private bool isPaused;
+		private CancellationTokenSource pauseCts;
 
 		public void Finish()
 		{
@@ -139,7 +140,7 @@ namespace MilliRhythm.Rhythm
 
 
 			rhythmGameCts = new CancellationTokenSource();
-			judgeManager.Initialize();
+			InitializeLife();
 
 			RegisterInputs();
 			context = await BuildContext(rhythmChart, musicData);
@@ -181,10 +182,8 @@ namespace MilliRhythm.Rhythm
 		{
 			//Show Result and Retry
 			//Return To Music Select Scene
-			Debug.Log(
-				$"Result Max Combo [{judgeManager.MaxCombo}] - Score [{judgeManager.CurrentScore}] \nPerfect[{judgeManager.PerfectCount}] \nGreat[{judgeManager.GreatCount}] \nGood[{judgeManager.GoodCount}] \nBad[{judgeManager.BadCount}] \nMiss[{judgeManager.MissCount}]");
 			var parameter = new MusicSelectorSceneParameter(context.CurrentMusicId, context.CurrentChartType, context.CurrentDifficulty);
-			judgeManager.RequestShowResultAndEndGame(context.CurrentMusicId, context.CurrentChartType, 1000 * errorSum / hitNotesCount, parameter);
+			RequestShowResultAndEndGame(context.CurrentMusicId, context.CurrentChartType, 1000 * errorSum / hitNotesCount, parameter);
 		}
 
 		private void UpdateNotes()
@@ -242,14 +241,14 @@ namespace MilliRhythm.Rhythm
 				{
 					if (isLaneHeld[lane])
 					{
-						judgeManager.OnHitNote(NoteJudgementResult.Perfect);
-						judgeManager.CreateComboText(NoteJudgementResult.Perfect);
+						OnHitNote(NoteJudgementResult.Perfect);
+						CreateComboText(NoteJudgementResult.Perfect);
 						note.NextJudgeTime += LongNoteJudgingInterval;
 					}
 					else
 					{
-						judgeManager.OnMissNote();
-						judgeManager.CreateComboText(NoteJudgementResult.Miss);
+						OnMissNote();
+						CreateComboText(NoteJudgementResult.Miss);
 					}
 				}
 				else
@@ -297,8 +296,8 @@ namespace MilliRhythm.Rhythm
 			while (queue.TryPeek(out var note) && clock.SongTime > note.HeadTime + BadWindow)
 			{
 				queue.Dequeue();
-				judgeManager.OnMissNote();
-				judgeManager.CreateComboText(NoteJudgementResult.Miss);
+				OnMissNote();
+				CreateComboText(NoteJudgementResult.Miss);
 			}
 			// foreach (var note in activeNotes)
 		}
@@ -315,8 +314,8 @@ namespace MilliRhythm.Rhythm
 				// Debug.Log(result);
 				CompareNoteTiming(result, judgeTime, note.HeadTime);
 				character.ChangeState(lane);
-				judgeManager.OnHitNote(result);
-				judgeManager.CreateComboText(result);
+				OnHitNote(result);
+				CreateComboText(result);
 				queue.Dequeue();
 				CreateNoteHitParticleAsync(lane).Forget();
 				if (note.IsLongNote)
@@ -382,18 +381,32 @@ namespace MilliRhythm.Rhythm
 
 		private void PauseGame()
 		{
-			isPaused = true;
-			audioSource.Pause();
-			clock.PauseClock();
-			character.IsPaused = true;
+			if (isPaused) return;
+			PauseAsync().Forget();
+			return;
+
+			async UniTask PauseAsync()
+			{
+				pauseCts = new();
+				isPaused = true;
+				audioSource.Pause();
+				clock.PauseClock();
+				character.IsPaused = true;
+				var linkedTokenSource = CancellationTokenSource.CreateLinkedTokenSource(rhythmGameCts.Token, pauseCts.Token);
+				using var scope = new TimeScaleScope();
+				await UniTask.WaitUntilCanceled(linkedTokenSource.Token);
+				audioSource.UnPause();
+				character.IsPaused = false;
+				clock.ResumeClock();
+				isPaused = false;
+			}
 		}
 
 		private void ResumeGame()
 		{
-			isPaused = false;
-			audioSource.Play();
-			clock.ResumeClock();
-			character.IsPaused = false;
+			pauseCts.Cancel();
+			pauseCts.Dispose();
+			pauseCts = null;
 		}
 	}
 

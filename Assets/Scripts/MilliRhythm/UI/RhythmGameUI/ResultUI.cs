@@ -84,6 +84,7 @@ namespace MilliRhythm.UI.RhythmGameUI
 			await UniTask.WaitForSeconds(1.2f, cancellationToken: showScoreCts.Token);
 			scoreText.text = resultUIParameter.Score.ToString();
 			await UniTask.WaitForSeconds(1.2f, cancellationToken: showScoreCts.Token);
+			rankText.gameObject.SetActive(true);
 			rankText.text = resultUIParameter.Rank.ToString();
 		}
 

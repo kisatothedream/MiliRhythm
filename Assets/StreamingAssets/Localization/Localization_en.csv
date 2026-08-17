@@ -3,6 +3,8 @@ UI_START_GAME,Start Game
 UI_CONTINUE,Continue
 UI_SETTINGS,Settings
 UI_EXIT_GAME,Exit Game
+UI_RETURN_TO_TITLE,Return to Title
+UI_RETURN_TO_TITLE_CONFIRM,Return to the title screen?
 UI_CONFIRM,Confirm
 UI_CANCEL,Cancel
 UI_RETRY,Retry
@@ -36,8 +38,6 @@ RAY_NAME_SHORT_KEY,Ray
 YURA_NAME_SHORT_KEY,Yura
 UI_PAUSED,Paused
 UI_RESUME,Resume
-UI_RETURN_TO_TITLE,Return to Title
-UI_RETURN_TO_TITLE_CONFIRM,Return to the title screen?
 UI_RESTART_CONFIRM,Restart the game?
 UI_NAVIGATE,Navigate
 UI_SELECT,Select
@@ -46,6 +46,7 @@ UI_TRACK_SELECT,Track Select
 UI_CONFIRM_ACTION,Confirm
 UI_DOUBLE_TAP_TO_BACK,Double Tap to Go Back
 CONFIG_KEYBOARD_LAYOUT,Keyboard Layout (Keyboard Only)
+CONFIG_KEYBOARD,Keyboard Layout
 CONFIG_VOLUME_SETTINGS,Volume Settings
 CONFIG_SOUND_MASTER_VOLUME,Master Volume
 CONFIG_SOUND_MUSIC_VOLUME,Music Volume
