@@ -384,6 +384,7 @@ namespace MilliRhythm.Rhythm
 
 		private void PauseGame()
 		{
+			if (isPaused) return;
 			PauseAsync().Forget();
 			return;
 
@@ -397,10 +398,10 @@ namespace MilliRhythm.Rhythm
 				var linkedTokenSource = CancellationTokenSource.CreateLinkedTokenSource(rhythmGameCts.Token, pauseCts.Token);
 				using var scope = new TimeScaleScope();
 				await UniTask.WaitUntilCanceled(linkedTokenSource.Token);
-				isPaused = false;
-				audioSource.Play();
-				clock.ResumeClock();
+				audioSource.UnPause();
 				character.IsPaused = false;
+				clock.ResumeClock();
+				isPaused = false;
 			}
 		}
 
