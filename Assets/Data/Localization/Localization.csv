@@ -38,8 +38,6 @@ RAY_NAME_SHORT_KEY,레이,Ray,レイ
 YURA_NAME_SHORT_KEY,유라,Yura,ゆら
 UI_PAUSED,일시 정지됨,Paused,一時停止中
 UI_RESUME,계속 하기,Resume,再開
-UI_RETURN_TO_TITLE,타이틀로,Return to Title,タイトルへ
-UI_RETURN_TO_TITLE_CONFIRM,타이틀로 돌아가시겠습니까?,Return to the title screen?,タイトル画面に戻りますか？
 UI_RESTART_CONFIRM,게임을 다시 시작하시겠습니까?,Restart the game?,ゲームを再開しますか？
 UI_NAVIGATE,이동,Navigate,移動
 UI_SELECT,선택,Select,選択
