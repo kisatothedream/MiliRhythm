@@ -192,7 +192,7 @@ namespace MilliRhythm.UI.ConfigUI
 		{
 			Confirm();
 			ConfigManager.Instance.Save();
-			SfxAudioPlayer.Instance.Play(SfxType.Confirm);
+			SfxAudioPlayer.Instance.Play(SfxType.Cancel);
 		}
 
 		private void DisplayCreditPopup()
