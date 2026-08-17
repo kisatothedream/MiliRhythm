@@ -1,22 +1,21 @@
 using System;
+using MilliRhythm.Audio;
 using MilliRhythm.Data.Domain;
 using MilliRhythm.Data.GameDataService;
 using MilliRhythm.Scene.Contracts;
-using MilliRhythm.UI.RhythmGameUI;
 using MilliRhythm.User;
 using UnityEngine;
 
 namespace MilliRhythm.Rhythm
 {
-	public class JudgeManager : MonoBehaviour
+	public partial class RhythmGamePlayer
 	{
-		[SerializeField] private RhythmGameUIController uiController;
 		[SerializeField] private ComboText comboTextPrefab;
 		[SerializeField] private Transform comboTextPivot;
 
-		public const int MaxLife = 300;
+		private const int MaxLife = 300;
 
-		public int RemainLife
+		private int RemainLife
 		{
 			get => remainLife;
 			set
@@ -28,23 +27,23 @@ namespace MilliRhythm.Rhythm
 
 		private int remainLife;
 
-		public int MaxCombo;
-		public int CurrentCombo;
-		public int CurrentScore;
+		private int MaxCombo;
+		private int CurrentCombo;
+		private int CurrentScore;
 		private int currentMaxScore;
-		public int PerfectCount;
-		public int GreatCount;
-		public int GoodCount;
-		public int BadCount;
-		public int MissCount;
+		private int PerfectCount;
+		private int GreatCount;
+		private int GoodCount;
+		private int BadCount;
+		private int MissCount;
 
-		public void Initialize()
+		private void InitializeLife()
 		{
 			//if Modifier, Apply it
 			RemainLife = 200;
 		}
 
-		public void OnHitNote(NoteJudgementResult result)
+		private void OnHitNote(NoteJudgementResult result)
 		{
 			CurrentCombo++;
 			switch (result)
@@ -74,24 +73,26 @@ namespace MilliRhythm.Rhythm
 
 			MaxCombo = Math.Max(MaxCombo, CurrentCombo);
 			uiController.UpdateScore(CurrentScore, (float)CurrentScore / currentMaxScore);
+			SfxAudioPlayer.Instance.Play(SfxType.NoteReaction);
 		}
 
-		public void OnMissNote()
+		private void OnMissNote()
 		{
 			MissCount++;
 			CurrentCombo = 0;
 			RemainLife -= 15;
 			currentMaxScore += 1000;
+			SfxAudioPlayer.Instance.Play(SfxType.Bonk);
 			uiController.UpdateScore(CurrentScore, (float)CurrentScore / currentMaxScore);
 		}
 
-		public void CreateComboText(NoteJudgementResult result)
+		private void CreateComboText(NoteJudgementResult result)
 		{
 			var t = Instantiate(comboTextPrefab, comboTextPivot.position, Quaternion.identity);
 			t.PlayComboText(CurrentCombo, result);
 		}
 
-		public void SendScore(int trackId, ChartType chartType)
+		private void SendScore(int trackId, ChartType chartType)
 		{
 			UserManager.SendRequest(Request.Create(new SetScoreEvent()
 			{
@@ -109,7 +110,7 @@ namespace MilliRhythm.Rhythm
 			UserManager.RequestSave();
 		}
 
-		public void RequestShowResultAndEndGame(int trackId, ChartType chartType, double averageError, MusicSelectorSceneParameter parameter)
+		private void RequestShowResultAndEndGame(int trackId, ChartType chartType, double averageError, MusicSelectorSceneParameter parameter)
 		{
 			SendScore(trackId, chartType);
 			uiController.ShowResultAsync(GameDataService.GetMusicData(trackId).ThumbnailSprite, PerfectCount, GreatCount, GoodCount, BadCount, MissCount,
@@ -119,6 +120,9 @@ namespace MilliRhythm.Rhythm
 		private void UpdateLifeGuage(int currentLife)
 		{
 			uiController.UpdateLifeGauge(currentLife, MaxLife);
+			if (currentLife <= 0)
+			{
+			}
 		}
 
 		private Rank CalculateRank()

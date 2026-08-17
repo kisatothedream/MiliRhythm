@@ -3070,7 +3070,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &869488988
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4078,7 +4078,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "- \uB450 \uBC88 \uD0ED\uD558\uC5EC \uACC4\uC18D\uD558\uAE30 -"
+  m_text: "\uB450 \uBC88 \uD0ED\uD558\uC5EC \uB3CC\uC544\uAC00\uAE30"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0dde41a6dd42b7c4684d5e6747a9d004, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: f375c12ea95eb9c4599d3cbd3db3b7c2, type: 2}
@@ -4170,7 +4170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5ea0577465b7b74a9a5839f13b2db39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UI.Runtime::MilliRhythm.UI.Components.LocalizedText
-  localizationKey: 
+  localizationKey: UI_DOUBLE_TAP_TO_BACK
 --- !u!224 &1186416948 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6297010616540877833, guid: 0ccb76998fc071341968c23a0f6dfcb8, type: 3}
@@ -4607,7 +4607,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Rhythm.Runtime::MilliRhythm.Rhythm.RhythmGamePlayer
   uiController: {fileID: 31052639}
-  judgeManager: {fileID: 1268715974}
   playPerfect: 0
   playerOffset: 0
   audioSource: {fileID: 1323735457}
@@ -4639,6 +4638,16 @@ MonoBehaviour:
   - {fileID: 7516003108749195644, guid: fb2014b4556a6c146987615307cfa6a9, type: 3}
   - {fileID: 7516003108749195644, guid: e900a6ac86200d04fbecfa26658129d6, type: 3}
   - {fileID: 7516003108749195644, guid: 84ec08f8e8b0ca6468d9630ec3a8458c, type: 3}
+  comboTextPrefab: {fileID: 7584653929959091275, guid: 45e511a58cca235418552e8aa4ad7ee8, type: 3}
+  comboTextPivot: {fileID: 957733744}
+  MaxCombo: 0
+  CurrentCombo: 0
+  CurrentScore: 0
+  PerfectCount: 0
+  GreatCount: 0
+  GoodCount: 0
+  BadCount: 0
+  MissCount: 0
 --- !u!4 &1323735456
 Transform:
   m_ObjectHideFlags: 0
@@ -6640,6 +6649,10 @@ PrefabInstance:
     - target: {fileID: 8905138723155678302, guid: 0ccb76998fc071341968c23a0f6dfcb8, type: 3}
       propertyPath: m_Name
       value: Calibrator
+      objectReference: {fileID: 0}
+    - target: {fileID: 8905138723155678302, guid: 0ccb76998fc071341968c23a0f6dfcb8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2399878484357546839, guid: 0ccb76998fc071341968c23a0f6dfcb8, type: 3}

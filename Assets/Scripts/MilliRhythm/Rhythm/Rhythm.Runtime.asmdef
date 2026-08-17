@@ -15,7 +15,8 @@
         "GUID:88fb964ae4a9452429d7d47e887e37e1",
         "GUID:4b20123213808f847aca63f0fbd2cc3a",
         "GUID:30dfd04223b4c464eae28792eb1908d0",
-        "GUID:6d88885166160b24c9794be3836d3fb5"
+        "GUID:6d88885166160b24c9794be3836d3fb5",
+        "Audio.Runtime"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -37,7 +37,6 @@ namespace MilliRhythm.Rhythm
 	public partial class RhythmGamePlayer : MonoBehaviour
 	{
 		[SerializeField] private RhythmGameUIController uiController;
-		[SerializeField] private JudgeManager judgeManager;
 
 		private GameControls controls => InputManager.Instance.GameControls;
 		private RhythmClock clock;
@@ -141,7 +140,7 @@ namespace MilliRhythm.Rhythm
 
 
 			rhythmGameCts = new CancellationTokenSource();
-			judgeManager.Initialize();
+			InitializeLife();
 
 			RegisterInputs();
 			context = await BuildContext(rhythmChart, musicData);
@@ -183,10 +182,8 @@ namespace MilliRhythm.Rhythm
 		{
 			//Show Result and Retry
 			//Return To Music Select Scene
-			Debug.Log(
-				$"Result Max Combo [{judgeManager.MaxCombo}] - Score [{judgeManager.CurrentScore}] \nPerfect[{judgeManager.PerfectCount}] \nGreat[{judgeManager.GreatCount}] \nGood[{judgeManager.GoodCount}] \nBad[{judgeManager.BadCount}] \nMiss[{judgeManager.MissCount}]");
 			var parameter = new MusicSelectorSceneParameter(context.CurrentMusicId, context.CurrentChartType, context.CurrentDifficulty);
-			judgeManager.RequestShowResultAndEndGame(context.CurrentMusicId, context.CurrentChartType, 1000 * errorSum / hitNotesCount, parameter);
+			RequestShowResultAndEndGame(context.CurrentMusicId, context.CurrentChartType, 1000 * errorSum / hitNotesCount, parameter);
 		}
 
 		private void UpdateNotes()
@@ -229,6 +226,7 @@ namespace MilliRhythm.Rhythm
 				var note = activeNotes[lane][i];
 				if (clock.SongTime > note.EndTime)
 				{
+					Debug.Log($"Remove Note");
 					activeNotes[lane].Remove(note);
 				}
 			}
@@ -244,14 +242,14 @@ namespace MilliRhythm.Rhythm
 				{
 					if (isLaneHeld[lane])
 					{
-						judgeManager.OnHitNote(NoteJudgementResult.Perfect);
-						judgeManager.CreateComboText(NoteJudgementResult.Perfect);
+						OnHitNote(NoteJudgementResult.Perfect);
+						CreateComboText(NoteJudgementResult.Perfect);
 						note.NextJudgeTime += LongNoteJudgingInterval;
 					}
 					else
 					{
-						judgeManager.OnMissNote();
-						judgeManager.CreateComboText(NoteJudgementResult.Miss);
+						OnMissNote();
+						CreateComboText(NoteJudgementResult.Miss);
 					}
 				}
 				else
@@ -299,8 +297,8 @@ namespace MilliRhythm.Rhythm
 			while (queue.TryPeek(out var note) && clock.SongTime > note.HeadTime + BadWindow)
 			{
 				queue.Dequeue();
-				judgeManager.OnMissNote();
-				judgeManager.CreateComboText(NoteJudgementResult.Miss);
+				OnMissNote();
+				CreateComboText(NoteJudgementResult.Miss);
 			}
 			// foreach (var note in activeNotes)
 		}
@@ -317,8 +315,8 @@ namespace MilliRhythm.Rhythm
 				// Debug.Log(result);
 				CompareNoteTiming(result, judgeTime, note.HeadTime);
 				character.ChangeState(lane);
-				judgeManager.OnHitNote(result);
-				judgeManager.CreateComboText(result);
+				OnHitNote(result);
+				CreateComboText(result);
 				queue.Dequeue();
 				CreateNoteHitParticleAsync(lane).Forget();
 				if (note.IsLongNote)

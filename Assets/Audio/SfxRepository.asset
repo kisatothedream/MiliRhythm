@@ -16,7 +16,7 @@ MonoBehaviour:
   - SfxType: 0
     Clip: {fileID: 8300000, guid: 7100c63581fcbc94dbf6703c9252257a, type: 3}
   - SfxType: 1
-    Clip: {fileID: 8300000, guid: 004bba752655e934793aa05f96102da5, type: 3}
+    Clip: {fileID: 8300000, guid: 7a0be2765bd8d6f458d46a1cb69b0aeb, type: 3}
   - SfxType: 2
     Clip: {fileID: 8300000, guid: 004bba752655e934793aa05f96102da5, type: 3}
   - SfxType: 3

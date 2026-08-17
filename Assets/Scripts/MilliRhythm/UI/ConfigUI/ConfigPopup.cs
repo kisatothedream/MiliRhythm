@@ -1,5 +1,6 @@
 using System;
 using Cysharp.Threading.Tasks;
+using MilliRhythm.Audio;
 using MilliRhythm.Config;
 using MilliRhythm.Data.Domain;
 using MilliRhythm.UI.Components;
@@ -51,7 +52,7 @@ namespace MilliRhythm.UI.ConfigUI
 			englishToggle.onValueChanged.AddListener(OnEnSelected);
 
 			quitGameButton.onClick.AddListener(DisplayQuitGamePopup);
-			creditButton.onClick.AddListener(DisplayConfigGamePopup);
+			creditButton.onClick.AddListener(DisplayCreditPopup);
 
 			wasdToggle.onValueChanged.AddListener(OnWasdSelected);
 			sdklToggle.onValueChanged.AddListener(OnSdklSelected);
@@ -72,7 +73,7 @@ namespace MilliRhythm.UI.ConfigUI
 			englishToggle.onValueChanged.RemoveListener(OnEnSelected);
 
 			quitGameButton.onClick.RemoveListener(DisplayQuitGamePopup);
-			creditButton.onClick.RemoveListener(DisplayConfigGamePopup);
+			creditButton.onClick.RemoveListener(DisplayCreditPopup);
 
 			wasdToggle.onValueChanged.RemoveListener(OnWasdSelected);
 			sdklToggle.onValueChanged.RemoveListener(OnSdklSelected);
@@ -154,13 +155,16 @@ namespace MilliRhythm.UI.ConfigUI
 					break;
 				case UINavigationType.Up:
 					Select(Array.IndexOf(navigatables, currentNavigatable) - 1);
+					SfxAudioPlayer.Instance.Play(SfxType.Navigate);
 					break;
 				case UINavigationType.Down:
 					Select(Array.IndexOf(navigatables, currentNavigatable) + 1);
+					SfxAudioPlayer.Instance.Play(SfxType.Navigate);
 					break;
 				case UINavigationType.Left:
 				case UINavigationType.Right:
 					currentNavigatable.OnNavigate(direction);
+					SfxAudioPlayer.Instance.Play(SfxType.Navigate);
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();
@@ -181,15 +185,17 @@ namespace MilliRhythm.UI.ConfigUI
 		{
 			ConfigManager.Instance.Save();
 			currentNavigatable.OnSubmit();
+			SfxAudioPlayer.Instance.Play(SfxType.Confirm);
 		}
 
 		public override void OnCancel()
 		{
 			Confirm();
 			ConfigManager.Instance.Save();
+			SfxAudioPlayer.Instance.Play(SfxType.Confirm);
 		}
 
-		private void DisplayConfigGamePopup()
+		private void DisplayCreditPopup()
 		{
 			if (isPopupOpened) return;
 			UniTask.Action(async () =>
@@ -203,6 +209,7 @@ namespace MilliRhythm.UI.ConfigUI
 		public void DisplayQuitGamePopup()
 		{
 			if (isPopupOpened) return;
+			SfxAudioPlayer.Instance.Play(SfxType.Cancel);
 			UniTask.Action(async () =>
 			{
 				isPopupOpened = true;
