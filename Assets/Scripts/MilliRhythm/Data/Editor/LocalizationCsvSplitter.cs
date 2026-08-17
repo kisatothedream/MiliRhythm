@@ -26,7 +26,7 @@ namespace MilliRhythm.Data.Editor
 			"ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
 			"abcdefghijklmnopqrstuvwxyz" +
 			"0123456789" +
-			" !\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
+			" !\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~日本語";
 
 		[MenuItem("Tools/Localization/Split Localization CSV")]
 		public static void SplitLocalizationCsv()

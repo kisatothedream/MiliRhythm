@@ -26,7 +26,8 @@ namespace MilliRhythm.TrackSelector
 		public override async UniTask Init(IGameSceneParameter parameter)
 		{
 			trackSelectorUIController.Set();
-			if (parameter is not MusicSelectorSceneParameter sceneParameter) throw new ArgumentException($"Parameter must be of type {typeof(MusicSelectorSceneParameter)}", nameof(parameter));
+			if (parameter is not MusicSelectorSceneParameter sceneParameter)
+				throw new ArgumentException($"Parameter must be of type {typeof(MusicSelectorSceneParameter)}", nameof(parameter));
 			if (sceneParameter.LastMusicId == -1) return;
 			param = sceneParameter;
 			trackSelectorUIController.SelectLastTrack(param.LastMusicId);
@@ -43,12 +44,14 @@ namespace MilliRhythm.TrackSelector
 
 		public override async UniTask PlayEnterTransition()
 		{
-			await FadeTransition.Instance.FadeInAsync();
+			if (FadeTransition.Instance)
+				await FadeTransition.Instance.FadeInAsync();
 		}
 
 		public override async UniTask PlayExitTransition()
 		{
-			await FadeTransition.Instance.FadeOutAsync();
+			if (FadeTransition.Instance) 
+				await FadeTransition.Instance.FadeOutAsync();
 		}
 	}
 }

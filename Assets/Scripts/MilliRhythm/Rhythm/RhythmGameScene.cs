@@ -47,12 +47,14 @@ namespace MilliRhythm.Rhythm
 
 		public override async UniTask PlayEnterTransition()
 		{
-			await FadeTransition.Instance.FadeInAsync();
+			if (FadeTransition.Instance)
+				await FadeTransition.Instance.FadeInAsync();
 		}
 
 		public override async UniTask PlayExitTransition()
 		{
-			await FadeTransition.Instance.FadeOutAsync();
+			if (FadeTransition.Instance)
+				await FadeTransition.Instance.FadeOutAsync();
 		}
 	}
 }
