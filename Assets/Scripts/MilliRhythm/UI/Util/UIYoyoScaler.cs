@@ -1,4 +1,3 @@
-using System;
 using DG.Tweening;
 using UnityEngine;
 
@@ -18,6 +17,7 @@ namespace MilliRhythm.UI.Util
 				.Pause()
 				.SetEase(Ease.InOutSine)
 				.SetLoops(-1, LoopType.Yoyo)
+				.SetUpdate(true)
 				.SetAutoKill(false);
 		}
 
