@@ -7369,6 +7369,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1706371348952741591, guid: 56782f9dbb1061a4bb7b8209566f7a99, type: 3}
+      propertyPath: m_text
+      value: "\uCDE8\uC18C"
+      objectReference: {fileID: 0}
     - target: {fileID: 1732865182218386814, guid: 56782f9dbb1061a4bb7b8209566f7a99, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -7464,6 +7468,10 @@ PrefabInstance:
     - target: {fileID: 3349791283754282608, guid: 56782f9dbb1061a4bb7b8209566f7a99, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -80
+      objectReference: {fileID: 0}
+    - target: {fileID: 3485204283349229397, guid: 56782f9dbb1061a4bb7b8209566f7a99, type: 3}
+      propertyPath: localizationKey
+      value: UI_CANCEL
       objectReference: {fileID: 0}
     - target: {fileID: 3705311288617079913, guid: 56782f9dbb1061a4bb7b8209566f7a99, type: 3}
       propertyPath: m_AnchorMax.y
