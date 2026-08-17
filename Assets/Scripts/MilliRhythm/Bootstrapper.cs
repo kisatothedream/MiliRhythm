@@ -23,6 +23,7 @@ namespace MilliRhythm
 
 		private static async UniTask InitializeGameAsync()
 		{
+			Application.targetFrameRate = 60;
 			InputManager.Instance.Load();
 			ConfigManager.Instance.Load();
 			await GameDataLoader.LoadAsync();
