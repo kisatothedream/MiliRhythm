@@ -365,12 +365,14 @@ namespace MilliRhythm.Rhythm
 
 		private void RestartGame()
 		{
+			ResumeGame();
 			SceneController.Instance.RequestChangeScene(new RhythmGameSceneParameter(context.CurrentMusicId, context.CurrentChartType,
 				context.CurrentDifficulty));
 		}
 
 		private void Quit()
 		{
+			ResumeGame();
 			SceneController.Instance.RequestChangeScene(new MusicSelectorSceneParameter()
 			{
 				LastMusicId = context.CurrentMusicId,
