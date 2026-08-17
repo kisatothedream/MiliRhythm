@@ -226,7 +226,6 @@ namespace MilliRhythm.Rhythm
 				var note = activeNotes[lane][i];
 				if (clock.SongTime > note.EndTime)
 				{
-					Debug.Log($"Remove Note");
 					activeNotes[lane].Remove(note);
 				}
 			}
