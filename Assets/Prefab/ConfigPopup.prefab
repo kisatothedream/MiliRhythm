@@ -4748,7 +4748,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &8450220253441921266
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6956,9 +6956,17 @@ PrefabInstance:
       value: "\uD0A4\uBCF4\uB4DC \uB808\uC774\uC544\uC6C3"
       objectReference: {fileID: 0}
     - target: {fileID: 5266965688556485185, guid: ddc203a60890c5e49af9009a7cb475c7, type: 3}
+      propertyPath: m_fontSize
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 5266965688556485185, guid: ddc203a60890c5e49af9009a7cb475c7, type: 3}
       propertyPath: m_fontAsset
       value: 
       objectReference: {fileID: 11400000, guid: ec4e4d8bf6a82a04d83642806e7fec32, type: 2}
+    - target: {fileID: 5266965688556485185, guid: ddc203a60890c5e49af9009a7cb475c7, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 5266965688556485185, guid: ddc203a60890c5e49af9009a7cb475c7, type: 3}
       propertyPath: m_sharedMaterial
       value: 
