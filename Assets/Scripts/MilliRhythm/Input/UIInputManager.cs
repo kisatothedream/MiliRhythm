@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using R3;
+using UnityEngine;
 
 namespace MilliRhythm.Input
 {
@@ -17,43 +19,73 @@ namespace MilliRhythm.Input
 
 		public void Init(UIControls controls)
 		{
-			this.uiControls = controls;
+			uiControls = controls;
+			var disposable = new CompositeDisposable();
+			uiControls.Navigate.Subscribe(OnNavigate).AddTo(disposable);
+			uiControls.Submit.Subscribe(OnSubmit).AddTo(disposable);
+			uiControls.Cancel.Subscribe(OnCancel).AddTo(disposable);
+			uiControls.Config.Subscribe(OnConfig).AddTo(disposable);
+			uiControls.Filter.Subscribe(OnFilter).AddTo(disposable);
 		}
 
 		public void Register(IUIInputListener inputListener)
 		{
-			if (popupStack.TryPeek(out var current))
-				UnregisterToControls(current);
 			popupStack.Push(inputListener);
-			RegisterToControls(popupStack.Peek());
 		}
 
 		public void Unregister(IUIInputListener inputListener)
 		{
-			popupStack.Pop();
-			UnregisterToControls(inputListener);
-
-			if (popupStack.TryPeek(out var current))
+			if (popupStack.TryPeek(out var popup))
 			{
-				RegisterToControls(current);
+				if (popup == inputListener)
+				{
+					popupStack.Pop();
+				}
+				else
+				{
+					throw new ArgumentException($"UIInputListener try to pop the other. Check popup register/unregister pair", nameof(inputListener));
+				}
 			}
 		}
 
-		private void RegisterToControls(IUIInputListener inputListener)
+		private void OnNavigate(Vector2 direction)
 		{
-			var disposable = new CompositeDisposable();
-			disposables.Add(inputListener, disposable);
-			uiControls.Navigate.Subscribe(inputListener.Navigate).AddTo(disposable);
-			uiControls.Submit.Subscribe(inputListener.Submit).AddTo(disposable);
-			uiControls.Cancel.Subscribe(inputListener.Cancel).AddTo(disposable);
-			uiControls.Config.Subscribe(inputListener.Config).AddTo(disposable);
-			uiControls.Filter.Subscribe(inputListener.Filter).AddTo(disposable);
+			if (popupStack.TryPeek(out var popup))
+			{
+				popup.Navigate(direction);
+			}
 		}
 
-		private void UnregisterToControls(IUIInputListener inputListener)
+		private void OnSubmit(bool pressed)
 		{
-			disposables[inputListener].Dispose();
-			disposables.Remove(inputListener);
+			if (popupStack.TryPeek(out var popup))
+			{
+				popup.Submit(pressed);
+			}
+		}
+
+		private void OnCancel(bool pressed)
+		{
+			if (popupStack.TryPeek(out var popup))
+			{
+				popup.Cancel(pressed);
+			}
+		}
+
+		private void OnConfig(bool pressed)
+		{
+			if (popupStack.TryPeek(out var popup))
+			{
+				popup.Config(pressed);
+			}
+		}
+
+		private void OnFilter(bool pressed)
+		{
+			if (popupStack.TryPeek(out var popup))
+			{
+				popup.Filter(pressed);
+			}
 		}
 	}
 }
