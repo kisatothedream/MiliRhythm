@@ -16,7 +16,6 @@ namespace MilliRhythm.UI.TrackSelectorUI
 
 		public void Set(List<TrackSelectorListModel> models, Action<TrackSelectorListModel> action)
 		{
-			trackSelectorList.Set(models);
 			// var dummy = new List<TrackSelectorListModel>();
 			// for (int i = 0; i < 30; i++)
 			// {
@@ -26,6 +25,7 @@ namespace MilliRhythm.UI.TrackSelectorUI
 			onTrackSelectionChanged = action;
 			trackSelectorList.OnSelectionChanged += onTrackSelectionChanged;
 			trackSelectorList.OnSelectionChanged += EnsureItemVisible;
+			trackSelectorList.Set(models);
 		}
 
 		public void Finish()
