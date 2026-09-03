@@ -24,8 +24,8 @@ namespace MilliRhythm.Input
 				case InputSystemInputSource inputSourceInputSystem:
 					AddInputAdapter(inputSourceInputSystem, new InputSystemInputAdapter(inputSourceInputSystem.MilliRhythmInputs.Game, this));
 					break;
-				case GameTouchUIInputSource characterTouchUIInputSource:
-					AddInputAdapter(characterTouchUIInputSource, new TouchUIInputAdapter(characterTouchUIInputSource, this));
+				case GameTouchUIInputSource gameTouchUIInputSource:
+					AddInputAdapter(gameTouchUIInputSource, new TouchUIInputAdapter(gameTouchUIInputSource, this));
 					break;
 			}
 		}
