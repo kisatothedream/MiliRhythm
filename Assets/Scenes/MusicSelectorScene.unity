@@ -9076,6 +9076,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Navigate
       objectReference: {fileID: 0}
+    - target: {fileID: 6354381986418078760, guid: f27f76c4b987d4d48873075728a2263e, type: 3}
+      propertyPath: localizationKey
+      value: UI_NAVIGATE
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
